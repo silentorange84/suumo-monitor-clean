@@ -1,0 +1,719 @@
+name: SUUMO New Property Monitor
+
+on:
+  # 手動実行も残す
+  workflow_dispatch:
+    inputs:
+      reset_baseline:
+        description: "現在の物件を基準として再登録する"
+        required: true
+        default: false
+        type: boolean
+
+  # 10分ごと
+  schedule:
+    - cron: "3,13,23,33,43,53 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: suumo-property-monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor-suumo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Scan SUUMO and notify new properties
+        env:
+          SUUMO_URL: "https://suumo.jp/sp/chukoikkodate/tokyo/sc/?kamax=6500&menmin=70&et=15&cn=25&sjoken%5B%5D=001&sc%5B%5D=116&sc%5B%5D=114&sc%5B%5D=115&sc%5B%5D=120&sc%5B%5D=201&sc%5B%5D=202&sc%5B%5D=203&sc%5B%5D=229&sort=11"
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          RESET_BASELINE: ${{ inputs.reset_baseline || false }}
+
+        run: |
+          python - <<'PY'
+          import os
+          import re
+          import json
+          import html as html_lib
+          import urllib.request
+          from pathlib import Path
+          from urllib.parse import (
+              urljoin,
+              urlsplit,
+              urlunsplit,
+              parse_qsl,
+              urlencode
+          )
+
+          SEARCH_URL = os.environ["SUUMO_URL"]
+
+          NTFY_TOPIC = os.environ.get(
+              "NTFY_TOPIC",
+              ""
+          ).strip()
+
+          RESET_BASELINE = (
+              os.environ.get(
+                  "RESET_BASELINE",
+                  "false"
+              ).lower()
+              == "true"
+          )
+
+          KNOWN_FILE = Path("known_urls.txt")
+
+          HEADERS = {
+              "User-Agent": "Mozilla/5.0"
+          }
+
+          MAX_PAGES = 50
+
+
+          # ========================================
+          # ページ番号付き検索URLを作る
+          # ========================================
+
+          def make_page_url(base_url, page_no):
+
+              parts = urlsplit(base_url)
+
+              query_items = [
+                  (k, v)
+                  for k, v in parse_qsl(
+                      parts.query,
+                      keep_blank_values=True
+                  )
+                  if k != "page"
+              ]
+
+              if page_no > 1:
+                  query_items.append(
+                      ("page", str(page_no))
+                  )
+
+              new_query = urlencode(
+                  query_items,
+                  doseq=True
+              )
+
+              return urlunsplit(
+                  (
+                      parts.scheme,
+                      parts.netloc,
+                      parts.path,
+                      new_query,
+                      parts.fragment
+                  )
+              )
+
+
+          # ========================================
+          # Webページ取得
+          # ========================================
+
+          def fetch(url):
+
+              req = urllib.request.Request(
+                  url,
+                  headers=HEADERS
+              )
+
+              with urllib.request.urlopen(
+                  req,
+                  timeout=30
+              ) as response:
+
+                  data = response.read()
+
+                  text = data.decode(
+                      "utf-8",
+                      errors="ignore"
+                  )
+
+                  return (
+                      response.status,
+                      text,
+                      len(data)
+                  )
+
+
+          # ========================================
+          # SUUMO物件URL抽出
+          # ========================================
+
+          def extract_property_urls(page_html):
+
+              hrefs = re.findall(
+                  r'href=["\']([^"\']*?/chukoikkodate/[^"\']*?nc_\d+[^"\']*)["\']',
+                  page_html,
+                  flags=re.I
+              )
+
+              urls = []
+              seen = set()
+
+              for href in hrefs:
+
+                  full_url = urljoin(
+                      "https://suumo.jp",
+                      href
+                  )
+
+                  full_url = full_url.split("?")[0]
+
+                  if full_url not in seen:
+
+                      seen.add(full_url)
+                      urls.append(full_url)
+
+              return urls
+
+
+          # ========================================
+          # 個別物件ページのタイトル取得
+          # ========================================
+
+          def get_property_title(property_url):
+
+              try:
+
+                  status, property_html, _ = fetch(
+                      property_url
+                  )
+
+                  if status != 200:
+                      return "SUUMO新着中古戸建"
+
+                  match = re.search(
+                      r"<title[^>]*>(.*?)</title>",
+                      property_html,
+                      flags=re.I | re.S
+                  )
+
+                  if not match:
+                      return "SUUMO新着中古戸建"
+
+                  title = match.group(1)
+
+                  title = re.sub(
+                      r"<[^>]+>",
+                      " ",
+                      title
+                  )
+
+                  title = html_lib.unescape(
+                      title
+                  )
+
+                  title = re.sub(
+                      r"\s+",
+                      " ",
+                      title
+                  ).strip()
+
+                  # 「【SUUMO】」などを少し整理
+                  title = title.replace(
+                      "【SUUMO】",
+                      ""
+                  ).strip()
+
+                  return title[:180]
+
+              except Exception as e:
+
+                  print(
+                      "TITLE FETCH ERROR:",
+                      repr(e)
+                  )
+
+                  return "SUUMO新着中古戸建"
+
+
+          # ========================================
+          # iPhoneへntfy通知
+          # ========================================
+
+          def send_notification(
+              property_url,
+              property_title
+          ):
+
+              if not NTFY_TOPIC:
+
+                  print(
+                      "ERROR: NTFY_TOPIC is not configured."
+                  )
+
+                  return False
+
+
+              payload = {
+                  "topic": NTFY_TOPIC,
+                  "title": "🏠 SUUMO 新着中古戸建",
+                  "message": property_title,
+                  "priority": 5,
+                  "tags": [
+                      "house"
+                  ],
+                  "click": property_url
+              }
+
+
+              data = json.dumps(
+                  payload,
+                  ensure_ascii=False
+              ).encode("utf-8")
+
+
+              request = urllib.request.Request(
+                  "https://ntfy.sh",
+                  data=data,
+                  headers={
+                      "Content-Type":
+                          "application/json; charset=utf-8",
+
+                      "User-Agent":
+                          "SUUMO-Monitor/1.0"
+                  },
+                  method="POST"
+              )
+
+
+              try:
+
+                  with urllib.request.urlopen(
+                      request,
+                      timeout=30
+                  ) as response:
+
+                      response.read()
+
+                      print(
+                          "NOTIFICATION STATUS:",
+                          response.status
+                      )
+
+                      return (
+                          200
+                          <= response.status
+                          < 300
+                      )
+
+
+              except Exception as e:
+
+                  print(
+                      "NOTIFICATION ERROR:",
+                      repr(e)
+                  )
+
+                  return False
+
+
+          # ========================================
+          # 全検索ページ巡回
+          # ========================================
+
+          print("")
+          print("================================")
+          print("START SUUMO SCAN")
+          print("================================")
+
+
+          all_property_urls = []
+          seen_all = set()
+
+          actual_page_count = 0
+
+
+          for page_no in range(
+              1,
+              MAX_PAGES + 1
+          ):
+
+              page_url = make_page_url(
+                  SEARCH_URL,
+                  page_no
+              )
+
+              print("")
+              print("--------------------------------")
+              print(
+                  "FETCH SEARCH PAGE:",
+                  page_no
+              )
+              print("--------------------------------")
+
+              status, page_html, data_size = fetch(
+                  page_url
+              )
+
+              print(
+                  "HTTP STATUS:",
+                  status
+              )
+
+              print(
+                  "DATA SIZE:",
+                  data_size
+              )
+
+
+              page_urls = extract_property_urls(
+                  page_html
+              )
+
+              print(
+                  "PROPERTIES ON THIS PAGE:",
+                  len(page_urls)
+              )
+
+
+              if not page_urls:
+
+                  print(
+                      "NO PROPERTIES FOUND."
+                  )
+
+                  break
+
+
+              unique_on_page = []
+
+              for property_url in page_urls:
+
+                  if property_url not in seen_all:
+
+                      seen_all.add(
+                          property_url
+                      )
+
+                      all_property_urls.append(
+                          property_url
+                      )
+
+                      unique_on_page.append(
+                          property_url
+                      )
+
+
+              if not unique_on_page:
+
+                  print(
+                      "NO NEW UNIQUE URLS."
+                  )
+
+                  print(
+                      "END OF PAGINATION ASSUMED."
+                  )
+
+                  break
+
+
+              actual_page_count += 1
+
+
+              # 1ページ20件なので
+              # 20件未満なら最終ページ
+              if len(page_urls) < 20:
+
+                  print(
+                      "LAST PAGE DETECTED."
+                  )
+
+                  break
+
+
+          # ========================================
+          # 全ページ取得結果
+          # ========================================
+
+          print("")
+          print("================================")
+          print("SCAN RESULT")
+          print("================================")
+
+          print(
+              "SEARCH PAGE COUNT:",
+              actual_page_count
+          )
+
+          print(
+              "CURRENT PROPERTY COUNT:",
+              len(all_property_urls)
+          )
+
+
+          if not all_property_urls:
+
+              raise SystemExit(
+                  "ERROR: NO PROPERTY URL FOUND"
+              )
+
+
+          # ========================================
+          # 手動で基準再設定した場合
+          # ========================================
+
+          if RESET_BASELINE:
+
+              KNOWN_FILE.write_text(
+                  "\n".join(
+                      sorted(
+                          all_property_urls
+                      )
+                  ) + "\n",
+                  encoding="utf-8"
+              )
+
+              print("")
+              print("================================")
+              print("BASELINE RESET")
+              print("================================")
+
+              print(
+                  "BASELINE COUNT:",
+                  len(all_property_urls)
+              )
+
+              raise SystemExit(0)
+
+
+          # ========================================
+          # known_urls.txtがない初回
+          # ========================================
+
+          if not KNOWN_FILE.exists():
+
+              KNOWN_FILE.write_text(
+                  "\n".join(
+                      sorted(
+                          all_property_urls
+                      )
+                  ) + "\n",
+                  encoding="utf-8"
+              )
+
+              print("")
+              print("FIRST RUN")
+
+              print(
+                  "BASELINE COUNT:",
+                  len(all_property_urls)
+              )
+
+              raise SystemExit(0)
+
+
+          # ========================================
+          # 保存済み物件を読み込み
+          # ========================================
+
+          known_urls = set(
+              line.strip()
+              for line in KNOWN_FILE.read_text(
+                  encoding="utf-8"
+              ).splitlines()
+              if line.strip()
+          )
+
+
+          print(
+              "KNOWN PROPERTY COUNT:",
+              len(known_urls)
+          )
+
+
+          # ========================================
+          # 新着判定
+          # ========================================
+
+          new_urls = [
+              url
+              for url in all_property_urls
+              if url not in known_urls
+          ]
+
+
+          print("")
+          print("================================")
+          print("NEW PROPERTY CHECK")
+          print("================================")
+
+          print(
+              "NEW PROPERTY COUNT:",
+              len(new_urls)
+          )
+
+
+          # ========================================
+          # 新着なし
+          # ========================================
+
+          if not new_urls:
+
+              print(
+                  "NO NEW PROPERTY"
+              )
+
+              raise SystemExit(0)
+
+
+          # ========================================
+          # 新着あり → iPhone通知
+          # ========================================
+
+          successfully_notified = []
+
+
+          for i, property_url in enumerate(
+              new_urls,
+              1
+          ):
+
+              print("")
+              print("--------------------------------")
+              print(
+                  f"NEW PROPERTY {i}"
+              )
+              print("--------------------------------")
+
+              print(
+                  "URL:",
+                  property_url
+              )
+
+
+              title = get_property_title(
+                  property_url
+              )
+
+              print(
+                  "TITLE:",
+                  title
+              )
+
+
+              success = send_notification(
+                  property_url,
+                  title
+              )
+
+
+              if success:
+
+                  successfully_notified.append(
+                      property_url
+                  )
+
+                  print(
+                      "NOTIFICATION SENT"
+                  )
+
+              else:
+
+                  print(
+                      "NOTIFICATION FAILED"
+                  )
+
+
+          # ========================================
+          # 通知成功した物件だけ既知リストへ追加
+          # ========================================
+
+          if successfully_notified:
+
+              updated_known = sorted(
+                  known_urls.union(
+                      successfully_notified
+                  )
+              )
+
+              KNOWN_FILE.write_text(
+                  "\n".join(
+                      updated_known
+                  ) + "\n",
+                  encoding="utf-8"
+              )
+
+              print("")
+              print(
+                  "KNOWN URL LIST UPDATED"
+              )
+
+
+          failed_count = (
+              len(new_urls)
+              - len(successfully_notified)
+          )
+
+
+          print("")
+          print("================================")
+          print("MONITOR RESULT")
+          print("================================")
+
+          print(
+              "NEW PROPERTY COUNT:",
+              len(new_urls)
+          )
+
+          print(
+              "NOTIFIED COUNT:",
+              len(successfully_notified)
+          )
+
+          print(
+              "FAILED NOTIFICATION COUNT:",
+              failed_count
+          )
+
+
+          # 通知失敗があれば
+          # 次回再通知できるようエラーにする
+          if failed_count > 0:
+
+              raise SystemExit(
+                  "ERROR: SOME NOTIFICATIONS FAILED"
+              )
+
+
+          print(
+              "MONITOR FINISHED SUCCESSFULLY"
+          )
+
+          PY
+
+
+      - name: Save known property URLs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if [ -f known_urls.txt ]; then
+
+            git add known_urls.txt
+
+            if ! git diff --cached --quiet; then
+
+              git commit -m "Update known SUUMO property URLs"
+
+              git push
+
+            else
+
+              echo "known_urls.txt has no changes."
+
+            fi
+
+          else
+
+            echo "known_urls.txt does not exist."
+
+          fi
