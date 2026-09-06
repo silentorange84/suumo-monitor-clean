@@ -1,14 +1,14 @@
-name: HOME'S Investigation Test
+name: HOME'S Property Detail Test
 
 on:
   workflow_dispatch:
 
 jobs:
-  investigate-homes:
+  investigate-homes-detail:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Investigate HOME'S search structure
+      - name: Test HOME'S property detail extraction
         run: |
           python - <<'PY'
           import re
@@ -40,25 +40,9 @@ jobs:
                   (f"cond[city][{city_code}]", city_code)
               )
 
-          # 東京都
           params.append(("cond[pref]", "13"))
 
-          query = urllib.parse.urlencode(params)
-
-          url = base_url + "?" + query
-
-          print("=" * 70)
-          print("HOME'S INVESTIGATION START")
-          print("=" * 70)
-
-          print()
-          print("TARGET CITIES:")
-          for city_name, city_code in cities.items():
-              print(f"  {city_name}: {city_code}")
-
-          print()
-          print("REQUEST URL:")
-          print(url)
+          list_url = base_url + "?" + urllib.parse.urlencode(params)
 
           headers = {
               "User-Agent": (
@@ -74,59 +58,94 @@ jobs:
               "Connection": "close",
           }
 
-          req = urllib.request.Request(
-              url,
-              headers=headers
-          )
+          def fetch(url):
+              req = urllib.request.Request(
+                  url,
+                  headers=headers
+              )
 
-          try:
               with urllib.request.urlopen(
                   req,
                   timeout=30
               ) as response:
-
+                  raw = response.read()
                   status = response.status
                   final_url = response.geturl()
 
-                  raw = response.read()
+              text = raw.decode(
+                  "utf-8",
+                  errors="ignore"
+              )
 
-          except Exception as e:
-              print()
-              print("FETCH ERROR:")
-              print(repr(e))
-              raise
+              return status, final_url, text
 
-          text = raw.decode(
-              "utf-8",
-              errors="ignore"
-          )
+          def clean_html(text):
+              text = re.sub(
+                  r"<script.*?</script>",
+                  " ",
+                  text,
+                  flags=re.I | re.S
+              )
+
+              text = re.sub(
+                  r"<style.*?</style>",
+                  " ",
+                  text,
+                  flags=re.I | re.S
+              )
+
+              text = re.sub(
+                  r"<[^>]+>",
+                  " ",
+                  text
+              )
+
+              text = html.unescape(text)
+
+              text = re.sub(
+                  r"\s+",
+                  " ",
+                  text
+              )
+
+              return text.strip()
+
+          # --------------------------------------------------
+          # 一覧取得
+          # --------------------------------------------------
+
+          print("=" * 70)
+          print("HOME'S DETAIL EXTRACTION TEST")
+          print("=" * 70)
 
           print()
-          print("=" * 70)
-          print("HTTP RESULT")
-          print("=" * 70)
+          print("LIST URL:")
+          print(list_url)
 
-          print("HTTP STATUS:", status)
-          print("FINAL URL:", final_url)
-          print("HTML SIZE:", len(text))
+          status, final_url, list_html = fetch(list_url)
+
+          print()
+          print("LIST HTTP STATUS:", status)
+          print("LIST FINAL URL:", final_url)
+          print("LIST HTML SIZE:", len(list_html))
 
           if status != 200:
               raise SystemExit(
-                  f"HOME'S returned HTTP {status}"
+                  f"List page returned HTTP {status}"
               )
 
           # --------------------------------------------------
-          # 物件詳細URLを抽出
+          # 詳細URL抽出
           # --------------------------------------------------
 
           absolute_urls = re.findall(
               r'https?://(?:www\.)?homes\.co\.jp/kodate/b-[^"\'<>\s?#]+/?',
-              text
+              list_html
           )
 
           relative_urls = re.findall(
               r'["\'](/kodate/b-[^"\'<>\s?#]+/?)["\']',
-              text
+              list_html
           )
 
           property_urls = set()
@@ -143,187 +162,423 @@ jobs:
                   + "/"
               )
 
-          property_urls = sorted(
-              property_urls
-          )
+          property_urls = sorted(property_urls)
 
           print()
-          print("=" * 70)
-          print("PROPERTY URL TEST")
-          print("=" * 70)
-
           print(
               "PROPERTY URL COUNT:",
               len(property_urls)
           )
 
-          for i, property_url in enumerate(
-              property_urls[:30],
+          if not property_urls:
+              raise SystemExit(
+                  "No property detail URLs found"
+              )
+
+          # --------------------------------------------------
+          # 先頭5物件だけ詳細解析
+          # --------------------------------------------------
+
+          test_urls = property_urls[:5]
+
+          for index, property_url in enumerate(
+              test_urls,
               1
           ):
-              print(
-                  f"{i:02d}: {property_url}"
-              )
-
-          # --------------------------------------------------
-          # HOME'Sの検索フォーム内部パラメータを調査
-          # --------------------------------------------------
-
-          names = re.findall(
-              r'name=["\']([^"\']+)["\']',
-              text,
-              flags=re.I
-          )
-
-          cond_names = sorted({
-              html.unescape(name)
-              for name in names
-              if "cond[" in html.unescape(name)
-          })
-
-          print()
-          print("=" * 70)
-          print("CONDITION PARAMETER INVESTIGATION")
-          print("=" * 70)
-
-          print(
-              "COND PARAMETER COUNT:",
-              len(cond_names)
-          )
-
-          for name in cond_names:
-              print(name)
-
-          # --------------------------------------------------
-          # 条件に関係しそうなHTML断片を探す
-          # --------------------------------------------------
-
-          keywords = [
-              "価格",
-              "徒歩",
-              "築年数",
-              "築",
-              "建物面積",
-              "所有権",
-              "土地権利",
-              "7000",
-              "70㎡",
-              "70m",
-          ]
-
-          print()
-          print("=" * 70)
-          print("KEYWORD INVESTIGATION")
-          print("=" * 70)
-
-          clean_text = re.sub(
-              r"\s+",
-              " ",
-              text
-          )
-
-          for keyword in keywords:
-
-              position = clean_text.find(
-                  keyword
-              )
 
               print()
+              print("=" * 70)
               print(
-                  f"--- KEYWORD: {keyword} ---"
+                  f"PROPERTY TEST {index}"
               )
+              print("=" * 70)
 
-              if position == -1:
-                  print("NOT FOUND")
+              print("URL:")
+              print(property_url)
+
+              try:
+                  detail_status, detail_final_url, detail_html = fetch(
+                      property_url
+                  )
+
+              except Exception as e:
+                  print(
+                      "FETCH ERROR:",
+                      repr(e)
+                  )
                   continue
 
-              start = max(
-                  0,
-                  position - 300
+              print(
+                  "HTTP STATUS:",
+                  detail_status
               )
 
-              end = min(
-                  len(clean_text),
-                  position + 500
+              print(
+                  "HTML SIZE:",
+                  len(detail_html)
               )
 
-              snippet = clean_text[
-                  start:end
+              text = clean_html(
+                  detail_html
+              )
+
+              # --------------------------------------------------
+              # タイトル
+              # --------------------------------------------------
+
+              title_match = re.search(
+                  r"<title>(.*?)</title>",
+                  detail_html,
+                  flags=re.I | re.S
+              )
+
+              title = ""
+
+              if title_match:
+                  title = clean_html(
+                      title_match.group(1)
+                  )
+
+              # --------------------------------------------------
+              # 価格
+              # --------------------------------------------------
+
+              price = None
+
+              price_patterns = [
+                  r"価格\s*([0-9,]+)\s*万円",
+                  r"([0-9,]+)\s*万円\s*支払い目安",
               ]
 
-              print(
-                  snippet
-              )
+              for pattern in price_patterns:
+                  m = re.search(
+                      pattern,
+                      text
+                  )
 
-          # --------------------------------------------------
-          # ページ数候補
-          # --------------------------------------------------
+                  if m:
+                      price = int(
+                          m.group(1).replace(",", "")
+                      )
+                      break
 
-          page_numbers = {
-              int(x)
-              for x in re.findall(
-                  r'(?:[?&]|&amp;)page=(\d+)',
+              # --------------------------------------------------
+              # 建物面積
+              # --------------------------------------------------
+
+              building_area = None
+
+              area_patterns = [
+                  r"建物面積\s*([0-9.]+)\s*(?:㎡|m²)",
+                  r"建物面積\s*([0-9.]+)",
+              ]
+
+              for pattern in area_patterns:
+                  m = re.search(
+                      pattern,
+                      text
+                  )
+
+                  if m:
+                      building_area = float(
+                          m.group(1)
+                      )
+                      break
+
+              # --------------------------------------------------
+              # 築年月・築年数
+              # --------------------------------------------------
+
+              build_year = None
+              build_month = None
+              age_years = None
+
+              m = re.search(
+                  r"築年月\s*([0-9]{4})年\s*([0-9]{1,2})月"
+                  r"(?:\s*（築([0-9]+)年）)?",
                   text
               )
-          }
 
-          print()
-          print("=" * 70)
-          print("PAGINATION TEST")
-          print("=" * 70)
+              if m:
+                  build_year = int(
+                      m.group(1)
+                  )
 
-          if page_numbers:
-              print(
-                  "PAGE NUMBERS FOUND:",
-                  sorted(page_numbers)
+                  build_month = int(
+                      m.group(2)
+                  )
+
+                  if m.group(3):
+                      age_years = int(
+                          m.group(3)
+                      )
+
+              if age_years is None:
+                  m = re.search(
+                      r"築([0-9]+)年",
+                      text
+                  )
+
+                  if m:
+                      age_years = int(
+                          m.group(1)
+                      )
+
+              # --------------------------------------------------
+              # 徒歩
+              # 最寄駅表記のうち最短徒歩を採用
+              # --------------------------------------------------
+
+              walking_minutes = [
+                  int(x)
+                  for x in re.findall(
+                      r"徒歩\s*([0-9]+)\s*分",
+                      text
+                  )
+              ]
+
+              min_walk = (
+                  min(walking_minutes)
+                  if walking_minutes
+                  else None
               )
-              print(
-                  "MAX PAGE:",
-                  max(page_numbers)
+
+              # --------------------------------------------------
+              # 土地権利
+              # --------------------------------------------------
+
+              land_right = None
+
+              land_patterns = [
+                  r"土地権利\s*([^\s]{1,20})",
+                  r"権利\s*([^\s]{1,20})",
+              ]
+
+              for pattern in land_patterns:
+                  m = re.search(
+                      pattern,
+                      text
+                  )
+
+                  if m:
+                      land_right = m.group(1)
+                      break
+
+              # --------------------------------------------------
+              # 所在地
+              # --------------------------------------------------
+
+              address = None
+
+              m = re.search(
+                  r"所在地\s*(東京都[^\s]+)",
+                  text
               )
-          else:
-              print(
-                  "NO PAGE PARAMETER DETECTED"
+
+              if m:
+                  address = m.group(1)
+
+              # --------------------------------------------------
+              # 判定
+              # --------------------------------------------------
+
+              price_ok = (
+                  price is not None
+                  and price <= 7000
               )
 
-          print()
-          print("=" * 70)
-          print("INVESTIGATION RESULT")
-          print("=" * 70)
+              area_ok = (
+                  building_area is not None
+                  and building_area >= 70
+              )
 
-          print(
-              "HTTP_OK:",
-              status == 200
-          )
+              age_ok = (
+                  age_years is not None
+                  and age_years <= 25
+              )
 
-          print(
-              "PROPERTY_LINKS_FOUND:",
-              len(property_urls) > 0
-          )
+              walk_ok = (
+                  min_walk is not None
+                  and min_walk <= 15
+              )
 
-          print(
-              "PROPERTY_URL_COUNT:",
-              len(property_urls)
-          )
+              ownership_ok = (
+                  land_right is not None
+                  and "所有権" in land_right
+              )
 
-          print(
-              "COND_PARAMETER_COUNT:",
-              len(cond_names)
-          )
+              all_ok = all([
+                  price_ok,
+                  area_ok,
+                  age_ok,
+                  walk_ok,
+                  ownership_ok,
+              ])
 
-          if len(property_urls) == 0:
               print()
+              print("EXTRACTED DATA")
+              print("-" * 70)
+
               print(
-                  "WARNING: No property detail URLs were found."
-              )
-              print(
-                  "HOME'S may be rendering listings dynamically "
-                  "or may use another URL pattern."
+                  "TITLE:",
+                  title
               )
 
+              print(
+                  "ADDRESS:",
+                  address
+              )
+
+              print(
+                  "PRICE_MAN_YEN:",
+                  price
+              )
+
+              print(
+                  "BUILDING_AREA_M2:",
+                  building_area
+              )
+
+              print(
+                  "BUILD_YEAR:",
+                  build_year
+              )
+
+              print(
+                  "BUILD_MONTH:",
+                  build_month
+              )
+
+              print(
+                  "AGE_YEARS:",
+                  age_years
+              )
+
+              print(
+                  "WALKING_MINUTES_FOUND:",
+                  walking_minutes
+              )
+
+              print(
+                  "MIN_WALK_MINUTES:",
+                  min_walk
+              )
+
+              print(
+                  "LAND_RIGHT:",
+                  land_right
+              )
+
+              print()
+              print("CONDITION CHECK")
+              print("-" * 70)
+
+              print(
+                  "PRICE <= 7000:",
+                  price_ok
+              )
+
+              print(
+                  "BUILDING AREA >= 70:",
+                  area_ok
+              )
+
+              print(
+                  "AGE <= 25:",
+                  age_ok
+              )
+
+              print(
+                  "WALK <= 15:",
+                  walk_ok
+              )
+
+              print(
+                  "OWNERSHIP:",
+                  ownership_ok
+              )
+
+              print(
+                  "ALL CONDITIONS:",
+                  all_ok
+              )
+
+              # --------------------------------------------------
+              # 抽出失敗項目があった場合の調査補助
+              # --------------------------------------------------
+
+              missing = []
+
+              if price is None:
+                  missing.append(
+                      "PRICE"
+                  )
+
+              if building_area is None:
+                  missing.append(
+                      "BUILDING_AREA"
+                  )
+
+              if age_years is None:
+                  missing.append(
+                      "AGE"
+                  )
+
+              if min_walk is None:
+                  missing.append(
+                      "WALK"
+                  )
+
+              if land_right is None:
+                  missing.append(
+                      "LAND_RIGHT"
+                  )
+
+              if missing:
+                  print()
+                  print(
+                      "MISSING FIELDS:",
+                      ", ".join(missing)
+                  )
+
+                  keywords = [
+                      "価格",
+                      "建物面積",
+                      "築年月",
+                      "交通",
+                      "土地権利",
+                  ]
+
+                  for keyword in keywords:
+                      pos = text.find(
+                          keyword
+                      )
+
+                      if pos == -1:
+                          continue
+
+                      start = max(
+                          0,
+                          pos - 150
+                      )
+
+                      end = min(
+                          len(text),
+                          pos + 350
+                      )
+
+                      print()
+                      print(
+                          f"SNIPPET [{keyword}]"
+                      )
+
+                      print(
+                          text[start:end]
+                      )
+
           print()
-          print(
-              "HOME'S INVESTIGATION COMPLETE"
-          )
+          print("=" * 70)
+          print("DETAIL EXTRACTION TEST COMPLETE")
+          print("=" * 70)
 
           PY
