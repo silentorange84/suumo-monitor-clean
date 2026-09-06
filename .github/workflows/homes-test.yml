@@ -16,9 +16,10 @@ jobs:
           import urllib.parse
           import urllib.request
 
-          # --------------------------------------------------
-          # 対象9市区
-          # --------------------------------------------------
+          # ==================================================
+          # TARGET AREAS
+          # ==================================================
+
           cities = {
               "中野区": "13114",
               "杉並区": "13115",
@@ -42,23 +43,34 @@ jobs:
 
           params.append(("cond[pref]", "13"))
 
-          list_url = base_url + "?" + urllib.parse.urlencode(params)
+          list_url = (
+              base_url
+              + "?"
+              + urllib.parse.urlencode(params)
+          )
 
           headers = {
               "User-Agent": (
-                  "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) "
+                  "Mozilla/5.0 "
+                  "(iPhone; CPU iPhone OS 18_0 like Mac OS X) "
                   "AppleWebKit/605.1.15 "
-                  "(KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1"
+                  "(KHTML, like Gecko) "
+                  "Version/18.0 Mobile/15E148 Safari/604.1"
               ),
               "Accept": (
-                  "text/html,application/xhtml+xml,application/xml;"
-                  "q=0.9,*/*;q=0.8"
+                  "text/html,application/xhtml+xml,"
+                  "application/xml;q=0.9,*/*;q=0.8"
               ),
               "Accept-Language": "ja-JP,ja;q=0.9,en-US;q=0.5",
               "Connection": "close",
           }
 
+          # ==================================================
+          # FETCH
+          # ==================================================
+
           def fetch(url):
+
               req = urllib.request.Request(
                   url,
                   headers=headers
@@ -68,6 +80,7 @@ jobs:
                   req,
                   timeout=30
               ) as response:
+
                   raw = response.read()
                   status = response.status
                   final_url = response.geturl()
@@ -79,7 +92,12 @@ jobs:
 
               return status, final_url, text
 
+          # ==================================================
+          # HTML CLEANER
+          # ==================================================
+
           def clean_html(text):
+
               text = re.sub(
                   r"<script.*?</script>",
                   " ",
@@ -110,9 +128,75 @@ jobs:
 
               return text.strip()
 
-          # --------------------------------------------------
-          # 一覧取得
-          # --------------------------------------------------
+          # ==================================================
+          # DIRECT STATION WALK DETECTOR
+          # ==================================================
+
+          def extract_direct_station_walk(title):
+
+              if not title:
+                  return None, "NOT_FOUND"
+
+              # ----------------------------------------------
+              # バス利用を含むタイトルは原則除外
+              #
+              # 例:
+              # 西八王子駅 バス17分 諏訪中央下車 徒歩7分
+              #
+              # → 駅徒歩7分ではないため対象外
+              # ----------------------------------------------
+
+              if re.search(
+                  r"駅.{0,40}バス\s*[0-9]+\s*分",
+                  title
+              ):
+                  return None, "BUS_ROUTE"
+
+              # ----------------------------------------------
+              # 駅から直接徒歩
+              #
+              # 例:
+              # 高円寺駅 徒歩8分
+              # 西武柳沢駅 徒歩14分
+              # 阿佐ケ谷駅 徒歩6分
+              # ----------------------------------------------
+
+              matches = re.findall(
+                  r"([^\s、｜|（）()]+駅)"
+                  r".{0,20}?"
+                  r"徒歩\s*([0-9]+)\s*分",
+                  title
+              )
+
+              if matches:
+
+                  minutes = [
+                      int(minute)
+                      for station, minute in matches
+                  ]
+
+                  if minutes:
+                      return min(minutes), "TITLE_DIRECT_WALK"
+
+              # ----------------------------------------------
+              # km表記は徒歩とはみなさない
+              #
+              # 例:
+              # 高尾駅 5.5km
+              # ----------------------------------------------
+
+              if re.search(
+                  r"駅.{0,20}[0-9.]+\s*km",
+                  title,
+                  flags=re.I
+              ):
+                  return None, "DISTANCE_KM"
+
+              return None, "NOT_FOUND"
+
+          # ==================================================
+          # START
+          # ==================================================
 
           print("=" * 70)
           print("HOME'S DETAIL EXTRACTION TEST")
@@ -122,47 +206,68 @@ jobs:
           print("LIST URL:")
           print(list_url)
 
-          status, final_url, list_html = fetch(list_url)
+          status, final_url, list_html = fetch(
+              list_url
+          )
 
           print()
-          print("LIST HTTP STATUS:", status)
-          print("LIST FINAL URL:", final_url)
-          print("LIST HTML SIZE:", len(list_html))
+          print(
+              "LIST HTTP STATUS:",
+              status
+          )
+
+          print(
+              "LIST FINAL URL:",
+              final_url
+          )
+
+          print(
+              "LIST HTML SIZE:",
+              len(list_html)
+          )
 
           if status != 200:
               raise SystemExit(
                   f"List page returned HTTP {status}"
               )
 
-          # --------------------------------------------------
-          # 詳細URL抽出
-          # --------------------------------------------------
+          # ==================================================
+          # PROPERTY URL EXTRACTION
+          # ==================================================
 
           absolute_urls = re.findall(
-              r'https?://(?:www\.)?homes\.co\.jp/kodate/b-[^"\'<>\s?#]+/?',
+              r'https?://(?:www\.)?homes\.co\.jp/'
+              r'kodate/b-[^"\'<>\s?#]+/?',
               list_html
           )
 
           relative_urls = re.findall(
-              r'["\'](/kodate/b-[^"\'<>\s?#]+/?)["\']',
+              r'["\']'
+              r'(/kodate/b-[^"\'<>\s?#]+/?)'
+              r'["\']',
               list_html
           )
 
           property_urls = set()
 
           for u in absolute_urls:
+
               property_urls.add(
-                  u.rstrip("/") + "/"
+                  u.rstrip("/")
+                  + "/"
               )
 
           for u in relative_urls:
+
               property_urls.add(
                   "https://www.homes.co.jp"
                   + u.rstrip("/")
                   + "/"
               )
 
-          property_urls = sorted(property_urls)
+          property_urls = sorted(
+              property_urls
+          )
 
           print()
           print(
@@ -175,9 +280,9 @@ jobs:
                   "No property detail URLs found"
               )
 
-          # --------------------------------------------------
-          # 先頭5物件を詳細解析
-          # --------------------------------------------------
+          # ==================================================
+          # TEST FIRST 5 PROPERTIES
+          # ==================================================
 
           test_urls = property_urls[:5]
 
@@ -188,22 +293,27 @@ jobs:
 
               print()
               print("=" * 70)
-              print(f"PROPERTY TEST {index}")
+              print(
+                  f"PROPERTY TEST {index}"
+              )
               print("=" * 70)
 
               print("URL:")
               print(property_url)
 
               try:
+
                   detail_status, detail_final_url, detail_html = fetch(
                       property_url
                   )
 
               except Exception as e:
+
                   print(
                       "FETCH ERROR:",
                       repr(e)
                   )
+
                   continue
 
               print(
@@ -220,9 +330,11 @@ jobs:
                   detail_html
               )
 
-              # --------------------------------------------------
-              # タイトル
-              # --------------------------------------------------
+              # ==================================================
+              # TITLE
+              # ==================================================
+
+              title = ""
 
               title_match = re.search(
                   r"<title>(.*?)</title>",
@@ -230,173 +342,15 @@ jobs:
                   flags=re.I | re.S
               )
 
-              title = ""
-
               if title_match:
+
                   title = clean_html(
                       title_match.group(1)
                   )
 
-              # --------------------------------------------------
-              # 価格
-              # --------------------------------------------------
-
-              price = None
-
-              price_patterns = [
-                  r"価格\s*([0-9,]+)\s*万円",
-                  r"([0-9,]+)\s*万円\s*支払い目安",
-              ]
-
-              for pattern in price_patterns:
-                  m = re.search(
-                      pattern,
-                      text
-                  )
-
-                  if m:
-                      price = int(
-                          m.group(1).replace(",", "")
-                      )
-                      break
-
-              # --------------------------------------------------
-              # 建物面積
-              # --------------------------------------------------
-
-              building_area = None
-
-              area_patterns = [
-                  r"建物面積\s*([0-9.]+)\s*(?:㎡|m²)",
-                  r"建物面積\s*([0-9.]+)",
-              ]
-
-              for pattern in area_patterns:
-                  m = re.search(
-                      pattern,
-                      text
-                  )
-
-                  if m:
-                      building_area = float(
-                          m.group(1)
-                      )
-                      break
-
-              # --------------------------------------------------
-              # 築年月・築年数
-              # --------------------------------------------------
-
-              build_year = None
-              build_month = None
-              age_years = None
-
-              m = re.search(
-                  r"築年月\s*([0-9]{4})年\s*([0-9]{1,2})月"
-                  r"(?:\s*（築([0-9]+)年）)?",
-                  text
-              )
-
-              if m:
-                  build_year = int(
-                      m.group(1)
-                  )
-
-                  build_month = int(
-                      m.group(2)
-                  )
-
-                  if m.group(3):
-                      age_years = int(
-                          m.group(3)
-                      )
-
-              if age_years is None:
-                  m = re.search(
-                      r"築([0-9]+)年",
-                      text
-                  )
-
-                  if m:
-                      age_years = int(
-                          m.group(1)
-                      )
-
-              # --------------------------------------------------
-              # 徒歩
-              # 1. タイトル内を最優先
-              # 2. 取れなければ交通欄付近
-              # 3. ページ全体の最小値は使わない
-              # --------------------------------------------------
-
-              walking_minutes = []
-              min_walk = None
-              walk_source = None
-
-              title_walks = [
-                  int(x)
-                  for x in re.findall(
-                      r"徒歩\s*([0-9]+)\s*分",
-                      title
-                  )
-              ]
-
-              if title_walks:
-                  walking_minutes = title_walks
-                  min_walk = min(title_walks)
-                  walk_source = "TITLE"
-
-              if min_walk is None:
-                  transport_match = re.search(
-                      r"交通(.{0,1200})",
-                      text,
-                      flags=re.I | re.S
-                  )
-
-                  if transport_match:
-                      transport_text = transport_match.group(1)
-
-                      transport_walks = [
-                          int(x)
-                          for x in re.findall(
-                              r"徒歩\s*([0-9]+)\s*分",
-                              transport_text
-                          )
-                      ]
-
-                      if transport_walks:
-                          walking_minutes = transport_walks
-                          min_walk = min(transport_walks)
-                          walk_source = "TRANSPORT"
-
-              if min_walk is None:
-                  walking_minutes = []
-                  walk_source = "NOT_FOUND"
-
-              # --------------------------------------------------
-              # 土地権利
-              # --------------------------------------------------
-
-              land_right = None
-
-              land_patterns = [
-                  r"土地権利\s*([^\s]{1,20})",
-                  r"権利\s*([^\s]{1,20})",
-              ]
-
-              for pattern in land_patterns:
-                  m = re.search(
-                      pattern,
-                      text
-                  )
-
-                  if m:
-                      land_right = m.group(1)
-                      break
-
-              # --------------------------------------------------
-              # 所在地
-              # --------------------------------------------------
+              # ==================================================
+              # ADDRESS
+              # ==================================================
 
               address = None
 
@@ -408,9 +362,150 @@ jobs:
               if m:
                   address = m.group(1)
 
-              # --------------------------------------------------
-              # 判定
-              # --------------------------------------------------
+              # ==================================================
+              # PRICE
+              # ==================================================
+
+              price = None
+
+              price_patterns = [
+                  r"価格\s*([0-9,]+)\s*万円",
+                  r"([0-9,]+)\s*万円\s*支払い目安",
+              ]
+
+              for pattern in price_patterns:
+
+                  m = re.search(
+                      pattern,
+                      text
+                  )
+
+                  if m:
+
+                      price = int(
+                          m.group(1).replace(
+                              ",",
+                              ""
+                          )
+                      )
+
+                      break
+
+              # ==================================================
+              # BUILDING AREA
+              # ==================================================
+
+              building_area = None
+
+              area_patterns = [
+                  r"建物面積\s*([0-9.]+)\s*(?:㎡|m²)",
+                  r"建物面積\s*([0-9.]+)",
+              ]
+
+              for pattern in area_patterns:
+
+                  m = re.search(
+                      pattern,
+                      text
+                  )
+
+                  if m:
+
+                      building_area = float(
+                          m.group(1)
+                      )
+
+                      break
+
+              # ==================================================
+              # BUILD YEAR / AGE
+              # ==================================================
+
+              build_year = None
+              build_month = None
+              age_years = None
+
+              m = re.search(
+                  r"築年月\s*"
+                  r"([0-9]{4})年\s*"
+                  r"([0-9]{1,2})月"
+                  r"(?:\s*（築([0-9]+)年）)?",
+                  text
+              )
+
+              if m:
+
+                  build_year = int(
+                      m.group(1)
+                  )
+
+                  build_month = int(
+                      m.group(2)
+                  )
+
+                  if m.group(3):
+
+                      age_years = int(
+                          m.group(3)
+                      )
+
+              if age_years is None:
+
+                  m = re.search(
+                      r"築([0-9]+)年",
+                      text
+                  )
+
+                  if m:
+
+                      age_years = int(
+                          m.group(1)
+                      )
+
+              # ==================================================
+              # WALK
+              # ==================================================
+
+              min_walk, walk_source = (
+                  extract_direct_station_walk(
+                      title
+                  )
+              )
+
+              if min_walk is not None:
+                  walking_minutes = [
+                      min_walk
+                  ]
+              else:
+                  walking_minutes = []
+
+              # ==================================================
+              # LAND RIGHT
+              # ==================================================
+
+              land_right = None
+
+              land_patterns = [
+                  r"土地権利\s*([^\s]{1,20})",
+                  r"権利\s*([^\s]{1,20})",
+              ]
+
+              for pattern in land_patterns:
+
+                  m = re.search(
+                      pattern,
+                      text
+                  )
+
+                  if m:
+
+                      land_right = m.group(1)
+
+                      break
+
+              # ==================================================
+              # CONDITION CHECK
+              # ==================================================
 
               price_ok = (
                   price is not None
@@ -445,9 +540,9 @@ jobs:
                   ownership_ok,
               ])
 
-              # --------------------------------------------------
-              # 出力
-              # --------------------------------------------------
+              # ==================================================
+              # OUTPUT
+              # ==================================================
 
               print()
               print("EXTRACTED DATA")
@@ -544,7 +639,9 @@ jobs:
 
           print()
           print("=" * 70)
-          print("DETAIL EXTRACTION TEST COMPLETE")
+          print(
+              "DETAIL EXTRACTION TEST COMPLETE"
+          )
           print("=" * 70)
 
           PY
