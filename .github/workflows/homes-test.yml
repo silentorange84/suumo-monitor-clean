@@ -176,7 +176,7 @@ jobs:
               )
 
           # --------------------------------------------------
-          # 先頭5物件だけ詳細解析
+          # 先頭5物件を詳細解析
           # --------------------------------------------------
 
           test_urls = property_urls[:5]
@@ -188,9 +188,7 @@ jobs:
 
               print()
               print("=" * 70)
-              print(
-                  f"PROPERTY TEST {index}"
-              )
+              print(f"PROPERTY TEST {index}")
               print("=" * 70)
 
               print("URL:")
@@ -326,22 +324,54 @@ jobs:
 
               # --------------------------------------------------
               # 徒歩
-              # 最寄駅表記のうち最短徒歩を採用
+              # 1. タイトル内を最優先
+              # 2. 取れなければ交通欄付近
+              # 3. ページ全体の最小値は使わない
               # --------------------------------------------------
 
-              walking_minutes = [
+              walking_minutes = []
+              min_walk = None
+              walk_source = None
+
+              title_walks = [
                   int(x)
                   for x in re.findall(
                       r"徒歩\s*([0-9]+)\s*分",
-                      text
+                      title
                   )
               ]
 
-              min_walk = (
-                  min(walking_minutes)
-                  if walking_minutes
-                  else None
-              )
+              if title_walks:
+                  walking_minutes = title_walks
+                  min_walk = min(title_walks)
+                  walk_source = "TITLE"
+
+              if min_walk is None:
+                  transport_match = re.search(
+                      r"交通(.{0,1200})",
+                      text,
+                      flags=re.I | re.S
+                  )
+
+                  if transport_match:
+                      transport_text = transport_match.group(1)
+
+                      transport_walks = [
+                          int(x)
+                          for x in re.findall(
+                              r"徒歩\s*([0-9]+)\s*分",
+                              transport_text
+                          )
+                      ]
+
+                      if transport_walks:
+                          walking_minutes = transport_walks
+                          min_walk = min(transport_walks)
+                          walk_source = "TRANSPORT"
+
+              if min_walk is None:
+                  walking_minutes = []
+                  walk_source = "NOT_FOUND"
 
               # --------------------------------------------------
               # 土地権利
@@ -415,6 +445,10 @@ jobs:
                   ownership_ok,
               ])
 
+              # --------------------------------------------------
+              # 出力
+              # --------------------------------------------------
+
               print()
               print("EXTRACTED DATA")
               print("-" * 70)
@@ -465,6 +499,11 @@ jobs:
               )
 
               print(
+                  "WALK_SOURCE:",
+                  walk_source
+              )
+
+              print(
                   "LAND_RIGHT:",
                   land_right
               )
@@ -502,79 +541,6 @@ jobs:
                   "ALL CONDITIONS:",
                   all_ok
               )
-
-              # --------------------------------------------------
-              # 抽出失敗項目があった場合の調査補助
-              # --------------------------------------------------
-
-              missing = []
-
-              if price is None:
-                  missing.append(
-                      "PRICE"
-                  )
-
-              if building_area is None:
-                  missing.append(
-                      "BUILDING_AREA"
-                  )
-
-              if age_years is None:
-                  missing.append(
-                      "AGE"
-                  )
-
-              if min_walk is None:
-                  missing.append(
-                      "WALK"
-                  )
-
-              if land_right is None:
-                  missing.append(
-                      "LAND_RIGHT"
-                  )
-
-              if missing:
-                  print()
-                  print(
-                      "MISSING FIELDS:",
-                      ", ".join(missing)
-                  )
-
-                  keywords = [
-                      "価格",
-                      "建物面積",
-                      "築年月",
-                      "交通",
-                      "土地権利",
-                  ]
-
-                  for keyword in keywords:
-                      pos = text.find(
-                          keyword
-                      )
-
-                      if pos == -1:
-                          continue
-
-                      start = max(
-                          0,
-                          pos - 150
-                      )
-
-                      end = min(
-                          len(text),
-                          pos + 350
-                      )
-
-                      print()
-                      print(
-                          f"SNIPPET [{keyword}]"
-                      )
-
-                      print(
-                          text[start:end]
-                      )
 
           print()
           print("=" * 70)
