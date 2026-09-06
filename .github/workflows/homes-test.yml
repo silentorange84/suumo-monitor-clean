@@ -1,4 +1,4 @@
-name: HOME'S New Property Monitor
+name: HOME'S Property Monitor
 
 on:
   # 手動実行
@@ -25,41 +25,43 @@ jobs:
   monitor-homes:
     runs-on: ubuntu-latest
 
+    env:
+      NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+      RESET_BASELINE: ${{ github.event.inputs.reset_baseline || 'false' }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Scan HOME'S and notify new properties
-        env:
-          RESET_BASELINE: ${{ github.event.inputs.reset_baseline || 'false' }}
-          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
         run: |
           python - <<'PY'
-          import os
           import re
           import html
+          import json
           import time
-          import random
           import urllib.parse
           import urllib.request
           import urllib.error
-          import http.cookiejar
-          from datetime import datetime, timezone, timedelta
+          from datetime import datetime, timezone
 
-          # =========================================================
-          # 基本設定
-          # =========================================================
+          # ============================================================
+          # 設定
+          # ============================================================
 
-          BASE_LIST_URL = "https://www.homes.co.jp/kodate/chuko/tokyo/list/"
+          BASE_URL = "https://www.homes.co.jp"
+          LIST_BASE_URL = "https://www.homes.co.jp/kodate/chuko/tokyo/list/"
 
           KNOWN_FILE = "known_homes_urls.txt"
 
-          MAX_PRICE = 7000          # 万円
-          MIN_BUILDING_AREA = 70.0  # ㎡
-          MAX_AGE = 25.0            # 年
-          MAX_WALK = 15             # 分
-
+          # 最大巡回ページ数
           MAX_LIST_PAGES = 8
+
+          # 条件
+          MAX_PRICE_MAN_YEN = 7000
+          MIN_BUILDING_AREA_M2 = 70.0
+          MAX_AGE_YEARS = 25.0
+          MAX_WALK_MINUTES = 15
 
           TARGET_CITIES = {
               "中野区": "13114",
@@ -73,210 +75,99 @@ jobs:
               "西東京市": "13229",
           }
 
-          # HOME'S に過度な連続アクセスをしない
-          LIST_WAIT_MIN = 1.0
-          LIST_WAIT_MAX = 2.0
+          # HTTPリトライ
+          DETAIL_RETRY_COUNT = 3
+          DETAIL_RETRY_SECONDS = [2, 5, 10]
 
-          DETAIL_WAIT_MIN = 2.5
-          DETAIL_WAIT_MAX = 4.5
-
-          # 一時エラー時のその場での再試行回数
-          # 過度な連打はしない
-          DETAIL_RETRIES = 2
-
-          # 日本時間
-          JST = timezone(timedelta(hours=9))
-          now_jst = datetime.now(JST)
-
-          reset_baseline = (
-              os.environ.get("RESET_BASELINE", "false").lower() == "true"
+          USER_AGENT = (
+              "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) "
+              "AppleWebKit/605.1.15 (KHTML, like Gecko) "
+              "Version/18.0 Mobile/15E148 Safari/604.1"
           )
 
-          ntfy_topic = os.environ.get("NTFY_TOPIC", "").strip()
-
-          # =========================================================
-          # HTTP セッション
-          # =========================================================
-
-          cookie_jar = http.cookiejar.CookieJar()
-
-          opener = urllib.request.build_opener(
-              urllib.request.HTTPCookieProcessor(cookie_jar)
+          RESET_BASELINE = (
+              str(__import__("os").environ.get("RESET_BASELINE", "false"))
+              .lower()
+              .strip()
+              == "true"
           )
 
-          COMMON_HEADERS = {
-              "User-Agent": (
-                  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                  "AppleWebKit/537.36 (KHTML, like Gecko) "
-                  "Chrome/140.0.0.0 Safari/537.36"
-              ),
-              "Accept": (
-                  "text/html,application/xhtml+xml,application/xml;"
-                  "q=0.9,image/avif,image/webp,*/*;q=0.8"
-              ),
-              "Accept-Language": "ja,en-US;q=0.8,en;q=0.6",
-              "Cache-Control": "no-cache",
-              "Pragma": "no-cache",
-              "Upgrade-Insecure-Requests": "1",
-          }
+          NTFY_TOPIC = __import__("os").environ.get("NTFY_TOPIC", "").strip()
 
-          TEMPORARY_HTTP_CODES = {
-              202,
-              403,
-              408,
-              425,
-              429,
-              500,
-              502,
-              503,
-              504,
-          }
+          # ============================================================
+          # 共通関数
+          # ============================================================
 
-          # =========================================================
-          # 汎用関数
-          # =========================================================
-
-          def separator():
+          def separator(title=None):
+              print()
               print("=" * 70)
+              if title:
+                  print(title)
+                  print("=" * 70)
 
-
-          def polite_sleep(min_sec, max_sec):
-              time.sleep(random.uniform(min_sec, max_sec))
-
-
-          def normalize_space(value):
-              if value is None:
+          def normalize_space(s):
+              if s is None:
                   return None
+              s = html.unescape(s)
+              s = re.sub(r"<[^>]+>", " ", s)
+              s = re.sub(r"\s+", " ", s).strip()
+              return s or None
 
-              value = html.unescape(value)
-              value = re.sub(r"<[^>]+>", " ", value)
-              value = value.replace("\u3000", " ")
-              value = re.sub(r"\s+", " ", value)
-
-              return value.strip()
-
-
-          def html_to_text(source):
-              source = re.sub(
-                  r"<script\b[^>]*>.*?</script>",
-                  " ",
-                  source,
-                  flags=re.I | re.S,
-              )
-
-              source = re.sub(
-                  r"<style\b[^>]*>.*?</style>",
-                  " ",
-                  source,
-                  flags=re.I | re.S,
-              )
-
-              source = re.sub(
-                  r"<br\s*/?>",
-                  "\n",
-                  source,
-                  flags=re.I,
-              )
-
-              source = re.sub(
-                  r"</(?:p|li|div|tr|dt|dd|h1|h2|h3|h4)>",
-                  "\n",
-                  source,
-                  flags=re.I,
-              )
-
-              source = re.sub(r"<[^>]+>", " ", source)
-              source = html.unescape(source)
-
-              source = source.replace("\u3000", " ")
-              source = source.replace("\xa0", " ")
-
-              source = re.sub(r"[ \t]+", " ", source)
-              source = re.sub(r"\n+", "\n", source)
-
-              return source.strip()
-
-
-          def fetch_url(url, referer=None, timeout=30):
-              headers = dict(COMMON_HEADERS)
-
-              if referer:
-                  headers["Referer"] = referer
-
-              request = urllib.request.Request(
+          def fetch(url, timeout=30):
+              req = urllib.request.Request(
                   url,
-                  headers=headers,
+                  headers={
+                      "User-Agent": USER_AGENT,
+                      "Accept": (
+                          "text/html,application/xhtml+xml,"
+                          "application/xml;q=0.9,*/*;q=0.8"
+                      ),
+                      "Accept-Language": "ja,en-US;q=0.8,en;q=0.6",
+                      "Cache-Control": "no-cache",
+                  },
               )
 
               try:
-                  response = opener.open(
-                      request,
-                      timeout=timeout,
-                  )
+                  with urllib.request.urlopen(req, timeout=timeout) as response:
+                      raw = response.read()
+                      charset = response.headers.get_content_charset() or "utf-8"
+                      try:
+                          text = raw.decode(charset, errors="replace")
+                      except Exception:
+                          text = raw.decode("utf-8", errors="replace")
 
-                  status = response.getcode()
-                  final_url = response.geturl()
+                      return {
+                          "status": response.status,
+                          "url": response.geturl(),
+                          "text": text,
+                      }
 
-                  raw = response.read()
-
+              except urllib.error.HTTPError as e:
                   try:
-                      text = raw.decode("utf-8")
-                  except UnicodeDecodeError:
-                      text = raw.decode(
-                          "utf-8",
-                          errors="ignore",
-                      )
-
-                  return {
-                      "ok": status == 200,
-                      "status": status,
-                      "url": final_url,
-                      "html": text,
-                      "error": None,
-                  }
-
-              except urllib.error.HTTPError as exc:
-                  try:
-                      raw = exc.read()
-                      text = raw.decode(
-                          "utf-8",
-                          errors="ignore",
-                      )
+                      raw = e.read()
+                      text = raw.decode("utf-8", errors="replace")
                   except Exception:
                       text = ""
 
                   return {
-                      "ok": False,
-                      "status": exc.code,
+                      "status": e.code,
                       "url": url,
-                      "html": text,
-                      "error": str(exc),
+                      "text": text,
                   }
 
-              except Exception as exc:
+              except Exception as e:
+                  print(f"FETCH ERROR: {type(e).__name__}: {e}")
                   return {
-                      "ok": False,
                       "status": None,
                       "url": url,
-                      "html": "",
-                      "error": str(exc),
+                      "text": "",
                   }
 
-
-          # =========================================================
-          # HOME'S 一覧URL
-          # =========================================================
-
-          def build_list_url(page=1):
+          def build_list_url(page):
               params = []
 
-              for city_code in TARGET_CITIES.values():
-                  params.append(
-                      (
-                          f"cond[city][{city_code}]",
-                          city_code,
-                      )
-                  )
+              for code in TARGET_CITIES.values():
+                  params.append((f"cond[city][{code}]", code))
 
               params.append(("cond[pref]", "13"))
               params.append(("cond[sortby]", "newdate"))
@@ -286,850 +177,739 @@ jobs:
 
               query = urllib.parse.urlencode(params)
 
-              return BASE_LIST_URL + "?" + query
+              return LIST_BASE_URL + "?" + query
 
-
-          # =========================================================
-          # 物件URL抽出
-          # =========================================================
-
-          def extract_property_urls(source):
+          def extract_property_urls(page_html):
               urls = set()
 
+              # HOME'S中古戸建詳細URL
               patterns = [
-                  r'href=["\'](https://www\.homes\.co\.jp/kodate/b-[0-9]+/?)["\']',
-                  r'href=["\'](/kodate/b-[0-9]+/?)["\']',
-                  r'https:\\?/\\?/www\.homes\.co\.jp/kodate/b-[0-9]+/?',
-                  r'/kodate/b-[0-9]+/?',
+                  r'href=["\'](https?://www\.homes\.co\.jp/kodate/b-\d+/?)["\']',
+                  r'href=["\'](/kodate/b-\d+/?)["\']',
               ]
 
               for pattern in patterns:
-                  matches = re.findall(
+                  for found in re.findall(
                       pattern,
-                      source,
-                      flags=re.I,
-                  )
-
-                  for value in matches:
-                      value = value.replace("\\/", "/")
-
-                      if value.startswith("/"):
-                          value = "https://www.homes.co.jp" + value
-
-                      value = value.split("?")[0]
-
-                      if not value.endswith("/"):
-                          value += "/"
-
-                      if re.fullmatch(
-                          r"https://www\.homes\.co\.jp/kodate/b-[0-9]+/",
-                          value,
-                      ):
-                          urls.add(value)
-
-              return urls
-
-
-          # =========================================================
-          # 一覧全ページ取得
-          # =========================================================
-
-          def scan_list_pages():
-              all_urls = set()
-
-              for page in range(1, MAX_LIST_PAGES + 1):
-                  separator()
-                  print(f"FETCH LIST PAGE: {page}")
-                  separator()
-
-                  list_url = build_list_url(page)
-
-                  print()
-                  print("LIST URL:")
-                  print(list_url)
-
-                  result = fetch_url(
-                      list_url,
-                      referer=(
-                          "https://www.homes.co.jp/"
-                          if page == 1
-                          else build_list_url(page - 1)
-                      ),
-                  )
-
-                  print(f"HTTP STATUS: {result['status']}")
-
-                  # 一覧自体が202等なら、その巡回では
-                  # 「物件なし」と誤判定しない
-                  if result["status"] != 200:
-                      print(
-                          "LIST PAGE TEMPORARILY UNAVAILABLE."
-                      )
-                      print(
-                          "STOP PAGINATION WITHOUT MODIFYING "
-                          "KNOWN STATE."
-                      )
-
-                      return {
-                          "success": False,
-                          "urls": all_urls,
-                          "failed_page": page,
-                          "status": result["status"],
-                      }
-
-                  page_urls = extract_property_urls(
-                      result["html"]
-                  )
-
-                  before = len(all_urls)
-                  all_urls.update(page_urls)
-                  added = len(all_urls) - before
-
-                  print(
-                      f"PROPERTY URL COUNT: {len(page_urls)}"
-                  )
-                  print(f"UNIQUE ADDED: {added}")
-
-                  for i, sample in enumerate(
-                      sorted(page_urls)[:5],
-                      start=1,
+                      page_html,
+                      flags=re.IGNORECASE,
                   ):
-                      print(f"  SAMPLE {i}: {sample}")
+                      found = html.unescape(found)
 
-                  if not page_urls:
-                      print(
-                          "NO PROPERTY URL. STOP PAGINATION."
-                      )
-                      break
+                      if found.startswith("/"):
+                          found = BASE_URL + found
 
-                  # 既に全部前ページまでで取得済みなら停止
-                  if added == 0:
-                      print(
-                          "NO NEW UNIQUE URL ON THIS PAGE. "
-                          "STOP PAGINATION."
-                      )
-                      break
+                      if not found.endswith("/"):
+                          found += "/"
 
-                  polite_sleep(
-                      LIST_WAIT_MIN,
-                      LIST_WAIT_MAX,
-                  )
+                      urls.add(found)
 
-              return {
-                  "success": True,
-                  "urls": all_urls,
-                  "failed_page": None,
-                  "status": 200,
-              }
+              return sorted(urls)
 
+          def load_known_urls():
+              try:
+                  with open(KNOWN_FILE, "r", encoding="utf-8") as f:
+                      return {
+                          line.strip()
+                          for line in f
+                          if line.strip()
+                      }
+              except FileNotFoundError:
+                  return set()
 
-          # =========================================================
-          # タイトル
-          # =========================================================
+          def save_known_urls(urls):
+              with open(KNOWN_FILE, "w", encoding="utf-8") as f:
+                  for url in sorted(urls):
+                      f.write(url + "\n")
 
-          def extract_title(source):
-              match = re.search(
+          # ============================================================
+          # 詳細ページ解析
+          # ============================================================
+
+          def extract_title(page_html):
+              m = re.search(
                   r"<title[^>]*>(.*?)</title>",
-                  source,
-                  flags=re.I | re.S,
+                  page_html,
+                  flags=re.IGNORECASE | re.DOTALL,
               )
-
-              if not match:
+              if not m:
                   return None
 
-              return normalize_space(match.group(1))
+              title = normalize_space(m.group(1))
 
+              if title:
+                  title = re.sub(
+                      r"\s*[-｜|]\s*HOME'S.*$",
+                      "",
+                      title,
+                      flags=re.IGNORECASE,
+                  )
 
-          # =========================================================
-          # 住所
-          # =========================================================
+              return title
 
-          def extract_address(source, page_text):
-              patterns = [
-                  r'所在地\s*</[^>]+>\s*<[^>]+[^>]*>(.*?)</',
-                  r'所在地[^<]{0,20}</[^>]+>\s*(?:<[^>]+>)*([^<]+)',
-                  r'住所\s*</[^>]+>\s*<[^>]+[^>]*>(.*?)</',
+          def extract_address(page_html):
+              # JSON-LD等
+              candidates = [
+                  r'"address"\s*:\s*"([^"]+)"',
+                  r'"streetAddress"\s*:\s*"([^"]+)"',
+                  r'所在地[^<]{0,30}</[^>]+>\s*<[^>]+>(.*?)</',
               ]
 
-              for pattern in patterns:
-                  match = re.search(
+              for pattern in candidates:
+                  m = re.search(
                       pattern,
-                      source,
-                      flags=re.I | re.S,
+                      page_html,
+                      flags=re.IGNORECASE | re.DOTALL,
                   )
-
-                  if match:
-                      value = normalize_space(
-                          match.group(1)
-                      )
-
-                      if value and "東京都" in value:
+                  if m:
+                      value = normalize_space(m.group(1))
+                      if value and "東京" in value:
                           return value
 
-              match = re.search(
+              # ページ全体テキストから住所
+              text = normalize_space(page_html) or ""
+
+              m = re.search(
                   r"(東京都(?:中野区|杉並区|豊島区|練馬区|"
                   r"八王子市|立川市|武蔵野市|三鷹市|西東京市)"
-                  r"[^\n|]{0,80})",
-                  page_text,
+                  r"[^\s|｜]{0,40})",
+                  text,
               )
 
-              if match:
-                  value = normalize_space(
-                      match.group(1)
-                  )
-
-                  # 不要な説明が続く場合を切る
-                  value = re.split(
-                      r"(?:交通|アクセス|価格|間取り|築年月)",
-                      value,
-                  )[0]
-
-                  return value.strip()
+              if m:
+                  return m.group(1)
 
               return None
 
-
-          # =========================================================
-          # 対象自治体判定
-          # =========================================================
-
-          def identify_city(address, title):
-              combined = " ".join(
-                  value
-                  for value in [address, title]
-                  if value
+          def detect_city(address, title):
+              source = " ".join(
+                  x for x in [address, title] if x
               )
 
               for city in TARGET_CITIES:
-                  if city in combined:
+                  if city in source:
                       return city
 
               return None
 
+          def extract_price(page_html):
+              text = normalize_space(page_html) or ""
 
-          # =========================================================
-          # 価格
-          # =========================================================
-
-          def extract_price(source, page_text):
               patterns = [
-                  r'価格[^0-9]{0,100}([0-9,]+)\s*万円',
-                  r'([0-9,]+)\s*万円',
+                  r"(?:販売価格|価格)[^\d]{0,30}"
+                  r"([0-9,]+)\s*万円",
+                  r'"price"\s*:\s*"?([0-9,]+)"?',
               ]
 
               for pattern in patterns:
-                  matches = re.findall(
+                  m = re.search(pattern, text, flags=re.IGNORECASE)
+                  if not m:
+                      continue
+
+                  raw = m.group(1).replace(",", "")
+
+                  try:
+                      value = float(raw)
+                  except ValueError:
+                      continue
+
+                  # 円表記のJSON価格なら万円へ変換
+                  if value > 100000:
+                      value /= 10000
+
+                  return round(value, 2)
+
+              return None
+
+          def extract_building_area(page_html):
+              text = normalize_space(page_html) or ""
+
+              patterns = [
+                  r"(?:建物面積|延床面積)"
+                  r"[^\d]{0,40}"
+                  r"([0-9]+(?:\.[0-9]+)?)\s*"
+                  r"(?:m2|m²|㎡)",
+              ]
+
+              for pattern in patterns:
+                  m = re.search(
                       pattern,
-                      page_text,
-                      flags=re.I,
+                      text,
+                      flags=re.IGNORECASE,
                   )
-
-                  for value in matches:
+                  if m:
                       try:
-                          price = int(
-                              value.replace(",", "")
-                          )
-
-                          if 100 <= price <= 100000:
-                              return price
-
-                      except Exception:
+                          return float(m.group(1))
+                      except ValueError:
                           pass
 
               return None
 
+          def extract_build_date(page_html):
+              text = normalize_space(page_html) or ""
 
-          # =========================================================
-          # 建物面積
-          # =========================================================
-
-          def extract_building_area(source, page_text):
               patterns = [
-                  r"建物面積\s*[:：]?\s*"
-                  r"([0-9]+(?:\.[0-9]+)?)\s*[㎡m²]",
-                  r"建物面積[^0-9]{0,50}"
-                  r"([0-9]+(?:\.[0-9]+)?)\s*[㎡m²]",
+                  r"(?:築年月|完成時期|建築年月)"
+                  r"[^\d]{0,30}"
+                  r"((?:19|20)\d{2})年"
+                  r"\s*([0-9]{1,2})?月?",
               ]
 
               for pattern in patterns:
-                  match = re.search(
-                      pattern,
-                      page_text,
-                      flags=re.I,
-                  )
+                  m = re.search(pattern, text)
+                  if m:
+                      year = int(m.group(1))
+                      month = int(m.group(2)) if m.group(2) else 1
+                      return year, month
 
-                  if match:
-                      try:
-                          area = float(match.group(1))
+              # yyyy/mm
+              m = re.search(
+                  r"(?:築年月|完成時期|建築年月)"
+                  r"[^\d]{0,30}"
+                  r"((?:19|20)\d{2})"
+                  r"[/.-]"
+                  r"([0-9]{1,2})",
+                  text,
+              )
 
-                          if 10 <= area <= 1000:
-                              return area
-
-                      except Exception:
-                          pass
-
-              return None
-
-
-          # =========================================================
-          # 築年月
-          # =========================================================
-
-          def extract_build_date(source, page_text):
-              patterns = [
-                  r"築年月\s*[:：]?\s*"
-                  r"([12][0-9]{3})年\s*([0-9]{1,2})月",
-                  r"築\s*([12][0-9]{3})年\s*([0-9]{1,2})月",
-              ]
-
-              for pattern in patterns:
-                  match = re.search(
-                      pattern,
-                      page_text,
-                  )
-
-                  if match:
-                      year = int(match.group(1))
-                      month = int(match.group(2))
-
-                      if (
-                          1900 <= year <= now_jst.year
-                          and 1 <= month <= 12
-                      ):
-                          return year, month
+              if m:
+                  return int(m.group(1)), int(m.group(2))
 
               return None, None
-
 
           def calculate_age(year, month):
               if year is None:
                   return None
 
-              month = month or 1
+              now = datetime.now(timezone.utc)
+
+              # JST日付相当に補正
+              current_year = now.year
+              current_month = now.month
+
+              if month is None:
+                  month = 1
 
               age_months = (
-                  (now_jst.year - year) * 12
-                  + (now_jst.month - month)
+                  (current_year - year) * 12
+                  + (current_month - month)
               )
 
-              return round(
-                  age_months / 12.0,
-                  1,
-              )
+              return round(age_months / 12.0, 1)
 
+          def extract_land_right(page_html):
+              text = normalize_space(page_html) or ""
 
-          # =========================================================
-          # 徒歩時間
-          #
-          # 重要：
-          # 「バス17分 ○○下車 徒歩3分」などの
-          # 徒歩3分を駅徒歩3分として扱わない。
-          # =========================================================
-
-          def extract_direct_walk_minutes(
-              title,
-              page_text,
-          ):
-              candidates = []
-
-              title_text = title or ""
-
-              # タイトル内の交通表記を優先
-              #
-              # 例:
-              # 高円寺駅 徒歩8分
-              #
-              direct_patterns = [
-                  r"(?:駅|停留所)\s*徒歩\s*([0-9]{1,3})分",
-                  r"駅[^|、。\n]{0,25}"
-                  r"徒歩\s*([0-9]{1,3})分",
+              # 「土地権利：所有権」等
+              patterns = [
+                  r"(?:土地権利|権利形態)"
+                  r"[^\S\r\n]*[:：]?"
+                  r"[^\wぁ-んァ-ヶ一-龠]{0,10}"
+                  r"(所有権|借地権|定期借地権|地上権)",
+                  r"(所有権)",
               ]
 
-              for pattern in direct_patterns:
-                  for match in re.finditer(
-                      pattern,
-                      title_text,
-                  ):
-                      before = title_text[
-                          max(0, match.start() - 40):
-                          match.start()
-                      ]
+              for pattern in patterns:
+                  m = re.search(pattern, text)
+                  if m:
+                      return m.group(1)
 
-                      # 直前にバス記載があれば除外
-                      if "バス" in before:
+              return None
+
+          # ============================================================
+          # 徒歩時間
+          # ============================================================
+
+          def extract_walk_from_title(title):
+              if not title:
+                  return [], "NOT_FOUND"
+
+              # バス利用表記がある場合は
+              # 「バス17分＋徒歩7分」を駅徒歩7分とは判定しない
+              if re.search(r"バス\s*\d+\s*分", title):
+                  return [], "BUS_ROUTE"
+
+              minutes = []
+
+              patterns = [
+                  r"(?:駅|停留所|バス停)?\s*徒歩\s*(\d{1,3})\s*分",
+                  r"徒歩\s*(\d{1,3})\s*分",
+              ]
+
+              for pattern in patterns:
+                  for value in re.findall(pattern, title):
+                      try:
+                          minutes.append(int(value))
+                      except ValueError:
+                          pass
+
+              minutes = [
+                  x
+                  for x in minutes
+                  if 0 < x <= 120
+              ]
+
+              if minutes:
+                  return sorted(set(minutes)), "TITLE_DIRECT_WALK"
+
+              return [], "NOT_FOUND"
+
+          def extract_walk_from_page(page_html):
+              text = normalize_space(page_html) or ""
+
+              # バスルートを除外して直接徒歩だけ拾う
+              candidates = []
+
+              patterns = [
+                  r"(?:交通|アクセス|最寄り駅)"
+                  r".{0,120}?"
+                  r"(?:駅)?徒歩\s*(\d{1,3})\s*分",
+              ]
+
+              for pattern in patterns:
+                  for m in re.finditer(
+                      pattern,
+                      text,
+                      flags=re.DOTALL,
+                  ):
+                      snippet = m.group(0)
+
+                      if re.search(
+                          r"バス\s*\d+\s*分",
+                          snippet
+                      ):
                           continue
 
                       try:
                           candidates.append(
-                              int(match.group(1))
+                              int(m.group(1))
                           )
                       except Exception:
                           pass
 
-              if candidates:
-                  return min(candidates), "TITLE_DIRECT_WALK"
-
-              # 本文から取得
-              lines = page_text.splitlines()
-
-              for line in lines:
-                  if "徒歩" not in line:
-                      continue
-
-                  # バス経路は駅徒歩として採用しない
-                  if "バス" in line:
-                      continue
-
-                  if "駅" not in line:
-                      continue
-
-                  matches = re.findall(
-                      r"徒歩\s*([0-9]{1,3})分",
-                      line,
-                  )
-
-                  for value in matches:
-                      try:
-                          candidates.append(int(value))
-                      except Exception:
-                          pass
-
-              if candidates:
-                  return min(candidates), "BODY_DIRECT_WALK"
-
-              # タイトルにバスがある物件は、
-              # 後段徒歩を採用しない
-              if "バス" in title_text:
-                  return None, "BUS_ROUTE"
-
-              return None, "NOT_FOUND"
-
-
-          # =========================================================
-          # 土地権利
-          # =========================================================
-
-          def extract_land_right(source, page_text):
-              patterns = [
-                  r"土地権利\s*[:：]?\s*([^\n|]{1,30})",
-                  r"権利\s*[:：]?\s*([^\n|]{1,30})",
+              candidates = [
+                  x for x in candidates
+                  if 0 < x <= 120
               ]
 
-              for pattern in patterns:
-                  match = re.search(
-                      pattern,
-                      page_text,
-                  )
+              if candidates:
+                  return sorted(set(candidates)), "PAGE_DIRECT_WALK"
 
-                  if match:
-                      value = normalize_space(
-                          match.group(1)
-                      )
+              return [], "NOT_FOUND"
 
-                      if "所有権" in value:
-                          return "所有権"
+          def extract_walk(title, page_html):
+              minutes, source = extract_walk_from_title(title)
 
-                      if any(
-                          word in value
-                          for word in [
-                              "借地",
-                              "地上権",
-                              "定期借地",
+              if minutes:
+                  return minutes, min(minutes), source
+
+              # タイトルにバス経路がある場合は
+              # 誤って別の徒歩数字を採用しない
+              if source == "BUS_ROUTE":
+                  return [], None, "BUS_ROUTE"
+
+              minutes, source = extract_walk_from_page(page_html)
+
+              if minutes:
+                  return minutes, min(minutes), source
+
+              return [], None, source
+
+          # ============================================================
+          # 詳細ページ取得
+          # ============================================================
+
+          def fetch_detail_with_retry(url):
+              last_result = None
+
+              for attempt in range(DETAIL_RETRY_COUNT):
+                  result = fetch(url)
+                  last_result = result
+
+                  status = result["status"]
+
+                  if status == 200 and result["text"]:
+                      return result
+
+                  # HOME'Sが一時的に返すことのある202
+                  if status in (202, 429, 500, 502, 503, 504, None):
+                      if attempt < DETAIL_RETRY_COUNT - 1:
+                          wait = DETAIL_RETRY_SECONDS[
+                              min(
+                                  attempt,
+                                  len(DETAIL_RETRY_SECONDS) - 1
+                              )
                           ]
-                      ):
-                          return value
 
-              # HTML全体に土地権利付近で所有権
-              # があるケース
-              match = re.search(
-                  r"土地権利.{0,300}?所有権",
-                  source,
-                  flags=re.I | re.S,
-              )
+                          print(
+                              f"DETAIL TEMPORARILY UNAVAILABLE "
+                              f"(HTTP {status}). "
+                              f"RETRY IN {wait}s."
+                          )
 
-              if match:
-                  return "所有権"
+                          time.sleep(wait)
+                          continue
 
-              return None
+                  break
 
+              return last_result
 
-          # =========================================================
-          # 詳細ページ解析
-          # =========================================================
+          # ============================================================
+          # 物件解析
+          # ============================================================
 
-          def parse_property(source):
-              page_text = html_to_text(source)
+          def parse_property(url):
+              result = fetch_detail_with_retry(url)
 
-              title = extract_title(source)
+              if not result:
+                  return {
+                      "url": url,
+                      "status": None,
+                      "parse_complete": False,
+                  }
 
-              address = extract_address(
-                  source,
-                  page_text,
-              )
+              status = result["status"]
+              page_html = result["text"]
 
-              city = identify_city(
-                  address,
+              if status != 200 or not page_html:
+                  return {
+                      "url": url,
+                      "status": status,
+                      "parse_complete": False,
+                  }
+
+              title = extract_title(page_html)
+              address = extract_address(page_html)
+              city = detect_city(address, title)
+
+              price = extract_price(page_html)
+              area = extract_building_area(page_html)
+
+              build_year, build_month = extract_build_date(page_html)
+              age = calculate_age(build_year, build_month)
+
+              walk_values, min_walk, walk_source = extract_walk(
                   title,
+                  page_html,
               )
 
-              price = extract_price(
-                  source,
-                  page_text,
-              )
+              land_right = extract_land_right(page_html)
 
-              building_area = extract_building_area(
-                  source,
-                  page_text,
-              )
+              # --------------------------------------------------------
+              # 各条件
+              # --------------------------------------------------------
 
-              build_year, build_month = (
-                  extract_build_date(
-                      source,
-                      page_text,
-                  )
-              )
-
-              age_years = calculate_age(
-                  build_year,
-                  build_month,
-              )
-
-              walk_minutes, walk_source = (
-                  extract_direct_walk_minutes(
-                      title,
-                      page_text,
-                  )
-              )
-
-              land_right = extract_land_right(
-                  source,
-                  page_text,
-              )
-
-              return {
-                  "title": title,
-                  "address": address,
-                  "city": city,
-                  "price": price,
-                  "building_area": building_area,
-                  "build_year": build_year,
-                  "build_month": build_month,
-                  "age_years": age_years,
-                  "walk_minutes": walk_minutes,
-                  "walk_source": walk_source,
-                  "land_right": land_right,
-              }
-
-
-          # =========================================================
-          # 解析完全性
-          # =========================================================
-
-          def parsing_complete(data):
-              required = [
-                  data["title"],
-                  data["city"],
-                  data["price"],
-                  data["building_area"],
-                  data["age_years"],
-                  data["land_right"],
-              ]
-
-              if not all(
-                  value is not None
-                  for value in required
-              ):
-                  return False
-
-              # バス利用物件は徒歩時間Noneでも
-              # 「解析成功」として条件外にできる
-              if (
-                  data["walk_minutes"] is None
-                  and data["walk_source"]
-                  not in {"BUS_ROUTE"}
-              ):
-                  return False
-
-              return True
-
-
-          # =========================================================
-          # 条件判定
-          # =========================================================
-
-          def check_conditions(data):
-              target_city = (
-                  data["city"] in TARGET_CITIES
-                  if data["city"]
+              city_ok = (
+                  city in TARGET_CITIES
+                  if city is not None
                   else False
               )
 
               price_ok = (
-                  data["price"] is not None
-                  and data["price"] <= MAX_PRICE
+                  price is not None
+                  and price <= MAX_PRICE_MAN_YEN
               )
 
               area_ok = (
-                  data["building_area"] is not None
-                  and data["building_area"]
-                  >= MIN_BUILDING_AREA
+                  area is not None
+                  and area >= MIN_BUILDING_AREA_M2
               )
 
               age_ok = (
-                  data["age_years"] is not None
-                  and data["age_years"] <= MAX_AGE
+                  age is not None
+                  and age <= MAX_AGE_YEARS
               )
 
-              # バス利用は対象外
               walk_ok = (
-                  data["walk_minutes"] is not None
-                  and data["walk_minutes"] <= MAX_WALK
+                  min_walk is not None
+                  and min_walk <= MAX_WALK_MINUTES
               )
 
               ownership_ok = (
-                  data["land_right"] == "所有権"
+                  land_right == "所有権"
               )
 
-              all_ok = all(
-                  [
-                      target_city,
-                      price_ok,
-                      area_ok,
-                      age_ok,
-                      walk_ok,
-                      ownership_ok,
-                  ]
-              )
+              # 判定に必要なデータが全部取れているか
+              parse_complete = all([
+                  title is not None,
+                  city is not None,
+                  price is not None,
+                  area is not None,
+                  age is not None,
+                  min_walk is not None or walk_source == "BUS_ROUTE",
+                  land_right is not None,
+              ])
+
+              # BUS_ROUTE は「駅徒歩15分以内」ではないので
+              # 徒歩条件Falseとして確定判定可能
+              if walk_source == "BUS_ROUTE":
+                  walk_ok = False
+
+              all_conditions = all([
+                  city_ok,
+                  price_ok,
+                  area_ok,
+                  age_ok,
+                  walk_ok,
+                  ownership_ok,
+              ])
 
               return {
-                  "target_city": target_city,
+                  "url": url,
+                  "status": status,
+                  "title": title,
+                  "address": address,
+                  "city": city,
+                  "price": price,
+                  "area": area,
+                  "build_year": build_year,
+                  "build_month": build_month,
+                  "age": age,
+                  "walk_values": walk_values,
+                  "min_walk": min_walk,
+                  "walk_source": walk_source,
+                  "land_right": land_right,
+
+                  "city_ok": city_ok,
                   "price_ok": price_ok,
                   "area_ok": area_ok,
                   "age_ok": age_ok,
                   "walk_ok": walk_ok,
                   "ownership_ok": ownership_ok,
-                  "all_ok": all_ok,
+
+                  "all_conditions": all_conditions,
+                  "parse_complete": parse_complete,
               }
 
+          # ============================================================
+          # 通知
+          # ============================================================
 
-          # =========================================================
-          # 詳細ページ取得
-          # =========================================================
-
-          def fetch_property_detail(url):
-              for attempt in range(
-                  1,
-                  DETAIL_RETRIES + 1,
-              ):
-                  polite_sleep(
-                      DETAIL_WAIT_MIN,
-                      DETAIL_WAIT_MAX,
-                  )
-
-                  result = fetch_url(
-                      url,
-                      referer=BASE_LIST_URL,
-                  )
-
-                  status = result["status"]
-
-                  if status == 200:
-                      return result
-
-                  # HOME'S 202対策
-                  if status in TEMPORARY_HTTP_CODES:
-                      print(
-                          f"TEMPORARY HTTP STATUS: "
-                          f"{status} "
-                          f"(attempt {attempt}/"
-                          f"{DETAIL_RETRIES})"
-                      )
-
-                      if attempt < DETAIL_RETRIES:
-                          # 少し長めに待つ
-                          time.sleep(
-                              random.uniform(
-                                  5.0,
-                                  8.0,
-                              )
-                          )
-
-                          continue
-
-                      return result
-
-                  # 404/410など恒久的なケース
-                  return result
-
-              return result
-
-
-          # =========================================================
-          # known URL
-          # =========================================================
-
-          def load_known_urls():
-              if not os.path.exists(KNOWN_FILE):
-                  return set()
-
-              with open(
-                  KNOWN_FILE,
-                  "r",
-                  encoding="utf-8",
-              ) as f:
-                  return {
-                      line.strip()
-                      for line in f
-                      if line.strip()
-                  }
-
-
-          def save_known_urls(urls):
-              with open(
-                  KNOWN_FILE,
-                  "w",
-                  encoding="utf-8",
-              ) as f:
-                  for url in sorted(urls):
-                      f.write(url + "\n")
-
-
-          # =========================================================
-          # ntfy通知
-          # =========================================================
-
-          def send_notification(data, url):
-              if not ntfy_topic:
-                  print(
-                      "NTFY_TOPIC is empty. "
-                      "Notification skipped."
-                  )
+          def notify_ntfy(prop):
+              if not NTFY_TOPIC:
+                  print("NTFY_TOPIC is empty.")
+                  print("NOTIFICATION SKIPPED.")
                   return False
 
-              title = "HOME'S 新着中古戸建"
+              title = prop.get("title") or "HOME'S 新着中古戸建"
 
               message_lines = [
-                  f"🏠 {data['city']}",
-                  f"{data['price']:,}万円",
-                  f"建物 {data['building_area']}㎡",
-                  f"築 {data['age_years']}年",
-                  f"駅徒歩 {data['walk_minutes']}分",
-                  f"土地権利 {data['land_right']}",
+                  "🏠 HOME'S 新着中古戸建",
                   "",
-                  data["title"] or "",
-                  "",
-                  url,
+                  f"エリア：{prop.get('city')}",
+                  f"価格：{prop.get('price')}万円",
+                  f"建物面積：{prop.get('area')}㎡",
+                  f"築年数：約{prop.get('age')}年",
+                  f"駅徒歩：{prop.get('min_walk')}分",
+                  f"土地権利：{prop.get('land_right')}",
               ]
 
-              body = "\n".join(message_lines)
-
-              endpoint = (
-                  "https://ntfy.sh/"
-                  + urllib.parse.quote(
-                      ntfy_topic,
-                      safe="",
+              if prop.get("address"):
+                  message_lines.append(
+                      f"所在地：{prop.get('address')}"
                   )
-              )
 
-              request = urllib.request.Request(
-                  endpoint,
-                  data=body.encode("utf-8"),
-                  method="POST",
-                  headers={
-                      "Title": title.encode(
-                          "utf-8"
-                      ).decode(
-                          "latin1",
-                          errors="ignore",
-                      ),
-                      "Priority": "high",
-                      "Tags": "house",
-                      "Click": url,
+              message = "\n".join(message_lines)
+
+              data = json.dumps(
+                  {
+                      "topic": NTFY_TOPIC,
+                      "title": "🏠 HOME'S 新着中古戸建",
+                      "message": message,
+                      "priority": 5,
+                      "tags": ["house"],
+                      "click": prop["url"],
                   },
+                  ensure_ascii=False,
+              ).encode("utf-8")
+
+              req = urllib.request.Request(
+                  "https://ntfy.sh",
+                  data=data,
+                  headers={
+                      "Content-Type": "application/json; charset=utf-8"
+                  },
+                  method="POST",
               )
 
               try:
                   with urllib.request.urlopen(
-                      request,
-                      timeout=20,
+                      req,
+                      timeout=30,
                   ) as response:
+
+                      ok = 200 <= response.status < 300
+
                       print(
-                          "NOTIFICATION STATUS:",
-                          response.getcode(),
+                          f"NTFY HTTP STATUS: "
+                          f"{response.status}"
                       )
 
-                  return True
+                      return ok
 
-              except Exception as exc:
+              except Exception as e:
                   print(
-                      "NOTIFICATION ERROR:",
-                      exc,
+                      f"NTFY ERROR: "
+                      f"{type(e).__name__}: {e}"
                   )
-
                   return False
 
+          # ============================================================
+          # メイン
+          # ============================================================
 
-          # =========================================================
-          # 開始
-          # =========================================================
+          separator("HOME'S PROPERTY MONITOR START")
 
-          separator()
-          print("HOME'S PROPERTY MONITOR START")
-          separator()
-
-          print()
           print("TARGET CITIES:")
-
           for city, code in TARGET_CITIES.items():
               print(f"  {city}: {code}")
 
           print()
           print("CONDITIONS:")
-          print(f"  PRICE <= {MAX_PRICE}万円")
-          print(
-              f"  BUILDING AREA >= "
-              f"{MIN_BUILDING_AREA}㎡"
-          )
-          print(f"  AGE <= {MAX_AGE} years")
-          print(f"  WALK <= {MAX_WALK} minutes")
+          print(f"  PRICE <= {MAX_PRICE_MAN_YEN}万円")
+          print(f"  BUILDING AREA >= {MIN_BUILDING_AREA_M2}㎡")
+          print(f"  AGE <= {MAX_AGE_YEARS} years")
+          print(f"  WALK <= {MAX_WALK_MINUTES} minutes")
           print("  LAND RIGHT = 所有権")
-          print(
-              f"  LIST PAGES <= {MAX_LIST_PAGES}"
-          )
+          print(f"  LIST PAGES <= {MAX_LIST_PAGES}")
 
           known_urls = load_known_urls()
 
           print()
+          print(f"RESET BASELINE: {RESET_BASELINE}")
+          print(f"KNOWN URL COUNT: {len(known_urls)}")
+
+          # ============================================================
+          # 一覧ページ取得
+          # ============================================================
+
+          current_urls = set()
+          successfully_scanned_pages = 0
+          list_scan_interrupted = False
+
+          for page in range(1, MAX_LIST_PAGES + 1):
+
+              separator(f"FETCH LIST PAGE: {page}")
+
+              list_url = build_list_url(page)
+
+              print()
+              print("LIST URL:")
+              print(list_url)
+
+              result = fetch(list_url)
+
+              status = result["status"]
+
+              print(f"HTTP STATUS: {status}")
+
+              # --------------------------------------------------------
+              # 一時的な202等
+              #
+              # ★今回の重要修正
+              # ここまで取得済みの物件は捨てない
+              # --------------------------------------------------------
+
+              if status in (202, 429, 500, 502, 503, 504, None):
+
+                  print(
+                      "LIST PAGE TEMPORARILY UNAVAILABLE."
+                  )
+
+                  print(
+                      "STOP PAGINATION AND PROCESS "
+                      "ALREADY FETCHED PROPERTIES."
+                  )
+
+                  list_scan_interrupted = True
+                  break
+
+              if status != 200:
+                  print(
+                      "UNEXPECTED LIST HTTP STATUS."
+                  )
+                  print(
+                      "STOP PAGINATION AND PROCESS "
+                      "ALREADY FETCHED PROPERTIES."
+                  )
+
+                  list_scan_interrupted = True
+                  break
+
+              property_urls = extract_property_urls(
+                  result["text"]
+              )
+
+              print(
+                  f"PROPERTY URL COUNT: "
+                  f"{len(property_urls)}"
+              )
+
+              before_count = len(current_urls)
+
+              current_urls.update(property_urls)
+
+              added_count = (
+                  len(current_urls) - before_count
+              )
+
+              print(f"UNIQUE ADDED: {added_count}")
+
+              for i, url in enumerate(
+                  property_urls[:5],
+                  start=1,
+              ):
+                  print(f"  SAMPLE {i}:")
+                  print(f"  {url}")
+
+              successfully_scanned_pages += 1
+
+              # 物件なしなら正常な最終ページ
+              if not property_urls:
+                  print(
+                      "NO PROPERTY URL. "
+                      "NORMAL END OF PAGINATION."
+                  )
+                  break
+
+              # 同一ページを繰り返している場合
+              if added_count == 0:
+                  print(
+                      "NO NEW UNIQUE URL ON THIS PAGE."
+                  )
+                  print(
+                      "PAGINATION APPEARS TO HAVE ENDED."
+                  )
+                  break
+
+              # 30件未満程度なら最終ページの可能性大だが、
+              # HOME'Sは件数変動があるので
+              # ここでは自動停止せず次ページを確認する
+
+              time.sleep(0.5)
+
+          separator("LIST SCAN RESULT")
+
           print(
-              f"RESET BASELINE: {reset_baseline}"
+              f"SUCCESSFULLY SCANNED PAGES: "
+              f"{successfully_scanned_pages}"
           )
-          print(
-              f"KNOWN URL COUNT: {len(known_urls)}"
-          )
-
-          # =========================================================
-          # 一覧巡回
-          # =========================================================
-
-          scan_result = scan_list_pages()
-
-          current_urls = scan_result["urls"]
-
-          separator()
-          print("LIST SCAN RESULT")
-          separator()
 
           print(
               f"CURRENT URL COUNT: "
               f"{len(current_urls)}"
           )
 
-          # 一覧ページ自体が202等なら、
-          # 状態更新せず終了
-          if not scan_result["success"]:
+          print(
+              f"LIST SCAN INTERRUPTED: "
+              f"{list_scan_interrupted}"
+          )
+
+          # 1ページ目すら取得できなかった
+          if successfully_scanned_pages == 0:
               print()
               print(
-                  "LIST SCAN INCOMPLETE."
+                  "NO LIST PAGE WAS SUCCESSFULLY FETCHED."
               )
               print(
                   "KNOWN URL FILE WILL NOT BE CHANGED."
@@ -1138,338 +918,303 @@ jobs:
                   "THE NEXT SCHEDULED RUN WILL RETRY."
               )
 
-              separator()
-              print(
+              separator(
                   "HOME'S PROPERTY MONITOR COMPLETE"
               )
-              separator()
 
               raise SystemExit(0)
 
-          # =========================================================
-          # baseline再登録
-          # =========================================================
+          # ============================================================
+          # ベースライン再登録
+          # ============================================================
 
-          if reset_baseline:
-              separator()
-              print("BASELINE RESET")
-              separator()
+          if RESET_BASELINE:
 
-              save_known_urls(current_urls)
+              separator("BASELINE RESET")
+
+              # 取得できたURLは登録
+              # ただし既存knownは絶対に削除しない
+              new_known = known_urls | current_urls
+
+              save_known_urls(new_known)
+
+              print(
+                  f"CURRENT FETCHED URL COUNT: "
+                  f"{len(current_urls)}"
+              )
 
               print(
                   f"REGISTERED URL COUNT: "
-                  f"{len(current_urls)}"
+                  f"{len(new_known)}"
               )
+
+              if list_scan_interrupted:
+                  print()
+                  print(
+                      "NOTE: LIST SCAN WAS INTERRUPTED."
+                  )
+                  print(
+                      "EXISTING KNOWN URLS WERE PRESERVED."
+                  )
+                  print(
+                      "FETCHED URLS WERE ADDED ONLY."
+                  )
+
               print(
                   "No notification will be sent."
               )
 
-              separator()
-              print(
+              separator(
                   "HOME'S PROPERTY MONITOR COMPLETE"
               )
-              separator()
 
               raise SystemExit(0)
 
-          # =========================================================
-          # 新URL
-          # =========================================================
+          # ============================================================
+          # 新規URL抽出
+          # ============================================================
 
           new_urls = sorted(
               current_urls - known_urls
           )
 
-          separator()
-          print("NEW URL DETECTION")
-          separator()
-
+          print()
           print(
-              f"CURRENT URL COUNT: "
-              f"{len(current_urls)}"
-          )
-          print(
-              f"KNOWN URL COUNT: "
-              f"{len(known_urls)}"
-          )
-          print(
-              f"NEW URL COUNT: {len(new_urls)}"
+              f"NEW URL COUNT: "
+              f"{len(new_urls)}"
           )
 
           if not new_urls:
-              print("NO NEW PROPERTY.")
+              print("NO NEW PROPERTY URL.")
 
-              separator()
-              print(
+              if list_scan_interrupted:
+                  print()
+                  print(
+                      "LIST SCAN WAS PARTIAL, "
+                      "BUT FETCHED PAGES CONTAINED "
+                      "NO UNKNOWN URL."
+                  )
+
+              separator(
                   "HOME'S PROPERTY MONITOR COMPLETE"
               )
-              separator()
 
               raise SystemExit(0)
 
-          processed_urls = set()
+          # ============================================================
+          # 新規物件を詳細確認
+          # ============================================================
 
+          processed_count = 0
           notified_count = 0
           excluded_count = 0
           retry_count = 0
-          unavailable_count = 0
 
-          # =========================================================
-          # 新URL詳細確認
-          # =========================================================
+          updated_known_urls = set(known_urls)
 
           for index, url in enumerate(
               new_urls,
               start=1,
           ):
-              separator()
-              print(f"NEW PROPERTY {index}")
-              separator()
+
+              separator(
+                  f"NEW PROPERTY {index}"
+              )
 
               print(f"URL: {url}")
 
-              result = fetch_property_detail(url)
-
-              status = result["status"]
+              prop = parse_property(url)
 
               print(
-                  f"HTTP STATUS: {status}"
+                  f"HTTP STATUS: "
+                  f"{prop.get('status')}"
               )
-
-              # ---------------------------------------------
-              # 202 / 403 / 429 / 5xx
-              #
-              # 「条件外」として登録してはいけない。
-              # 次回巡回で再挑戦。
-              # ---------------------------------------------
-
-              if status in TEMPORARY_HTTP_CODES:
-                  print(
-                      f"RETRY_HTTP_{status}"
-                  )
-                  print(
-                      "This URL remains "
-                      "unregistered for retry."
-                  )
-
-                  retry_count += 1
-                  continue
-
-              # ---------------------------------------------
-              # 404 / 410
-              #
-              # 既に消えたURLなら再巡回不要。
-              # ---------------------------------------------
-
-              if status in {404, 410}:
-                  print(
-                      "PROPERTY PAGE NO LONGER AVAILABLE."
-                  )
-
-                  processed_urls.add(url)
-                  unavailable_count += 1
-                  continue
-
-              # その他取得失敗
-              if status != 200:
-                  print(
-                      "TEMPORARY FETCH FAILURE."
-                  )
-                  print(
-                      "This URL remains "
-                      "unregistered for retry."
-                  )
-
-                  retry_count += 1
-                  continue
-
-              # ---------------------------------------------
-              # HTML解析
-              # ---------------------------------------------
-
-              data = parse_property(
-                  result["html"]
-              )
-
-              print()
-              print("EXTRACTED DATA")
-              print("-" * 70)
 
               print(
                   f"TITLE: "
-                  f"{data['title']}"
+                  f"{prop.get('title')}"
               )
+
               print(
                   f"ADDRESS: "
-                  f"{data['address']}"
+                  f"{prop.get('address')}"
               )
+
               print(
                   f"CITY: "
-                  f"{data['city']}"
+                  f"{prop.get('city')}"
               )
+
               print(
                   f"PRICE_MAN_YEN: "
-                  f"{data['price']}"
+                  f"{prop.get('price')}"
               )
+
               print(
                   f"BUILDING_AREA_M2: "
-                  f"{data['building_area']}"
+                  f"{prop.get('area')}"
               )
+
               print(
                   f"BUILD_YEAR: "
-                  f"{data['build_year']}"
+                  f"{prop.get('build_year')}"
               )
+
               print(
                   f"BUILD_MONTH: "
-                  f"{data['build_month']}"
+                  f"{prop.get('build_month')}"
               )
+
               print(
                   f"AGE_YEARS: "
-                  f"{data['age_years']}"
+                  f"{prop.get('age')}"
               )
+
+              print(
+                  f"WALKING_MINUTES_FOUND: "
+                  f"{prop.get('walk_values')}"
+              )
+
               print(
                   f"MIN_WALK_MINUTES: "
-                  f"{data['walk_minutes']}"
+                  f"{prop.get('min_walk')}"
               )
+
               print(
                   f"WALK_SOURCE: "
-                  f"{data['walk_source']}"
+                  f"{prop.get('walk_source')}"
               )
+
               print(
                   f"LAND_RIGHT: "
-                  f"{data['land_right']}"
+                  f"{prop.get('land_right')}"
               )
-
-              # ---------------------------------------------
-              # 解析不能
-              # ---------------------------------------------
-
-              if not parsing_complete(data):
-                  print()
-                  print("CONDITION CHECK")
-                  print("-" * 70)
-
-                  print(
-                      "PARSING INCOMPLETE"
-                  )
-                  print(
-                      "This URL remains "
-                      "unregistered for retry."
-                  )
-
-                  retry_count += 1
-                  continue
-
-              # ---------------------------------------------
-              # 条件判定
-              # ---------------------------------------------
-
-              checks = check_conditions(data)
 
               print()
               print("CONDITION CHECK")
               print("-" * 70)
 
               print(
-                  "TARGET CITY:",
-                  checks["target_city"],
+                  f"TARGET CITY: "
+                  f"{prop.get('city_ok', False)}"
               )
 
               print(
-                  f"PRICE <= {MAX_PRICE}:",
-                  checks["price_ok"],
+                  f"PRICE <= 7000: "
+                  f"{prop.get('price_ok', False)}"
               )
 
               print(
-                  f"BUILDING AREA >= "
-                  f"{MIN_BUILDING_AREA}:",
-                  checks["area_ok"],
+                  f"BUILDING AREA >= 70: "
+                  f"{prop.get('area_ok', False)}"
               )
 
               print(
-                  f"AGE <= {MAX_AGE}:",
-                  checks["age_ok"],
+                  f"AGE <= 25: "
+                  f"{prop.get('age_ok', False)}"
               )
 
               print(
-                  f"WALK <= {MAX_WALK}:",
-                  checks["walk_ok"],
+                  f"WALK <= 15: "
+                  f"{prop.get('walk_ok', False)}"
               )
 
               print(
-                  "OWNERSHIP:",
-                  checks["ownership_ok"],
+                  f"OWNERSHIP: "
+                  f"{prop.get('ownership_ok', False)}"
               )
 
               print(
-                  "ALL CONDITIONS:",
-                  checks["all_ok"],
+                  f"ALL CONDITIONS: "
+                  f"{prop.get('all_conditions', False)}"
               )
 
-              # ---------------------------------------------
-              # 条件一致
-              # ---------------------------------------------
+              # --------------------------------------------------------
+              # 解析不完全
+              #
+              # ★knownへ入れない
+              # → 次回再試行
+              # --------------------------------------------------------
 
-              if checks["all_ok"]:
+              if not prop.get(
+                  "parse_complete",
+                  False,
+              ):
+
+                  print("PARSING INCOMPLETE")
+
                   print(
-                      "MATCHED TARGET CONDITIONS"
+                      "This URL remains "
+                      "unregistered for retry."
                   )
 
-                  notification_ok = (
-                      send_notification(
-                          data,
-                          url,
-                      )
-                  )
+                  retry_count += 1
 
-                  # 通知送信エラー時にも、
-                  # 次回再通知できるよう登録しない
-                  if notification_ok:
-                      processed_urls.add(url)
-                      notified_count += 1
+                  time.sleep(0.5)
+                  continue
 
-                  else:
-                      print(
-                          "Notification failed."
-                      )
-                      print(
-                          "URL remains unregistered "
-                          "for retry."
-                      )
-                      retry_count += 1
+              processed_count += 1
 
-              # ---------------------------------------------
-              # 正常解析できたが条件外
-              # ---------------------------------------------
+              # --------------------------------------------------------
+              # 条件外
+              #
+              # 判定できているのでknownへ登録
+              # --------------------------------------------------------
 
-              else:
-                  print(
-                      "EXCLUDED BY CONDITIONS"
-                  )
+              if not prop["all_conditions"]:
 
-                  processed_urls.add(url)
+                  print("EXCLUDED BY CONDITIONS")
+
+                  updated_known_urls.add(url)
+
                   excluded_count += 1
 
-          # =========================================================
-          # known URL更新
-          # =========================================================
+                  time.sleep(0.5)
+                  continue
 
-          updated_known_urls = (
-              known_urls | processed_urls
-          )
+              # --------------------------------------------------------
+              # 条件適合 → 通知
+              # --------------------------------------------------------
 
-          save_known_urls(
-              updated_known_urls
-          )
+              print("MATCHED ALL CONDITIONS")
+              print("SENDING NOTIFICATION...")
 
-          # =========================================================
-          # 結果
-          # =========================================================
+              notification_ok = notify_ntfy(prop)
 
-          separator()
-          print("MONITOR RESULT")
-          separator()
+              if notification_ok:
+                  print("NOTIFICATION SUCCESS")
+
+                  updated_known_urls.add(url)
+
+                  notified_count += 1
+
+              else:
+                  # 通知失敗時もknownに入れない
+                  # → 次回通知を再試行
+                  print("NOTIFICATION FAILED")
+
+                  print(
+                      "This URL remains "
+                      "unregistered for retry."
+                  )
+
+                  retry_count += 1
+
+              time.sleep(0.5)
+
+          # ============================================================
+          # known保存
+          # ============================================================
+
+          # 重要：
+          # existing known は一切削除しない
+          #
+          # 条件外と確定したもの
+          # ＋通知成功したもの
+          # だけを追加
+          save_known_urls(updated_known_urls)
+
+          separator("MONITOR RESULT")
 
           print(
               f"CURRENT URL COUNT: "
@@ -1483,7 +1228,7 @@ jobs:
 
           print(
               f"PROCESSED COUNT: "
-              f"{len(processed_urls)}"
+              f"{processed_count}"
           )
 
           print(
@@ -1497,11 +1242,6 @@ jobs:
           )
 
           print(
-              f"UNAVAILABLE COUNT: "
-              f"{unavailable_count}"
-          )
-
-          print(
               f"RETRY COUNT: "
               f"{retry_count}"
           )
@@ -1511,11 +1251,27 @@ jobs:
               f"{len(updated_known_urls)}"
           )
 
-          separator()
-          print(
+          if list_scan_interrupted:
+              print()
+              print(
+                  "LIST SCAN WAS INTERRUPTED, "
+                  "BUT SUCCESSFULLY FETCHED PAGES "
+                  "WERE PROCESSED."
+              )
+
+              print(
+                  "NO EXISTING KNOWN URL "
+                  "WAS REMOVED."
+              )
+
+              print(
+                  "THE NEXT SCHEDULED RUN "
+                  "WILL RETRY THE REMAINING PAGES."
+              )
+
+          separator(
               "HOME'S PROPERTY MONITOR COMPLETE"
           )
-          separator()
 
           PY
 
@@ -1528,12 +1284,16 @@ jobs:
             git add known_homes_urls.txt
 
             if git diff --cached --quiet; then
-              echo "No known URL changes."
-            else
-              git commit -m "Update known HOME'S property URLs"
-
-              # 定期実行が重なった場合の競合対策
-              git pull --rebase origin main || true
-              git push
+              echo "No changes to known_homes_urls.txt"
+              exit 0
             fi
+
+            git commit -m "Update known HOME'S property URLs"
+
+            # 定期実行中に他のcommitが入った場合に備える
+            git pull --rebase origin main
+
+            git push origin main
+          else
+            echo "known_homes_urls.txt does not exist."
           fi
