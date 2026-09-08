@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "price_cursor": 134
+    "price_cursor": 10
   },
   "properties": {
     "https://www.homes.co.jp/kodate/b-1000980106700/": {
@@ -89,7 +89,7 @@
       "min_walk": 20,
       "price": 6499.0,
       "title": "【ホームズ】西武池袋線 保谷駅 徒歩20分（西東京市）の中古一戸建て",
-      "updated_at": "2026-09-08T18:44:12.539283+00:00"
+      "updated_at": "2026-09-08T19:23:35.345136+00:00"
     },
     "https://www.homes.co.jp/kodate/b-8910105443/": {
       "address": "東京都八王子市,JR横浜線",
@@ -101,6 +101,17 @@
       "price": 6249.0,
       "title": "【ホームズ】八王子市西片倉3丁目 戸建｜八王子市、JR横浜線 八王子みなみ野駅 徒歩9分の中古一戸建て",
       "updated_at": "2026-09-08T16:03:14.916306+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-8910105553/": {
+      "address": "東京都八王子市,JR中央線",
+      "age": 37.8,
+      "area": 128.87,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": 6,
+      "price": 3980.0,
+      "title": "【ホームズ】八王子市寺町 戸建｜八王子市、JR中央線 八王子駅 徒歩6分の中古一戸建て",
+      "updated_at": "2026-09-08T19:23:36.019107+00:00"
     },
     "https://www.homes.co.jp/kodate/b-89390006333/": {
       "address": "東京都八王子市,JR中央線",
