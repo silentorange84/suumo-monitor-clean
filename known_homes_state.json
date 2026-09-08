@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "price_cursor": 103
+    "price_cursor": 123
   },
   "properties": {
     "https://www.homes.co.jp/kodate/b-1000980106700/": {
@@ -112,6 +112,17 @@
       "price": 6580.0,
       "title": "【ホームズ】空を身近に感じながら、開放感を満喫できる特別な空間｜練馬区、都営大江戸線 光が丘駅 徒歩18分の中古一戸建て",
       "updated_at": "2026-09-08T13:56:50.742568+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1535110000020/": {
+      "address": "東京都中野区,西武新宿線",
+      "age": 20.8,
+      "area": 82.03,
+      "city": "中野区",
+      "land_right": "所有権",
+      "min_walk": 9,
+      "price": 7880.0,
+      "title": "【ホームズ】中野区鷺宮５丁目 中古戸建｜中野区、西武新宿線 鷺ノ宮駅 徒歩9分の中古一戸建て",
+      "updated_at": "2026-09-08T23:07:32.289546+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1581050000025/": {
       "address": "東京都八王子市,JR中央線",
