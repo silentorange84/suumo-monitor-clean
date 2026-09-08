@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "price_cursor": 80
+    "price_cursor": 100
   },
   "properties": {
     "https://www.homes.co.jp/kodate/b-1000980106700/": {
@@ -24,6 +24,17 @@
       "price": 6280.0,
       "title": "【ホームズ】京王相模原線 南大沢駅 バス10分 水甫緑地下車 徒歩2分（八王子市）の中古一戸建て",
       "updated_at": "2026-09-08T12:08:28.046246+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-94040000088/": {
+      "address": "東京都練馬区,西武池袋線",
+      "age": 9.4,
+      "area": 95.22,
+      "city": "練馬区",
+      "land_right": "所有権",
+      "min_walk": 33,
+      "price": 6580.0,
+      "title": "【ホームズ】西武池袋線 大泉学園駅 徒歩33分（練馬区）の中古一戸建て",
+      "updated_at": "2026-09-08T13:37:58.364772+00:00"
     }
   }
 }
