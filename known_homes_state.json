@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "price_cursor": 120
+    "price_cursor": 0
   },
   "properties": {
     "https://www.homes.co.jp/kodate/b-1000980106700/": {
@@ -46,6 +46,39 @@
       "price": 3399.0,
       "title": "【ホームズ】期間限定現況販売元八王子町中古戸建｜八王子市、JR中央線 西八王子駅 バス17分 慈根寺下車 徒歩3分の中古一戸建て",
       "updated_at": "2026-09-08T13:58:15.784986+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-89390006333/": {
+      "address": "東京都八王子市,JR中央線",
+      "age": 20.7,
+      "area": 93.95,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": null,
+      "price": 2280.0,
+      "title": "【ホームズ】八王子大楽寺町 中古一戸建て｜八王子市、JR中央線 西八王子駅 バス23分 神戸会館入口下車 徒歩3分の中古一戸建て",
+      "updated_at": "2026-09-08T14:16:40.331585+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-89610002988/": {
+      "address": "東京都豊島区,東武東上線",
+      "age": 18.2,
+      "area": 101.66,
+      "city": "豊島区",
+      "land_right": "所有権",
+      "min_walk": 8,
+      "price": 8980.0,
+      "title": "【ホームズ】東武東上線 北池袋駅 徒歩8分（豊島区）の中古一戸建て",
+      "updated_at": "2026-09-08T14:16:40.838261+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-91240000745/": {
+      "address": "東京都八王子市,JR中央線",
+      "age": 41.5,
+      "area": 66.1,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": null,
+      "price": 1480.0,
+      "title": "【ホームズ】八王子市下恩方町 中古一戸建て｜八王子市、JR中央線 高尾駅 バス17分 小田野中央公園下車 徒歩8分の中古一戸建て",
+      "updated_at": "2026-09-08T14:16:41.460934+00:00"
     },
     "https://www.homes.co.jp/kodate/b-94040000088/": {
       "address": "東京都練馬区,西武池袋線",
