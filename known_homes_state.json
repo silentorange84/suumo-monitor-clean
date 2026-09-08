@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "price_cursor": 10
+    "price_cursor": 30
   },
   "properties": {
     "https://www.homes.co.jp/kodate/b-1000980106700/": {
@@ -24,6 +24,17 @@
       "price": 6280.0,
       "title": "【ホームズ】京王相模原線 南大沢駅 バス10分 水甫緑地下車 徒歩2分（八王子市）の中古一戸建て",
       "updated_at": "2026-09-08T12:08:28.046246+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1127950080871/": {
+      "address": "東京都八王子市,JR中央線",
+      "age": 52.6,
+      "area": 98.31,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": 5,
+      "price": 1880.0,
+      "title": "【ホームズ】JR中央線 西八王子駅 4.2km（八王子市）の中古一戸建て",
+      "updated_at": "2026-09-08T19:39:26.610573+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1239390016070/": {
       "address": "東京都武蔵野市,JR中央線",
