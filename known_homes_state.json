@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "price_cursor": 40
+    "price_cursor": 60
   },
   "properties": {
     "https://www.homes.co.jp/kodate/b-1000980106700/": {
@@ -24,6 +24,17 @@
       "price": 6280.0,
       "title": "【ホームズ】京王相模原線 南大沢駅 バス10分 水甫緑地下車 徒歩2分（八王子市）の中古一戸建て",
       "updated_at": "2026-09-08T12:08:28.046246+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1278120012675/": {
+      "address": "東京都杉並区,JR中央線",
+      "age": 20.2,
+      "area": 540.53,
+      "city": "杉並区",
+      "land_right": "所有権",
+      "min_walk": 13,
+      "price": 50000.0,
+      "title": "【ホームズ】杉並区南荻窪1丁目の中古戸建｜杉並区、JR中央線 荻窪駅 徒歩13分の中古一戸建て",
+      "updated_at": "2026-09-08T15:27:21.157460+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1492860000368/": {
       "address": "東京都練馬区,都営大江戸線",
