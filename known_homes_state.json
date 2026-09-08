@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "price_cursor": 70
+    "price_cursor": 90
   },
   "properties": {
     "https://www.homes.co.jp/kodate/b-1000980106700/": {
@@ -79,6 +79,17 @@
       "price": 12980.0,
       "title": "【ホームズ】豊島区上池袋3丁目戸建て｜豊島区、東武東上線 北池袋駅 徒歩7分の中古一戸建て",
       "updated_at": "2026-09-08T20:16:07.928480+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1424140000433/": {
+      "address": "東京都中野区,東京メトロ丸ノ内線",
+      "age": 126.7,
+      "area": 23.14,
+      "city": "中野区",
+      "land_right": "所有権",
+      "min_walk": 6,
+      "price": 980.0,
+      "title": "【ホームズ】中野区南台5丁目・再建不戸建｜中野区、東京メトロ丸ノ内線 方南町駅 徒歩6分の中古一戸建て",
+      "updated_at": "2026-09-08T20:34:50.620828+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1465960007390/": {
       "address": "東京都八王子市,JR中央線",
