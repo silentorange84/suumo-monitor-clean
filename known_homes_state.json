@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "price_cursor": 34
+    "price_cursor": 54
   },
   "properties": {
     "https://www.homes.co.jp/kodate/b-1000980106700/": {
@@ -24,6 +24,17 @@
       "price": 6280.0,
       "title": "【ホームズ】京王相模原線 南大沢駅 バス10分 水甫緑地下車 徒歩2分（八王子市）の中古一戸建て",
       "updated_at": "2026-09-08T12:08:28.046246+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1239390016070/": {
+      "address": "東京都武蔵野市,JR中央線",
+      "age": 37.5,
+      "area": 343.01,
+      "city": "武蔵野市",
+      "land_right": "所有権",
+      "min_walk": null,
+      "price": 21000.0,
+      "title": "【ホームズ】武蔵野市吉祥寺北町3丁目 中古戸建｜武蔵野市、JR中央線 吉祥寺駅 バス14分 さわやか公園下車 徒歩2分の中古一戸建て",
+      "updated_at": "2026-09-08T17:42:27.903339+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1278120012675/": {
       "address": "東京都杉並区,JR中央線",
