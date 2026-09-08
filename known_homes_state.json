@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "price_cursor": 123
+    "price_cursor": 143
   },
   "properties": {
     "https://www.homes.co.jp/kodate/b-1000980106700/": {
@@ -134,6 +134,17 @@
       "price": 3399.0,
       "title": "【ホームズ】期間限定現況販売元八王子町中古戸建｜八王子市、JR中央線 西八王子駅 バス17分 慈根寺下車 徒歩3分の中古一戸建て",
       "updated_at": "2026-09-08T13:58:15.784986+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-35503120004911/": {
+      "address": "東京都杉並区,東京メトロ丸ノ内線",
+      "age": 23.5,
+      "area": 79.08,
+      "city": "杉並区",
+      "land_right": "所有権",
+      "min_walk": 5,
+      "price": 7380.0,
+      "title": "【ホームズ】東京メトロ丸ノ内線 東高円寺駅 徒歩5分（杉並区）の中古一戸建て",
+      "updated_at": "2026-09-08T23:25:23.947070+00:00"
     },
     "https://www.homes.co.jp/kodate/b-88030003088/": {
       "address": "東京都西東京市,西武池袋線",
