@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "price_cursor": 13
+    "price_cursor": 33
   },
   "properties": {
     "https://www.homes.co.jp/kodate/b-1000980106700/": {
@@ -35,6 +35,28 @@
       "price": 1880.0,
       "title": "【ホームズ】JR中央線 西八王子駅 4.2km（八王子市）の中古一戸建て",
       "updated_at": "2026-09-08T19:39:26.610573+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1188950013053/": {
+      "address": "東京都八王子市,JR中央線",
+      "age": 3.0,
+      "area": 88.39,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": 17,
+      "price": 4200.0,
+      "title": "【ホームズ】八王子市元本郷町4丁目｜八王子市、JR中央線 西八王子駅 徒歩17分の中古一戸建て",
+      "updated_at": "2026-09-08T23:56:37.565937+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1188950013054/": {
+      "address": "東京都八王子市,京王線",
+      "age": 19.2,
+      "area": 109.3,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": null,
+      "price": 3499.0,
+      "title": "【ホームズ】八王子市南陽台2丁目｜八王子市、京王線 平山城址公園駅 バス8分 東京薬科大学下車 徒歩9分の中古一戸建て",
+      "updated_at": "2026-09-08T23:56:38.149409+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1239390016070/": {
       "address": "東京都武蔵野市,JR中央線",
