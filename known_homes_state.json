@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "price_cursor": 132
+    "price_cursor": 6
   },
   "properties": {
     "https://www.homes.co.jp/kodate/b-1000980106700/": {
@@ -365,6 +365,17 @@
       "price": 9480.0,
       "title": "【ホームズ】豊島区上池袋二丁目 中古戸建｜豊島区、東武東上線 北池袋駅 徒歩8分の中古一戸建て",
       "updated_at": "2026-09-09T04:25:29.643369+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-37260210000025/": {
+      "address": "東京都八王子市,JR中央線",
+      "age": 8.2,
+      "area": 99.78,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": null,
+      "price": 2680.0,
+      "title": "【ホームズ】八王子市中野町 戸建｜八王子市、JR中央線 八王子駅 バス20分 東楢原下車 徒歩5分の中古一戸建て",
+      "updated_at": "2026-09-09T07:13:34.142915+00:00"
     },
     "https://www.homes.co.jp/kodate/b-88030003088/": {
       "address": "東京都西東京市,西武池袋線",
