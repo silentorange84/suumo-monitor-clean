@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "price_cursor": 146
+    "price_cursor": 166
   },
   "properties": {
     "https://www.homes.co.jp/kodate/b-1000980106700/": {
@@ -376,6 +376,28 @@
       "price": 7280.0,
       "title": "【ホームズ】練馬区中村南2丁目 戸建｜練馬区、西武新宿線 鷺ノ宮駅 徒歩9分の中古一戸建て",
       "updated_at": "2026-09-09T01:08:03.692782+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-35007560000161/": {
+      "address": "東京都三鷹市,京王線",
+      "age": 22.5,
+      "area": 77.19,
+      "city": "三鷹市",
+      "land_right": "所有権",
+      "min_walk": 21,
+      "price": 3980.0,
+      "title": "【ホームズ】三鷹市大沢4丁目 中古戸建｜三鷹市、京王線 調布駅 徒歩21分の中古一戸建て",
+      "updated_at": "2026-09-09T09:52:08.253623+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-35007600000208/": {
+      "address": "東京都八王子市,JR中央線",
+      "age": 18.5,
+      "area": 92.95,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": 17,
+      "price": 3980.0,
+      "title": "【ホームズ】八王子市台町3丁目戸建｜八王子市、JR中央線 西八王子駅 徒歩17分の中古一戸建て",
+      "updated_at": "2026-09-09T09:52:08.836962+00:00"
     },
     "https://www.homes.co.jp/kodate/b-35503120004911/": {
       "address": "東京都杉並区,東京メトロ丸ノ内線",
