@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "price_cursor": 57
+    "price_cursor": 77
   },
   "properties": {
     "https://www.homes.co.jp/kodate/b-1000980106700/": {
@@ -167,6 +167,17 @@
       "price": 5499.0,
       "title": "【ホームズ】八王子市 兵衛 新築未入居戸建て 1期 2号棟｜八王子市、JR横浜線 八王子みなみ野駅 徒歩10分の中古一戸建て",
       "updated_at": "2026-09-09T00:48:47.204089+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1388390000137/": {
+      "address": "東京都練馬区,東京メトロ有楽町線",
+      "age": 6.5,
+      "area": 97.01,
+      "city": "練馬区",
+      "land_right": "所有権",
+      "min_walk": 8,
+      "price": 9680.0,
+      "title": "【ホームズ】練馬区田柄二丁目｜練馬区、東京メトロ有楽町線 地下鉄赤塚駅 徒歩8分の中古一戸建て",
+      "updated_at": "2026-09-09T10:51:53.500790+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1424140000425/": {
       "address": "東京都練馬区,東京メトロ有楽町線",
