@@ -8,6 +8,8 @@ on:
         required: true
         default: false
         type: boolean
+
+  # 10分ごと
   schedule:
     - cron: "3,13,23,33,43,53 * * * *"
 
@@ -21,6 +23,7 @@ concurrency:
 jobs:
   monitor-homes:
     runs-on: ubuntu-latest
+
     env:
       NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
       RESET_BASELINE: ${{ github.event.inputs.reset_baseline || 'false' }}
@@ -29,11 +32,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Scan HOME'S and notify
+      - name: Scan HOME'S and notify new properties
         run: |
           python - <<'PY'
-          import os
           import re
+          import os
           import html
           import json
           import time
@@ -42,13 +45,50 @@ jobs:
           import urllib.error
           from datetime import datetime, timezone
 
+
+          # ============================================================
+          # 設定
+          # ============================================================
+
           BASE_URL = "https://www.homes.co.jp"
           LIST_BASE_URL = "https://www.homes.co.jp/kodate/chuko/tokyo/list/"
+
           KNOWN_FILE = "known_homes_urls.txt"
           STATE_FILE = "known_homes_state.json"
 
+          # ------------------------------------------------------------
+          # 軽量化設定
+          # ------------------------------------------------------------
+
+          # 1回の実行で詳細確認する新着候補数
+          # 失敗・未処理分は次回へ持ち越す
+          NEW_PROCESS_BATCH_SIZE = 12
+
+          # 1回の値下げ監視件数
+          PRICE_CHECK_BATCH_SIZE = 6
+
+          # 最大一覧ページ数
           MAX_LIST_PAGES = 8
-          PRICE_CHECK_BATCH_SIZE = 20
+
+          # 一覧ページのみ短い再試行を1回許可
+          LIST_MAX_ATTEMPTS = 2
+          LIST_RETRY_WAIT_SECONDS = 2
+
+          # 詳細ページは同一runでは再試行しない
+          DETAIL_TIMEOUT_SECONDS = 8
+
+          # 一覧ページ
+          LIST_TIMEOUT_SECONDS = 12
+
+          # NTFY
+          NTFY_TIMEOUT_SECONDS = 15
+
+          # 各リクエスト間の最小ウェイト
+          REQUEST_INTERVAL_SECONDS = 0.15
+
+          # ------------------------------------------------------------
+          # 検索条件
+          # ------------------------------------------------------------
 
           MAX_PRICE_MAN_YEN = 7000
           MIN_BUILDING_AREA_M2 = 70.0
@@ -67,8 +107,17 @@ jobs:
               "西東京市": "13229",
           }
 
-          RETRYABLE = {202, 408, 425, 429, 500, 502, 503, 504, None}
-          RETRY_WAITS = [2, 5, 10]
+          RETRYABLE_HTTP_STATUSES = {
+              202,
+              408,
+              425,
+              429,
+              500,
+              502,
+              503,
+              504,
+              None,
+          }
 
           USER_AGENT = (
               "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) "
@@ -77,7 +126,7 @@ jobs:
           )
 
           RESET_BASELINE = (
-              os.environ.get("RESET_BASELINE", "false")
+              str(os.environ.get("RESET_BASELINE", "false"))
               .lower()
               .strip()
               == "true"
@@ -85,23 +134,31 @@ jobs:
 
           NTFY_TOPIC = os.environ.get("NTFY_TOPIC", "").strip()
 
-          def sep(title):
+
+          # ============================================================
+          # 共通
+          # ============================================================
+
+          def separator(title=None):
               print()
               print("=" * 70)
-              print(title)
-              print("=" * 70)
+              if title:
+                  print(title)
+                  print("=" * 70)
 
-          def clean(s):
-              if s is None:
+
+          def normalize_space(value):
+              if value is None:
                   return None
 
-              s = html.unescape(s)
-              s = re.sub(r"<[^>]+>", " ", s)
-              s = re.sub(r"\s+", " ", s).strip()
+              value = html.unescape(value)
+              value = re.sub(r"<[^>]+>", " ", value)
+              value = re.sub(r"\s+", " ", value).strip()
 
-              return s or None
+              return value or None
 
-          def fetch_once(url, timeout=30):
+
+          def fetch(url, timeout):
               req = urllib.request.Request(
                   url,
                   headers={
@@ -119,40 +176,51 @@ jobs:
                   with urllib.request.urlopen(
                       req,
                       timeout=timeout,
-                  ) as r:
+                  ) as response:
 
-                      raw = r.read()
+                      raw = response.read()
 
                       charset = (
-                          r.headers.get_content_charset()
+                          response.headers.get_content_charset()
                           or "utf-8"
                       )
 
-                      return {
-                          "status": r.status,
-                          "url": r.geturl(),
-                          "text": raw.decode(
+                      try:
+                          text = raw.decode(
                               charset,
                               errors="replace",
-                          ),
+                          )
+                      except Exception:
+                          text = raw.decode(
+                              "utf-8",
+                              errors="replace",
+                          )
+
+                      return {
+                          "status": response.status,
+                          "url": response.geturl(),
+                          "text": text,
                       }
 
               except urllib.error.HTTPError as e:
+
                   try:
-                      body = e.read().decode(
+                      raw = e.read()
+                      text = raw.decode(
                           "utf-8",
                           errors="replace",
                       )
                   except Exception:
-                      body = ""
+                      text = ""
 
                   return {
                       "status": e.code,
                       "url": url,
-                      "text": body,
+                      "text": text,
                   }
 
               except Exception as e:
+
                   print(
                       f"FETCH ERROR: "
                       f"{type(e).__name__}: {e}"
@@ -164,58 +232,86 @@ jobs:
                       "text": "",
                   }
 
-          def fetch_with_retry(url, label):
-              last = None
 
-              for attempt in range(len(RETRY_WAITS)):
-
-                  last = fetch_once(url)
-
-                  status = last["status"]
-
-                  if status == 200 and last["text"]:
-                      return last
-
-                  if status not in RETRYABLE:
-                      return last
-
-                  if attempt < len(RETRY_WAITS) - 1:
-
-                      wait = RETRY_WAITS[attempt]
-
-                      print(
-                          f"{label} TEMPORARY ERROR "
-                          f"HTTP={status}; "
-                          f"retry in {wait}s"
-                      )
-
-                      time.sleep(wait)
-
-              return last
+          # ============================================================
+          # 一覧ページ
+          # ============================================================
 
           def build_list_url(page):
-              params = [
-                  (f"cond[city][{code}]", code)
-                  for code in TARGET_CITIES.values()
-              ]
 
-              params += [
-                  ("cond[pref]", "13"),
-                  ("cond[sortby]", "newdate"),
-              ]
+              params = []
 
-              if page > 1:
+              for code in TARGET_CITIES.values():
                   params.append(
-                      ("page", str(page))
+                      (f"cond[city][{code}]", code)
                   )
 
-              return (
-                  LIST_BASE_URL
-                  + "?"
-                  + urllib.parse.urlencode(params)
-              )
+              params.append(("cond[pref]", "13"))
+              params.append(("cond[sortby]", "newdate"))
 
-          def extract_property_urls(text):
+              if page > 1:
+                  params.append(("page", str(page)))
+
+              query = urllib.parse.urlencode(params)
+
+              return LIST_BASE_URL + "?" + query
+
+
+          def fetch_list_light(url):
+
+              last_result = None
+
+              for attempt in range(
+                  1,
+                  LIST_MAX_ATTEMPTS + 1,
+              ):
+
+                  result = fetch(
+                      url,
+                      LIST_TIMEOUT_SECONDS,
+                  )
+
+                  last_result = result
+                  status = result["status"]
+
+                  if status == 200 and result["text"]:
+
+                      if attempt > 1:
+                          print(
+                              "LIST PAGE RECOVERED "
+                              "ON SECOND ATTEMPT."
+                          )
+
+                      return result
+
+                  if (
+                      status in RETRYABLE_HTTP_STATUSES
+                      and attempt < LIST_MAX_ATTEMPTS
+                  ):
+
+                      print(
+                          f"LIST TEMPORARY ERROR "
+                          f"(HTTP {status})."
+                      )
+
+                      print(
+                          f"ONE SHORT RETRY IN "
+                          f"{LIST_RETRY_WAIT_SECONDS}s."
+                      )
+
+                      time.sleep(
+                          LIST_RETRY_WAIT_SECONDS
+                      )
+
+                      continue
+
+                  break
+
+              return last_result
+
+
+          def extract_property_urls(page_html):
+
               urls = set()
 
               patterns = [
@@ -223,20 +319,24 @@ jobs:
                       r'href=["\']'
                       r'(https?://www\.homes\.co\.jp/'
                       r'kodate/b-\d+/?)'
+                      r'["\']'
                   ),
                   (
                       r'href=["\']'
                       r'(/kodate/b-\d+/?)'
+                      r'["\']'
                   ),
               ]
 
               for pattern in patterns:
 
-                  for found in re.findall(
+                  found_list = re.findall(
                       pattern,
-                      text,
+                      page_html,
                       flags=re.IGNORECASE,
-                  ):
+                  )
+
+                  for found in found_list:
 
                       found = html.unescape(found)
 
@@ -250,10 +350,17 @@ jobs:
 
               return sorted(urls)
 
-          def load_known():
+
+          # ============================================================
+          # 保存データ
+          # ============================================================
+
+          def load_known_urls():
+
               try:
                   with open(
                       KNOWN_FILE,
+                      "r",
                       encoding="utf-8",
                   ) as f:
 
@@ -266,7 +373,9 @@ jobs:
               except FileNotFoundError:
                   return set()
 
-          def save_known(urls):
+
+          def save_known_urls(urls):
+
               with open(
                   KNOWN_FILE,
                   "w",
@@ -276,35 +385,63 @@ jobs:
                   for url in sorted(urls):
                       f.write(url + "\n")
 
+
           def load_state():
+
               try:
                   with open(
                       STATE_FILE,
+                      "r",
                       encoding="utf-8",
                   ) as f:
 
-                      state = json.load(f)
+                      data = json.load(f)
 
               except (
                   FileNotFoundError,
                   json.JSONDecodeError,
               ):
-                  state = {}
+                  data = {}
 
-              if not isinstance(state, dict):
-                  state = {}
+              if not isinstance(data, dict):
+                  data = {}
 
-              state.setdefault("_meta", {})
-              state.setdefault("properties", {})
+              data.setdefault("_meta", {})
+              data.setdefault("properties", {})
 
-              state["_meta"].setdefault(
+              if not isinstance(
+                  data["_meta"],
+                  dict,
+              ):
+                  data["_meta"] = {}
+
+              if not isinstance(
+                  data["properties"],
+                  dict,
+              ):
+                  data["properties"] = {}
+
+              data["_meta"].setdefault(
                   "price_cursor",
                   0,
               )
 
-              return state
+              data["_meta"].setdefault(
+                  "pending_new_urls",
+                  [],
+              )
+
+              if not isinstance(
+                  data["_meta"]["pending_new_urls"],
+                  list,
+              ):
+                  data["_meta"]["pending_new_urls"] = []
+
+              return data
+
 
           def save_state(state):
+
               with open(
                   STATE_FILE,
                   "w",
@@ -321,22 +458,60 @@ jobs:
 
                   f.write("\n")
 
-          def extract_title(text):
-              m = re.search(
+
+          def update_state_from_property(
+              state,
+              prop,
+          ):
+
+              url = prop.get("url")
+              price = prop.get("price")
+
+              if not url or price is None:
+                  return
+
+              state["properties"][url] = {
+                  "price": price,
+                  "title": prop.get("title"),
+                  "address": prop.get("address"),
+                  "city": prop.get("city"),
+                  "area": prop.get("area"),
+                  "age": prop.get("age"),
+                  "min_walk": prop.get("min_walk"),
+                  "land_right": prop.get(
+                      "land_right"
+                  ),
+                  "updated_at": (
+                      datetime.now(timezone.utc)
+                      .isoformat()
+                  ),
+              }
+
+
+          # ============================================================
+          # 詳細ページ：各項目抽出
+          # ============================================================
+
+          def extract_title(page_html):
+
+              match = re.search(
                   r"<title[^>]*>(.*?)</title>",
-                  text,
+                  page_html,
                   flags=(
                       re.IGNORECASE
                       | re.DOTALL
                   ),
               )
 
-              if not m:
+              if not match:
                   return None
 
-              title = clean(m.group(1))
+              title = normalize_space(
+                  match.group(1)
+              )
 
               if title:
+
                   title = re.sub(
                       r"\s*[-｜|]\s*HOME'S.*$",
                       "",
@@ -346,31 +521,35 @@ jobs:
 
               return title
 
-          def extract_address(text):
+
+          def extract_address(page_html):
+
               patterns = [
+                  r'"address"\s*:\s*"([^"]+)"',
+                  r'"streetAddress"\s*:\s*"([^"]+)"',
                   (
-                      r'"streetAddress"'
-                      r'\s*:\s*"([^"]+)"'
-                  ),
-                  (
-                      r'"address"'
-                      r'\s*:\s*"([^"]+)"'
+                      r'所在地[^<]{0,30}'
+                      r'</[^>]+>\s*'
+                      r'<[^>]+>(.*?)</'
                   ),
               ]
 
               for pattern in patterns:
 
-                  m = re.search(
+                  match = re.search(
                       pattern,
-                      text,
+                      page_html,
                       flags=(
                           re.IGNORECASE
                           | re.DOTALL
                       ),
                   )
 
-                  if m:
-                      value = clean(m.group(1))
+                  if match:
+
+                      value = normalize_space(
+                          match.group(1)
+                      )
 
                       if (
                           value
@@ -378,130 +557,160 @@ jobs:
                       ):
                           return value
 
-              page_text = clean(text) or ""
-
-              cities = "|".join(
-                  map(
-                      re.escape,
-                      TARGET_CITIES,
-                  )
+              text = (
+                  normalize_space(page_html)
+                  or ""
               )
 
-              m = re.search(
-                  rf"(東京都(?:{cities})"
-                  rf"[^\s|｜]{{0,40}})",
-                  page_text,
+              match = re.search(
+                  (
+                      r"(東京都(?:"
+                      r"中野区|杉並区|豊島区|練馬区|"
+                      r"八王子市|立川市|武蔵野市|"
+                      r"三鷹市|西東京市)"
+                      r"[^\s|｜]{0,40})"
+                  ),
+                  text,
               )
 
-              if m:
-                  return m.group(1)
+              if match:
+                  return match.group(1)
 
               return None
 
+
           def detect_city(address, title):
+
               source = " ".join(
-                  x
-                  for x in [
+                  item
+                  for item in [
                       address,
                       title,
                   ]
-                  if x
+                  if item
               )
 
               for city in TARGET_CITIES:
+
                   if city in source:
                       return city
 
               return None
 
-          def extract_price(text):
-              page_text = clean(text) or ""
+
+          def extract_price(page_html):
+
+              text = (
+                  normalize_space(page_html)
+                  or ""
+              )
 
               patterns = [
                   (
                       r"(?:販売価格|価格)"
                       r"[^\d]{0,30}"
-                      r"([0-9,]+(?:\.[0-9]+)?)"
+                      r"([0-9,]+)"
                       r"\s*万円"
                   ),
                   (
-                      r'"price"\s*:\s*"?'
-                      r'([0-9,]+(?:\.[0-9]+)?)'
-                      r'"?'
+                      r'"price"\s*:\s*'
+                      r'"?([0-9,]+)"?'
                   ),
               ]
 
               for pattern in patterns:
 
-                  m = re.search(
+                  match = re.search(
                       pattern,
-                      page_text,
+                      text,
                       flags=re.IGNORECASE,
                   )
 
-                  if not m:
+                  if not match:
                       continue
 
-                  try:
-                      value = float(
-                          m.group(1).replace(
-                              ",",
-                              "",
-                          )
-                      )
+                  raw = (
+                      match.group(1)
+                      .replace(",", "")
+                  )
 
+                  try:
+                      value = float(raw)
                   except ValueError:
                       continue
 
                   if value > 100000:
                       value /= 10000
 
-                  return round(
-                      value,
-                      2,
-                  )
+                  return round(value, 2)
 
               return None
 
-          def extract_area(text):
-              page_text = clean(text) or ""
 
-              m = re.search(
-                  (
-                      r"(?:建物面積|延床面積)"
-                      r"[^\d]{0,40}"
-                      r"([0-9]+(?:\.[0-9]+)?)"
-                      r"\s*(?:m2|m²|㎡)"
-                  ),
-                  page_text,
+          def extract_building_area(page_html):
+
+              text = (
+                  normalize_space(page_html)
+                  or ""
+              )
+
+              pattern = (
+                  r"(?:建物面積|延床面積)"
+                  r"[^\d]{0,40}"
+                  r"([0-9]+(?:\.[0-9]+)?)"
+                  r"\s*(?:m2|m²|㎡)"
+              )
+
+              match = re.search(
+                  pattern,
+                  text,
                   flags=re.IGNORECASE,
               )
 
-              if m:
-                  return float(m.group(1))
+              if match:
+
+                  try:
+                      return float(
+                          match.group(1)
+                      )
+                  except ValueError:
+                      pass
 
               return None
 
-          def extract_build_date(text):
-              page_text = clean(text) or ""
 
-              m = re.search(
-                  (
-                      r"(?:築年月|完成時期|建築年月)"
-                      r"[^\d]{0,30}"
-                      r"((?:19|20)\d{2})年"
-                      r"\s*([0-9]{1,2})?月?"
-                  ),
-                  page_text,
+          def extract_build_date(page_html):
+
+              text = (
+                  normalize_space(page_html)
+                  or ""
               )
 
-              if m:
-                  return (
-                      int(m.group(1)),
-                      int(m.group(2) or 1),
+              pattern = (
+                  r"(?:築年月|完成時期|建築年月)"
+                  r"[^\d]{0,30}"
+                  r"((?:19|20)\d{2})年"
+                  r"\s*([0-9]{1,2})?月?"
+              )
+
+              match = re.search(
+                  pattern,
+                  text,
+              )
+
+              if match:
+
+                  year = int(match.group(1))
+
+                  month = (
+                      int(match.group(2))
+                      if match.group(2)
+                      else 1
                   )
 
-              m = re.search(
+                  return year, month
+
+              match = re.search(
                   (
                       r"(?:築年月|完成時期|建築年月)"
                       r"[^\d]{0,30}"
@@ -509,18 +718,21 @@ jobs:
                       r"[/.-]"
                       r"([0-9]{1,2})"
                   ),
-                  page_text,
+                  text,
               )
 
-              if m:
+              if match:
+
                   return (
-                      int(m.group(1)),
-                      int(m.group(2)),
+                      int(match.group(1)),
+                      int(match.group(2)),
                   )
 
               return None, None
 
-          def age_years(year, month):
+
+          def calculate_age(year, month):
+
               if year is None:
                   return None
 
@@ -528,12 +740,16 @@ jobs:
                   timezone.utc
               )
 
+              current_year = now.year
+              current_month = now.month
+
+              if month is None:
+                  month = 1
+
               months = (
-                  (now.year - year) * 12
-                  + (
-                      now.month
-                      - (month or 1)
-                  )
+                  (current_year - year) * 12
+                  + current_month
+                  - month
               )
 
               return round(
@@ -541,79 +757,114 @@ jobs:
                   1,
               )
 
-          def extract_land_right(text):
-              page_text = clean(text) or ""
 
-              m = re.search(
+          def extract_land_right(page_html):
+
+              text = (
+                  normalize_space(page_html)
+                  or ""
+              )
+
+              patterns = [
                   (
                       r"(?:土地権利|権利形態)"
-                      r"[^\n]{0,30}?"
+                      r"[^\S\r\n]*[:：]?"
+                      r"[^\wぁ-んァ-ヶ一-龠]{0,10}"
                       r"(所有権|借地権|"
                       r"定期借地権|地上権)"
                   ),
-                  page_text,
-              )
+                  r"(所有権)",
+              ]
 
-              if m:
-                  return m.group(1)
+              for pattern in patterns:
 
-              if "所有権" in page_text:
-                  return "所有権"
+                  match = re.search(
+                      pattern,
+                      text,
+                  )
+
+                  if match:
+                      return match.group(1)
 
               return None
 
-          def extract_walk(title, text):
-              if (
-                  title
-                  and re.search(
-                      r"バス\s*\d+\s*分",
-                      title,
-                  )
+
+          # ============================================================
+          # 徒歩判定
+          # ============================================================
+
+          def extract_walk_from_title(title):
+
+              if not title:
+                  return [], "NOT_FOUND"
+
+              # バス利用物件
+              if re.search(
+                  r"バス\s*\d+\s*分",
+                  title,
               ):
-                  return (
-                      [],
-                      None,
-                      "BUS_ROUTE",
-                  )
+                  return [], "BUS_ROUTE"
 
-              values = []
+              minutes = []
 
-              if title:
-                  values += [
-                      int(x)
-                      for x in re.findall(
-                          r"徒歩\s*(\d{1,3})\s*分",
-                          title,
-                      )
-                  ]
-
-              values = [
-                  x
-                  for x in values
-                  if 0 < x <= 120
+              patterns = [
+                  (
+                      r"(?:駅|停留所|バス停)?"
+                      r"\s*徒歩\s*"
+                      r"(\d{1,3})\s*分"
+                  ),
+                  r"徒歩\s*(\d{1,3})\s*分",
               ]
 
-              if values:
-                  values = sorted(
-                      set(values)
-                  )
+              for pattern in patterns:
+
+                  for value in re.findall(
+                      pattern,
+                      title,
+                  ):
+
+                      try:
+                          minutes.append(
+                              int(value)
+                          )
+                      except ValueError:
+                          pass
+
+              minutes = [
+                  value
+                  for value in minutes
+                  if 0 < value <= 120
+              ]
+
+              if minutes:
 
                   return (
-                      values,
-                      min(values),
+                      sorted(set(minutes)),
                       "TITLE_DIRECT_WALK",
                   )
 
-              page_text = clean(text) or ""
+              return [], "NOT_FOUND"
+
+
+          def extract_walk_from_page(page_html):
+
+              text = (
+                  normalize_space(page_html)
+                  or ""
+              )
+
+              candidates = []
+
+              pattern = (
+                  r"(?:交通|アクセス|最寄り駅)"
+                  r".{0,120}?"
+                  r"(?:駅)?徒歩\s*"
+                  r"(\d{1,3})\s*分"
+              )
 
               for match in re.finditer(
-                  (
-                      r"(?:交通|アクセス|最寄り駅)"
-                      r".{0,120}?"
-                      r"(?:駅)?徒歩\s*"
-                      r"(\d{1,3})\s*分"
-                  ),
-                  page_text,
+                  pattern,
+                  text,
                   flags=re.DOTALL,
               ):
 
@@ -625,72 +876,149 @@ jobs:
                   ):
                       continue
 
-                  values.append(
-                      int(match.group(1))
+                  try:
+                      candidates.append(
+                          int(match.group(1))
+                      )
+                  except Exception:
+                      pass
+
+              candidates = [
+                  value
+                  for value in candidates
+                  if 0 < value <= 120
+              ]
+
+              if candidates:
+
+                  return (
+                      sorted(set(candidates)),
+                      "PAGE_DIRECT_WALK",
                   )
 
-              values = sorted(
-                  set(
-                      x
-                      for x in values
-                      if 0 < x <= 120
+              return [], "NOT_FOUND"
+
+
+          def extract_walk(
+              title,
+              page_html,
+          ):
+
+              minutes, source = (
+                  extract_walk_from_title(
+                      title
                   )
               )
 
-              if values:
+              if minutes:
+
                   return (
-                      values,
-                      min(values),
-                      "PAGE_DIRECT_WALK",
+                      minutes,
+                      min(minutes),
+                      source,
+                  )
+
+              if source == "BUS_ROUTE":
+
+                  return (
+                      [],
+                      None,
+                      "BUS_ROUTE",
+                  )
+
+              minutes, source = (
+                  extract_walk_from_page(
+                      page_html
+                  )
+              )
+
+              if minutes:
+
+                  return (
+                      minutes,
+                      min(minutes),
+                      source,
                   )
 
               return (
                   [],
                   None,
-                  "NOT_FOUND",
+                  source,
               )
+
+
+          # ============================================================
+          # 詳細ページ
+          #
+          # 重要：
+          # 同一run内では再試行しない。
+          # 失敗したURLはpending_new_urlsに残し、
+          # 次回10分後のrunへ渡す。
+          # ============================================================
+
+          def fetch_detail_once(url):
+
+              return fetch(
+                  url,
+                  DETAIL_TIMEOUT_SECONDS,
+              )
+
 
           def parse_property(url):
-              result = fetch_with_retry(
-                  url,
-                  "DETAIL",
-              )
 
-              if (
-                  not result
-                  or result["status"] != 200
-                  or not result["text"]
-              ):
+              result = fetch_detail_once(url)
+
+              if not result:
+
                   return {
                       "url": url,
-                      "status": (
-                          None
-                          if not result
-                          else result["status"]
-                      ),
+                      "status": None,
                       "parse_complete": False,
                   }
 
-              text = result["text"]
+              status = result["status"]
+              page_html = result["text"]
 
-              title = extract_title(text)
+              if (
+                  status != 200
+                  or not page_html
+              ):
 
-              address = extract_address(text)
+                  return {
+                      "url": url,
+                      "status": status,
+                      "parse_complete": False,
+                  }
+
+              title = extract_title(
+                  page_html
+              )
+
+              address = extract_address(
+                  page_html
+              )
 
               city = detect_city(
                   address,
                   title,
               )
 
-              price = extract_price(text)
-
-              area = extract_area(text)
-
-              build_year, build_month = (
-                  extract_build_date(text)
+              price = extract_price(
+                  page_html
               )
 
-              age = age_years(
+              area = extract_building_area(
+                  page_html
+              )
+
+              (
+                  build_year,
+                  build_month,
+              ) = extract_build_date(
+                  page_html
+              )
+
+              age = calculate_age(
                   build_year,
                   build_month,
               )
@@ -701,47 +1029,44 @@ jobs:
                   walk_source,
               ) = extract_walk(
                   title,
-                  text,
+                  page_html,
               )
 
-              land_right = (
-                  extract_land_right(text)
+              land_right = extract_land_right(
+                  page_html
               )
 
               city_ok = (
                   city in TARGET_CITIES
-                  if city
+                  if city is not None
                   else False
               )
 
               price_ok = (
                   price is not None
-                  and price
-                  <= MAX_PRICE_MAN_YEN
+                  and price <= MAX_PRICE_MAN_YEN
               )
 
               area_ok = (
                   area is not None
-                  and area
-                  >= MIN_BUILDING_AREA_M2
+                  and area >= MIN_BUILDING_AREA_M2
               )
 
               age_ok = (
                   age is not None
-                  and age
-                  <= MAX_AGE_YEARS
+                  and age <= MAX_AGE_YEARS
               )
 
               walk_ok = (
                   min_walk is not None
-                  and min_walk
-                  <= MAX_WALK_MINUTES
+                  and min_walk <= MAX_WALK_MINUTES
               )
 
               ownership_ok = (
                   land_right == "所有権"
               )
 
+              # BUS_ROUTEなら徒歩条件Falseで確定できる
               if walk_source == "BUS_ROUTE":
                   walk_ok = False
 
@@ -770,7 +1095,7 @@ jobs:
 
               return {
                   "url": url,
-                  "status": result["status"],
+                  "status": status,
                   "title": title,
                   "address": address,
                   "city": city,
@@ -783,165 +1108,45 @@ jobs:
                   "min_walk": min_walk,
                   "walk_source": walk_source,
                   "land_right": land_right,
+
                   "city_ok": city_ok,
                   "price_ok": price_ok,
                   "area_ok": area_ok,
                   "age_ok": age_ok,
                   "walk_ok": walk_ok,
                   "ownership_ok": ownership_ok,
-                  "all_conditions": all_conditions,
+
+                  "all_conditions": (
+                      all_conditions
+                  ),
                   "parse_complete": (
                       parse_complete
                   ),
               }
 
-          def update_state(state, prop):
-              url = prop.get("url")
-              price = prop.get("price")
 
-              if (
-                  not url
-                  or price is None
-              ):
-                  return
+          # ============================================================
+          # NTFY
+          # ============================================================
 
-              state["properties"][url] = {
-                  "price": price,
-                  "title": prop.get("title"),
-                  "address": prop.get("address"),
-                  "city": prop.get("city"),
-                  "area": prop.get("area"),
-                  "age": prop.get("age"),
-                  "min_walk": (
-                      prop.get("min_walk")
-                  ),
-                  "land_right": (
-                      prop.get("land_right")
-                  ),
-                  "updated_at": (
-                      datetime.now(
-                          timezone.utc
-                      ).isoformat()
-                  ),
-              }
-
-          def send_ntfy(
-              prop,
-              kind="new",
-              old_price=None,
-          ):
+          def send_ntfy(payload, label):
 
               if not NTFY_TOPIC:
+
                   print(
-                      "NTFY_TOPIC is empty; "
-                      "notification skipped"
+                      "NTFY_TOPIC is empty."
                   )
+
                   return False
 
-              if kind == "drop":
-
-                  drop = round(
-                      float(old_price)
-                      - float(prop["price"]),
-                      2,
-                  )
-
-                  ntfy_title = (
-                      "📉 HOME'S 値下げ中古戸建"
-                  )
-
-                  lines = [
-                      "📉 HOME'S 値下げ中古戸建",
-                      "",
-                      (
-                          f"エリア："
-                          f"{prop['city']}"
-                      ),
-                      (
-                          f"価格："
-                          f"{old_price}万円 "
-                          f"→ {prop['price']}万円"
-                      ),
-                      (
-                          f"値下げ："
-                          f"{drop}万円"
-                      ),
-                      (
-                          f"建物面積："
-                          f"{prop['area']}㎡"
-                      ),
-                      (
-                          f"築年数：約"
-                          f"{prop['age']}年"
-                      ),
-                      (
-                          f"駅徒歩："
-                          f"{prop['min_walk']}分"
-                      ),
-                      (
-                          f"土地権利："
-                          f"{prop['land_right']}"
-                      ),
-                  ]
-
-              else:
-
-                  ntfy_title = (
-                      "🏠 HOME'S 新着中古戸建"
-                  )
-
-                  lines = [
-                      "🏠 HOME'S 新着中古戸建",
-                      "",
-                      (
-                          f"エリア："
-                          f"{prop['city']}"
-                      ),
-                      (
-                          f"価格："
-                          f"{prop['price']}万円"
-                      ),
-                      (
-                          f"建物面積："
-                          f"{prop['area']}㎡"
-                      ),
-                      (
-                          f"築年数：約"
-                          f"{prop['age']}年"
-                      ),
-                      (
-                          f"駅徒歩："
-                          f"{prop['min_walk']}分"
-                      ),
-                      (
-                          f"土地権利："
-                          f"{prop['land_right']}"
-                      ),
-                  ]
-
-              if prop.get("address"):
-                  lines.append(
-                      f"所在地："
-                      f"{prop['address']}"
-                  )
-
-              body = json.dumps(
-                  {
-                      "topic": NTFY_TOPIC,
-                      "title": ntfy_title,
-                      "message": "\n".join(
-                          lines
-                      ),
-                      "priority": 5,
-                      "tags": ["house"],
-                      "click": prop["url"],
-                  },
+              data = json.dumps(
+                  payload,
                   ensure_ascii=False,
               ).encode("utf-8")
 
               req = urllib.request.Request(
                   "https://ntfy.sh",
-                  data=body,
+                  data=data,
                   headers={
                       "Content-Type": (
                           "application/json; "
@@ -952,13 +1157,14 @@ jobs:
               )
 
               try:
+
                   with urllib.request.urlopen(
                       req,
-                      timeout=30,
+                      timeout=NTFY_TIMEOUT_SECONDS,
                   ) as response:
 
                       print(
-                          f"NTFY HTTP STATUS: "
+                          f"{label} HTTP STATUS: "
                           f"{response.status}"
                       )
 
@@ -969,41 +1175,243 @@ jobs:
                       )
 
               except Exception as e:
+
                   print(
-                      f"NTFY ERROR: "
+                      f"{label} ERROR: "
                       f"{type(e).__name__}: {e}"
                   )
 
                   return False
 
-          sep(
+
+          def notify_new_property(prop):
+
+              lines = [
+                  "🏠 HOME'S 新着中古戸建",
+                  "",
+                  f"エリア：{prop.get('city')}",
+                  (
+                      f"価格："
+                      f"{prop.get('price')}万円"
+                  ),
+                  (
+                      f"建物面積："
+                      f"{prop.get('area')}㎡"
+                  ),
+                  (
+                      f"築年数：約"
+                      f"{prop.get('age')}年"
+                  ),
+                  (
+                      f"駅徒歩："
+                      f"{prop.get('min_walk')}分"
+                  ),
+                  (
+                      f"土地権利："
+                      f"{prop.get('land_right')}"
+                  ),
+              ]
+
+              if prop.get("address"):
+
+                  lines.append(
+                      f"所在地："
+                      f"{prop.get('address')}"
+                  )
+
+              payload = {
+                  "topic": NTFY_TOPIC,
+                  "title": (
+                      "🏠 HOME'S 新着中古戸建"
+                  ),
+                  "message": "\n".join(lines),
+                  "priority": 5,
+                  "tags": ["house"],
+                  "click": prop["url"],
+              }
+
+              return send_ntfy(
+                  payload,
+                  "NTFY",
+              )
+
+
+          def notify_price_drop(
+              prop,
+              old_price,
+          ):
+
+              new_price = prop.get("price")
+
+              if new_price is None:
+                  return False
+
+              reduction = round(
+                  float(old_price)
+                  - float(new_price),
+                  2,
+              )
+
+              lines = [
+                  "📉 HOME'S 中古戸建 値下げ",
+                  "",
+                  f"エリア：{prop.get('city')}",
+                  (
+                      f"価格："
+                      f"{old_price}万円 "
+                      f"→ {new_price}万円"
+                  ),
+                  (
+                      f"値下げ："
+                      f"{reduction}万円"
+                  ),
+                  (
+                      f"建物面積："
+                      f"{prop.get('area')}㎡"
+                  ),
+                  (
+                      f"築年数：約"
+                      f"{prop.get('age')}年"
+                  ),
+                  (
+                      f"駅徒歩："
+                      f"{prop.get('min_walk')}分"
+                  ),
+                  (
+                      f"土地権利："
+                      f"{prop.get('land_right')}"
+                  ),
+              ]
+
+              if prop.get("address"):
+
+                  lines.append(
+                      f"所在地："
+                      f"{prop.get('address')}"
+                  )
+
+              payload = {
+                  "topic": NTFY_TOPIC,
+                  "title": (
+                      "📉 HOME'S 中古戸建 値下げ"
+                  ),
+                  "message": "\n".join(lines),
+                  "priority": 5,
+                  "tags": [
+                      "chart_with_downwards_trend",
+                      "house",
+                  ],
+                  "click": prop["url"],
+              }
+
+              return send_ntfy(
+                  payload,
+                  "NTFY PRICE DROP",
+              )
+
+
+          # ============================================================
+          # 開始
+          # ============================================================
+
+          separator(
               "HOME'S PROPERTY MONITOR START"
           )
 
-          known = load_known()
+          print("TARGET CITIES:")
+
+          for city, code in TARGET_CITIES.items():
+              print(f"  {city}: {code}")
+
+          print()
+          print("CONDITIONS:")
+          print(
+              f"  PRICE <= "
+              f"{MAX_PRICE_MAN_YEN}万円"
+          )
+          print(
+              f"  BUILDING AREA >= "
+              f"{MIN_BUILDING_AREA_M2}㎡"
+          )
+          print(
+              f"  AGE <= "
+              f"{MAX_AGE_YEARS} years"
+          )
+          print(
+              f"  WALK <= "
+              f"{MAX_WALK_MINUTES} minutes"
+          )
+          print("  LAND RIGHT = 所有権")
+          print(
+              f"  LIST PAGES <= "
+              f"{MAX_LIST_PAGES}"
+          )
+
+          print()
+          print("LIGHT RETRY MODE:")
+          print(
+              f"  NEW PROCESS BATCH <= "
+              f"{NEW_PROCESS_BATCH_SIZE}"
+          )
+          print(
+              f"  PRICE CHECK BATCH <= "
+              f"{PRICE_CHECK_BATCH_SIZE}"
+          )
+          print(
+              "  DETAIL SAME-RUN RETRY = 0"
+          )
+          print(
+              f"  DETAIL TIMEOUT = "
+              f"{DETAIL_TIMEOUT_SECONDS}s"
+          )
+          print(
+              "  FAILED URL = DEFER TO NEXT RUN"
+          )
+
+
+          known_urls = load_known_urls()
           state = load_state()
 
+          pending_urls = set(
+              state["_meta"].get(
+                  "pending_new_urls",
+                  [],
+              )
+          )
+
+          # すでに既知になったものはpendingから除去
+          pending_urls -= known_urls
+
+          print()
           print(
               f"RESET BASELINE: "
               f"{RESET_BASELINE}"
           )
-
           print(
               f"KNOWN URL COUNT: "
-              f"{len(known)}"
+              f"{len(known_urls)}"
+          )
+          print(
+              f"PENDING URL COUNT: "
+              f"{len(pending_urls)}"
           )
 
-          current = set()
 
-          successful_pages = 0
-          interrupted = False
+          # ============================================================
+          # 一覧巡回
+          # ============================================================
+
+          current_urls = set()
+
+          successfully_scanned_pages = 0
+          list_scan_interrupted = False
 
           for page in range(
               1,
               MAX_LIST_PAGES + 1,
           ):
 
-              sep(
+              separator(
                   f"FETCH LIST PAGE: {page}"
               )
 
@@ -1011,37 +1419,53 @@ jobs:
                   page
               )
 
+              print()
+              print("LIST URL:")
               print(list_url)
 
-              result = fetch_with_retry(
-                  list_url,
-                  "LIST",
+              result = fetch_list_light(
+                  list_url
               )
 
-              status = (
-                  None
-                  if not result
-                  else result["status"]
-              )
+              if result is None:
+
+                  print(
+                      "LIST FETCH RETURNED NONE."
+                  )
+
+                  list_scan_interrupted = True
+                  break
+
+              status = result["status"]
 
               print(
-                  f"HTTP STATUS: "
-                  f"{status}"
+                  f"HTTP STATUS: {status}"
               )
 
               if (
-                  not result
-                  or status != 200
-                  or not result["text"]
+                  status
+                  in RETRYABLE_HTTP_STATUSES
               ):
 
                   print(
-                      "LIST PAGE UNAVAILABLE "
-                      "AFTER RETRIES; "
-                      "stop pagination"
+                      "LIST PAGE TEMPORARILY "
+                      "UNAVAILABLE."
+                  )
+                  print(
+                      "STOP PAGINATION. "
+                      "NO LONG WAIT."
                   )
 
-                  interrupted = True
+                  list_scan_interrupted = True
+                  break
+
+              if status != 200:
+
+                  print(
+                      "UNEXPECTED LIST STATUS."
+                  )
+
+                  list_scan_interrupted = True
                   break
 
               property_urls = (
@@ -1050,80 +1474,135 @@ jobs:
                   )
               )
 
-              before_count = len(current)
-
-              current.update(
-                  property_urls
-              )
-
-              added_count = (
-                  len(current)
-                  - before_count
-              )
-
-              successful_pages += 1
-
               print(
                   f"PROPERTY URL COUNT: "
                   f"{len(property_urls)}"
               )
 
-              print(
-                  f"UNIQUE ADDED: "
-                  f"{added_count}"
+              before = len(current_urls)
+
+              current_urls.update(
+                  property_urls
               )
 
+              added = (
+                  len(current_urls)
+                  - before
+              )
+
+              print(
+                  f"UNIQUE ADDED: {added}"
+              )
+
+              for i, url in enumerate(
+                  property_urls[:5],
+                  start=1,
+              ):
+
+                  print(
+                      f"  SAMPLE {i}: "
+                      f"{url}"
+                  )
+
+              successfully_scanned_pages += 1
+
               if not property_urls:
+
                   print(
-                      "NO PROPERTY URL; "
-                      "normal end of pagination"
+                      "NO PROPERTY URL. "
+                      "NORMAL END OF PAGINATION."
                   )
+
                   break
 
-              if added_count == 0:
+              if added == 0:
+
                   print(
-                      "NO NEW UNIQUE URL; "
-                      "pagination appears ended"
+                      "NO NEW UNIQUE URL "
+                      "ON THIS PAGE."
                   )
+
+                  print(
+                      "PAGINATION APPEARS "
+                      "TO HAVE ENDED."
+                  )
+
                   break
 
-              time.sleep(0.5)
+              time.sleep(
+                  REQUEST_INTERVAL_SECONDS
+              )
 
-          sep("LIST SCAN RESULT")
+
+          # ============================================================
+          # 一覧結果
+          # ============================================================
+
+          separator(
+              "LIST SCAN RESULT"
+          )
 
           print(
               f"SUCCESSFULLY SCANNED PAGES: "
-              f"{successful_pages}"
+              f"{successfully_scanned_pages}"
           )
 
           print(
               f"CURRENT URL COUNT: "
-              f"{len(current)}"
+              f"{len(current_urls)}"
           )
 
           print(
               f"LIST SCAN INTERRUPTED: "
-              f"{interrupted}"
+              f"{list_scan_interrupted}"
           )
 
-          if successful_pages == 0:
+          if successfully_scanned_pages == 0:
+
+              print()
+              print(
+                  "NO LIST PAGE WAS "
+                  "SUCCESSFULLY FETCHED."
+              )
 
               print(
-                  "No list page succeeded. "
-                  "Keep existing state and "
-                  "retry next run."
+                  "KNOWN / STATE FILES "
+                  "WILL NOT BE CHANGED."
+              )
+
+              print(
+                  "NEXT SCHEDULED RUN "
+                  "WILL RETRY."
+              )
+
+              separator(
+                  "HOME'S PROPERTY "
+                  "MONITOR COMPLETE"
               )
 
               raise SystemExit(0)
 
+
+          # ============================================================
+          # ベースラインリセット
+          # ============================================================
+
           if RESET_BASELINE:
 
-              new_known = (
-                  known
-                  | current
+              separator(
+                  "BASELINE RESET"
               )
 
-              save_known(
+              new_known = (
+                  known_urls
+                  | current_urls
+              )
+
+              state["_meta"][
+                  "pending_new_urls"
+              ] = []
+
+              save_known_urls(
                   new_known
               )
 
@@ -1132,43 +1611,117 @@ jobs:
               )
 
               print(
+                  f"CURRENT FETCHED URL COUNT: "
+                  f"{len(current_urls)}"
+              )
+
+              print(
                   f"REGISTERED URL COUNT: "
                   f"{len(new_known)}"
               )
 
               print(
-                  "No notification will be sent. "
-                  "Price baselines initialize "
-                  "gradually."
+                  "No notification "
+                  "will be sent."
+              )
+
+              print(
+                  "Price baseline will "
+                  "be initialized gradually."
+              )
+
+              separator(
+                  "HOME'S PROPERTY "
+                  "MONITOR COMPLETE"
               )
 
               raise SystemExit(0)
 
-          new_urls = sorted(
-              current - known
+
+          # ============================================================
+          # 新着候補キュー
+          # ============================================================
+
+          newly_discovered = (
+              current_urls
+              - known_urls
+          )
+
+          # 前回失敗分＋今回新規
+          pending_urls.update(
+              newly_discovered
+          )
+
+          # 既知化済みURLは除去
+          pending_urls -= known_urls
+
+          all_pending = sorted(
+              pending_urls
+          )
+
+          process_batch = (
+              all_pending[
+                  :NEW_PROCESS_BATCH_SIZE
+              ]
+          )
+
+          deferred_count = max(
+              0,
+              len(all_pending)
+              - len(process_batch),
+          )
+
+          separator(
+              "NEW PROPERTY QUEUE"
           )
 
           print(
-              f"NEW URL COUNT: "
-              f"{len(new_urls)}"
+              f"NEWLY DISCOVERED COUNT: "
+              f"{len(newly_discovered)}"
           )
 
-          updated_known = set(
-              known
+          print(
+              f"PENDING TOTAL COUNT: "
+              f"{len(all_pending)}"
           )
 
-          processed = 0
-          notified = 0
-          excluded = 0
-          retry = 0
+          print(
+              f"PROCESS THIS RUN: "
+              f"{len(process_batch)}"
+          )
+
+          print(
+              f"DEFERRED TO NEXT RUN: "
+              f"{deferred_count}"
+          )
+
+
+          # ============================================================
+          # 新着詳細確認
+          # ============================================================
+
+          processed_count = 0
+          notified_count = 0
+          excluded_count = 0
+          deferred_error_count = 0
+
+          updated_known_urls = set(
+              known_urls
+          )
+
+          successful_pending_urls = set()
 
           for index, url in enumerate(
-              new_urls,
-              1,
+              process_batch,
+              start=1,
           ):
 
-              sep(
+              separator(
                   f"NEW PROPERTY {index}"
+              )
+
+              print(
+                  f"URL: {url}"
               )
 
               prop = parse_property(
@@ -1176,17 +1729,55 @@ jobs:
               )
 
               print(
-                  f"URL: {url}"
-              )
-
-              print(
                   f"HTTP STATUS: "
                   f"{prop.get('status')}"
               )
 
+              # --------------------------------------------------------
+              # 一時エラー・解析不能
+              # 同じrunでは粘らない
+              # --------------------------------------------------------
+
+              if not prop.get(
+                  "parse_complete",
+                  False,
+              ):
+
+                  print(
+                      "PARSING INCOMPLETE."
+                  )
+
+                  print(
+                      "NO SAME-RUN RETRY."
+                  )
+
+                  print(
+                      "DEFER THIS URL "
+                      "TO NEXT SCHEDULED RUN."
+                  )
+
+                  deferred_error_count += 1
+
+                  time.sleep(
+                      REQUEST_INTERVAL_SECONDS
+                  )
+
+                  continue
+
+
               print(
                   f"TITLE: "
                   f"{prop.get('title')}"
+              )
+
+              print(
+                  f"ADDRESS: "
+                  f"{prop.get('address')}"
+              )
+
+              print(
+                  f"CITY: "
+                  f"{prop.get('city')}"
               )
 
               print(
@@ -1200,8 +1791,23 @@ jobs:
               )
 
               print(
+                  f"BUILD_YEAR: "
+                  f"{prop.get('build_year')}"
+              )
+
+              print(
+                  f"BUILD_MONTH: "
+                  f"{prop.get('build_month')}"
+              )
+
+              print(
                   f"AGE_YEARS: "
                   f"{prop.get('age')}"
+              )
+
+              print(
+                  f"WALKING_MINUTES_FOUND: "
+                  f"{prop.get('walk_values')}"
               )
 
               print(
@@ -1210,29 +1816,61 @@ jobs:
               )
 
               print(
+                  f"WALK_SOURCE: "
+                  f"{prop.get('walk_source')}"
+              )
+
+              print(
                   f"LAND_RIGHT: "
                   f"{prop.get('land_right')}"
               )
 
+              print()
               print(
-                  f"ALL CONDITIONS: "
-                  f"{prop.get('all_conditions', False)}"
+                  "CONDITION CHECK"
+              )
+              print("-" * 70)
+
+              print(
+                  f"TARGET CITY: "
+                  f"{prop['city_ok']}"
               )
 
-              if not prop.get(
-                  "parse_complete"
-              ):
+              print(
+                  f"PRICE <= 7000: "
+                  f"{prop['price_ok']}"
+              )
 
-                  print(
-                      "PARSING INCOMPLETE; "
-                      "leave unregistered "
-                      "for retry"
-                  )
+              print(
+                  f"BUILDING AREA >= 70: "
+                  f"{prop['area_ok']}"
+              )
 
-                  retry += 1
-                  continue
+              print(
+                  f"AGE <= 25: "
+                  f"{prop['age_ok']}"
+              )
 
-              processed += 1
+              print(
+                  f"WALK <= 15: "
+                  f"{prop['walk_ok']}"
+              )
+
+              print(
+                  f"OWNERSHIP: "
+                  f"{prop['ownership_ok']}"
+              )
+
+              print(
+                  f"ALL CONDITIONS: "
+                  f"{prop['all_conditions']}"
+              )
+
+              processed_count += 1
+
+              # --------------------------------------------------------
+              # 条件外
+              # --------------------------------------------------------
 
               if not prop[
                   "all_conditions"
@@ -1242,69 +1880,108 @@ jobs:
                       "EXCLUDED BY CONDITIONS"
                   )
 
-                  updated_known.add(
+                  updated_known_urls.add(
                       url
                   )
 
-                  update_state(
+                  successful_pending_urls.add(
+                      url
+                  )
+
+                  update_state_from_property(
                       state,
                       prop,
                   )
 
-                  excluded += 1
+                  excluded_count += 1
+
+                  time.sleep(
+                      REQUEST_INTERVAL_SECONDS
+                  )
+
                   continue
 
+
+              # --------------------------------------------------------
+              # 条件一致
+              # --------------------------------------------------------
+
+              print(
+                  "MATCHED ALL CONDITIONS"
+              )
+
+              print(
+                  "SENDING NOTIFICATION..."
+              )
+
               notification_ok = (
-                  send_ntfy(
-                      prop,
-                      "new",
+                  notify_new_property(
+                      prop
                   )
               )
 
               if notification_ok:
 
                   print(
-                      "NEW PROPERTY "
                       "NOTIFICATION SUCCESS"
                   )
 
-                  updated_known.add(
+                  updated_known_urls.add(
                       url
                   )
 
-                  update_state(
+                  successful_pending_urls.add(
+                      url
+                  )
+
+                  update_state_from_property(
                       state,
                       prop,
                   )
 
-                  notified += 1
+                  notified_count += 1
 
               else:
 
                   print(
-                      "NOTIFICATION FAILED; "
-                      "leave unregistered "
-                      "for retry"
+                      "NOTIFICATION FAILED."
                   )
 
-                  retry += 1
+                  print(
+                      "KEEP URL IN PENDING "
+                      "QUEUE FOR NEXT RUN."
+                  )
 
-          sep(
+                  deferred_error_count += 1
+
+              time.sleep(
+                  REQUEST_INTERVAL_SECONDS
+              )
+
+
+          # 成功・条件外で処理完了したURLだけpendingから外す
+          pending_urls -= successful_pending_urls
+
+          # known化されたものを念のため除外
+          pending_urls -= updated_known_urls
+
+
+          # ============================================================
+          # 値下げ監視
+          # ============================================================
+
+          separator(
               "PRICE DROP MONITOR"
           )
 
+          # 現在一覧で確認できた既知物件のみ
           price_candidates = sorted(
-              (
-                  updated_known
-                  & current
-              )
-              - set(new_urls)
+              updated_known_urls
+              & current_urls
           )
 
           cursor = int(
-              state
-              .get("_meta", {})
-              .get(
+              state["_meta"].get(
                   "price_cursor",
                   0,
               )
@@ -1317,53 +1994,58 @@ jobs:
                   price_candidates
               )
 
-              batch = (
-                  price_candidates[
-                      cursor:
-                  ]
-                  + price_candidates[
-                      :cursor
-                  ]
-              )[
+              rotated = (
+                  price_candidates[cursor:]
+                  + price_candidates[:cursor]
+              )
+
+              price_batch = rotated[
                   :PRICE_CHECK_BATCH_SIZE
               ]
 
               next_cursor = (
                   cursor
-                  + len(batch)
-              ) % len(
-                  price_candidates
-              )
+                  + len(price_batch)
+              ) % len(price_candidates)
 
           else:
-              batch = []
+
+              price_batch = []
               next_cursor = 0
 
           print(
-              f"PRICE CHECK "
-              f"CANDIDATE COUNT: "
+              f"PRICE CHECK CANDIDATE COUNT: "
               f"{len(price_candidates)}"
           )
 
           print(
-              f"PRICE CHECK "
-              f"BATCH COUNT: "
-              f"{len(batch)}"
+              f"PRICE CHECK BATCH COUNT: "
+              f"{len(price_batch)}"
           )
 
-          price_checked = 0
-          price_init = 0
-          price_drops = 0
-          price_drop_notified = 0
-          price_retry = 0
+          print(
+              f"PRICE CHECK CURSOR: "
+              f"{cursor}"
+          )
+
+          price_checked_count = 0
+          price_initialized_count = 0
+          price_drop_count = 0
+          price_drop_notified_count = 0
+          price_deferred_count = 0
+
 
           for index, url in enumerate(
-              batch,
-              1,
+              price_batch,
+              start=1,
           ):
 
-              sep(
+              separator(
                   f"PRICE CHECK {index}"
+              )
+
+              print(
+                  f"URL: {url}"
               )
 
               prop = parse_property(
@@ -1371,28 +2053,44 @@ jobs:
               )
 
               if not prop.get(
-                  "parse_complete"
+                  "parse_complete",
+                  False,
               ):
 
                   print(
                       "PRICE CHECK "
-                      "PARSING INCOMPLETE; "
-                      "keep previous price"
+                      "PARSING INCOMPLETE."
                   )
 
-                  price_retry += 1
+                  print(
+                      "KEEP PREVIOUS PRICE."
+                  )
+
+                  print(
+                      "NO SAME-RUN RETRY."
+                  )
+
+                  price_deferred_count += 1
+
+                  time.sleep(
+                      REQUEST_INTERVAL_SECONDS
+                  )
+
                   continue
 
-              price_checked += 1
+              price_checked_count += 1
 
-              old_price = (
+              old_entry = (
                   state["properties"]
                   .get(url, {})
-                  .get("price")
               )
 
-              new_price = prop.get(
-                  "price"
+              old_price = (
+                  old_entry.get("price")
+              )
+
+              new_price = (
+                  prop.get("price")
               )
 
               print(
@@ -1405,28 +2103,38 @@ jobs:
                   f"{new_price}"
               )
 
+              # --------------------------------------------------------
+              # 初回価格保存
+              # --------------------------------------------------------
+
               if old_price is None:
 
                   print(
                       "PRICE BASELINE "
                       "INITIALIZED WITHOUT "
-                      "NOTIFICATION"
+                      "NOTIFICATION."
                   )
 
-                  update_state(
+                  update_state_from_property(
                       state,
                       prop,
                   )
 
-                  price_init += 1
+                  price_initialized_count += 1
+
+                  time.sleep(
+                      REQUEST_INTERVAL_SECONDS
+                  )
+
                   continue
 
+
               try:
-                  old_price = float(
+                  old_value = float(
                       old_price
                   )
 
-                  new_price = float(
+                  new_value = float(
                       new_price
                   )
 
@@ -1435,32 +2143,54 @@ jobs:
                   ValueError,
               ):
 
-                  update_state(
+                  print(
+                      "INVALID PRICE DATA."
+                  )
+
+                  update_state_from_property(
                       state,
                       prop,
                   )
 
+                  time.sleep(
+                      REQUEST_INTERVAL_SECONDS
+                  )
+
                   continue
 
-              if new_price < old_price:
 
-                  price_drops += 1
+              # --------------------------------------------------------
+              # 値下げ
+              # --------------------------------------------------------
+
+              if new_value < old_value:
+
+                  price_drop_count += 1
 
                   print(
                       f"PRICE DROP DETECTED: "
-                      f"{old_price} "
-                      f"-> {new_price}"
+                      f"{old_value} "
+                      f"-> {new_value}"
                   )
 
                   if prop[
                       "all_conditions"
                   ]:
 
+                      print(
+                          "PRICE-DROPPED PROPERTY "
+                          "MATCHES ALL CONDITIONS."
+                      )
+
+                      print(
+                          "SENDING PRICE DROP "
+                          "NOTIFICATION..."
+                      )
+
                       notification_ok = (
-                          send_ntfy(
+                          notify_price_drop(
                               prop,
-                              "drop",
-                              old_price,
+                              old_value,
                           )
                       )
 
@@ -1468,147 +2198,199 @@ jobs:
 
                           print(
                               "PRICE DROP "
-                              "NOTIFICATION "
-                              "SUCCESS"
+                              "NOTIFICATION SUCCESS"
                           )
 
-                          update_state(
+                          update_state_from_property(
                               state,
                               prop,
                           )
 
-                          price_drop_notified += 1
+                          price_drop_notified_count += 1
 
                       else:
 
                           print(
                               "PRICE DROP "
-                              "NOTIFICATION FAILED; "
-                              "keep old price "
-                              "for retry"
+                              "NOTIFICATION FAILED."
                           )
 
-                          price_retry += 1
+                          print(
+                              "KEEP PREVIOUS PRICE "
+                              "FOR NEXT RUN."
+                          )
+
+                          price_deferred_count += 1
 
                   else:
 
                       print(
-                          "PRICE DROPPED "
-                          "BUT STILL OUTSIDE "
-                          "CONDITIONS"
+                          "PRICE DROPPED, "
+                          "BUT PROPERTY DOES NOT "
+                          "MATCH ALL CONDITIONS."
                       )
 
-                      update_state(
+                      update_state_from_property(
                           state,
                           prop,
                       )
 
               else:
 
-                  update_state(
+                  update_state_from_property(
                       state,
                       prop,
                   )
+
+              time.sleep(
+                  REQUEST_INTERVAL_SECONDS
+              )
+
+
+          # ============================================================
+          # 保存
+          # ============================================================
 
           state["_meta"][
               "price_cursor"
           ] = next_cursor
 
-          save_known(
-              updated_known
+          state["_meta"][
+              "pending_new_urls"
+          ] = sorted(
+              pending_urls
+          )
+
+          save_known_urls(
+              updated_known_urls
           )
 
           save_state(
               state
           )
 
-          sep("MONITOR RESULT")
+
+          # ============================================================
+          # 最終結果
+          # ============================================================
+
+          separator(
+              "MONITOR RESULT"
+          )
 
           print(
               f"CURRENT URL COUNT: "
-              f"{len(current)}"
+              f"{len(current_urls)}"
           )
 
           print(
-              f"NEW URL COUNT: "
-              f"{len(new_urls)}"
+              f"NEWLY DISCOVERED COUNT: "
+              f"{len(newly_discovered)}"
           )
 
           print(
-              f"PROCESSED COUNT: "
-              f"{processed}"
+              f"NEW PROCESSED COUNT: "
+              f"{processed_count}"
           )
 
           print(
               f"NOTIFIED COUNT: "
-              f"{notified}"
+              f"{notified_count}"
           )
 
           print(
               f"EXCLUDED COUNT: "
-              f"{excluded}"
+              f"{excluded_count}"
           )
 
           print(
-              f"RETRY COUNT: "
-              f"{retry}"
+              f"NEW DEFERRED ERROR COUNT: "
+              f"{deferred_error_count}"
+          )
+
+          print(
+              f"PENDING NEXT RUN COUNT: "
+              f"{len(pending_urls)}"
           )
 
           print(
               f"KNOWN URL COUNT: "
-              f"{len(updated_known)}"
+              f"{len(updated_known_urls)}"
           )
+
+          print()
 
           print(
               f"PRICE CHECKED COUNT: "
-              f"{price_checked}"
+              f"{price_checked_count}"
           )
 
           print(
               f"PRICE BASELINE "
               f"INITIALIZED COUNT: "
-              f"{price_init}"
+              f"{price_initialized_count}"
           )
 
           print(
               f"PRICE DROP COUNT: "
-              f"{price_drops}"
+              f"{price_drop_count}"
           )
 
           print(
               f"PRICE DROP "
               f"NOTIFIED COUNT: "
-              f"{price_drop_notified}"
+              f"{price_drop_notified_count}"
           )
 
           print(
               f"PRICE CHECK "
-              f"RETRY COUNT: "
-              f"{price_retry}"
+              f"DEFERRED COUNT: "
+              f"{price_deferred_count}"
           )
 
-          if interrupted:
+          if list_scan_interrupted:
 
+              print()
               print(
-                  "LIST SCAN WAS PARTIAL; "
-                  "fetched pages were "
-                  "processed and existing "
-                  "known URLs were preserved."
+                  "LIST SCAN WAS PARTIAL."
               )
 
-          sep(
-              "HOME'S PROPERTY MONITOR COMPLETE"
+              print(
+                  "SUCCESSFULLY FETCHED "
+                  "PAGES WERE PROCESSED."
+              )
+
+              print(
+                  "NO EXISTING KNOWN URL "
+                  "WAS REMOVED."
+              )
+
+              print(
+                  "NEXT SCHEDULED RUN "
+                  "WILL TRY AGAIN."
+              )
+
+
+          separator(
+              "HOME'S PROPERTY "
+              "MONITOR COMPLETE"
           )
 
           PY
+
 
       - name: Save HOME'S monitor state
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          [ -f known_homes_urls.txt ] && git add known_homes_urls.txt
-          [ -f known_homes_state.json ] && git add known_homes_state.json
+          if [ -f known_homes_urls.txt ]; then
+            git add known_homes_urls.txt
+          fi
+
+          if [ -f known_homes_state.json ]; then
+            git add known_homes_state.json
+          fi
 
           if git diff --cached --quiet; then
             echo "No HOME'S monitor state changes."
@@ -1616,5 +2398,7 @@ jobs:
           fi
 
           git commit -m "Update HOME'S monitor state"
+
           git pull --rebase origin main
+
           git push origin main
