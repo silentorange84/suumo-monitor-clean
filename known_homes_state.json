@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "price_cursor": 12
+    "price_cursor": 32
   },
   "properties": {
     "https://www.homes.co.jp/kodate/b-1000980106700/": {
@@ -35,6 +35,17 @@
       "price": 3180.0,
       "title": "【ホームズ】八王子市大楽寺町 戸建て｜八王子市、JR中央線 西八王子駅 バス14分 四谷下車 徒歩4分の中古一戸建て",
       "updated_at": "2026-09-09T02:25:19.352850+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1127950080855/": {
+      "address": "東京都八王子市,JR中央線",
+      "age": 8.1,
+      "area": 82.39,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": 15,
+      "price": 3799.0,
+      "title": "【ホームズ】JR中央線 西八王子駅 徒歩15分（八王子市）の中古一戸建て",
+      "updated_at": "2026-09-09T05:00:35.560451+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1127950080871/": {
       "address": "東京都八王子市,JR中央線",
