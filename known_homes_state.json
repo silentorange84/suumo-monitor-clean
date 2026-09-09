@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "price_cursor": 103
+    "price_cursor": 123
   },
   "properties": {
     "https://www.homes.co.jp/kodate/b-1000980106700/": {
@@ -211,6 +211,17 @@
       "price": 7880.0,
       "title": "【ホームズ】中野区鷺宮５丁目 中古戸建｜中野区、西武新宿線 鷺ノ宮駅 徒歩9分の中古一戸建て",
       "updated_at": "2026-09-08T23:07:32.289546+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1570690000015/": {
+      "address": "東京都八王子市,JR横浜線",
+      "age": 19.4,
+      "area": 97.2,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": 29,
+      "price": 2180.0,
+      "title": "【ホームズ】八王子市大船町 中古戸建｜八王子市、JR横浜線 八王子みなみ野駅 徒歩29分の中古一戸建て",
+      "updated_at": "2026-09-09T04:00:33.626242+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1581050000025/": {
       "address": "東京都八王子市,JR中央線",
