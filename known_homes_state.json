@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "price_cursor": 46
+    "price_cursor": 66
   },
   "properties": {
     "https://www.homes.co.jp/kodate/b-1000980106700/": {
@@ -112,6 +112,17 @@
       "price": 50000.0,
       "title": "【ホームズ】杉並区南荻窪1丁目の中古戸建｜杉並区、JR中央線 荻窪駅 徒歩13分の中古一戸建て",
       "updated_at": "2026-09-08T15:27:21.157460+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1351870003620/": {
+      "address": "東京都八王子市,JR八高線",
+      "age": 50.4,
+      "area": 76.0,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": 13,
+      "price": 1280.0,
+      "title": "【ホームズ】八王子市大和田町1丁目｜八王子市、JR八高線 北八王子駅 徒歩13分の中古一戸建て",
+      "updated_at": "2026-09-09T08:07:29.579440+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1351870003624/": {
       "address": "東京都八王子市,JR中央線",
