@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "price_cursor": 113
+    "price_cursor": 133
   },
   "properties": {
     "https://www.homes.co.jp/kodate/b-1000980106700/": {
@@ -189,6 +189,17 @@
       "price": 3399.0,
       "title": "【ホームズ】期間限定現況販売元八王子町中古戸建｜八王子市、JR中央線 西八王子駅 バス17分 慈根寺下車 徒歩3分の中古一戸建て",
       "updated_at": "2026-09-08T13:58:15.784986+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1582090000004/": {
+      "address": "東京都八王子市,JR中央線",
+      "age": 4.0,
+      "area": 102.67,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": null,
+      "price": 3280.0,
+      "title": "【ホームズ】八王子市左入町｜八王子市、JR中央線 八王子駅 バス13分 馬場谷戸下車 徒歩9分の中古一戸建て",
+      "updated_at": "2026-09-09T01:46:02.727094+00:00"
     },
     "https://www.homes.co.jp/kodate/b-35007400000151/": {
       "address": "東京都練馬区,西武新宿線",
