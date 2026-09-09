@@ -1,6 +1,8 @@
 {
   "_meta": {
-    "pending_new_urls": [],
+    "pending_new_urls": [
+      "https://www.homes.co.jp/kodate/b-1278120011866/"
+    ],
     "price_cursor": 0
   },
   "properties": {
@@ -69,6 +71,17 @@
       "price": 3180.0,
       "title": "【ホームズ】八王子市大楽寺町 戸建て｜八王子市、JR中央線 西八王子駅 バス14分 四谷下車 徒歩4分の中古一戸建て",
       "updated_at": "2026-09-09T02:25:19.352850+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1058900005412/": {
+      "address": "東京都杉並区高井戸西3丁目",
+      "age": 29.5,
+      "area": 107.72,
+      "city": "杉並区",
+      "land_right": "所有権",
+      "min_walk": 11,
+      "price": 7280.0,
+      "title": "【ホームズ】杉並区高井戸西3丁目｜杉並区、京王井の頭線 富士見ヶ丘駅 徒歩11分の中古一戸建て",
+      "updated_at": "2026-09-09T18:23:44.643726+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1060050002082/": {
       "address": "東京都八王子市下柚木",
