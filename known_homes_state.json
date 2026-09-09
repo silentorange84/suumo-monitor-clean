@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "price_cursor": 86
+    "price_cursor": 106
   },
   "properties": {
     "https://www.homes.co.jp/kodate/b-1000980106700/": {
@@ -244,6 +244,28 @@
       "price": 27000.0,
       "title": "【ホームズ】武蔵野市西久保一丁目 中古戸建｜武蔵野市、JR中央線 三鷹駅 徒歩10分の中古一戸建て",
       "updated_at": "2026-09-09T03:44:36.558829+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1484930002090/": {
+      "address": "東京都八王子市,京王相模原線",
+      "age": 9.9,
+      "area": 113.02,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": 18,
+      "price": 5749.0,
+      "title": "【ホームズ】八王子市鑓水 2丁目 中古戸建｜八王子市、京王相模原線 多摩境駅 徒歩18分の中古一戸建て",
+      "updated_at": "2026-09-09T08:51:50.281316+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1484930002093/": {
+      "address": "東京都三鷹市,京王線",
+      "age": 3.3,
+      "area": 93.98,
+      "city": "三鷹市",
+      "land_right": "所有権",
+      "min_walk": null,
+      "price": 5898.0,
+      "title": "【ホームズ】三鷹市大沢4丁目 リノベ済 中古戸建｜三鷹市、京王線 調布駅 バス6分 御塔坂下車 徒歩3分の中古一戸建て",
+      "updated_at": "2026-09-09T08:51:50.875182+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1490190002023/": {
       "address": "東京都八王子市,JR中央線",
