@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "price_cursor": 83
+    "price_cursor": 103
   },
   "properties": {
     "https://www.homes.co.jp/kodate/b-1000980106700/": {
@@ -167,6 +167,17 @@
       "price": 2198.0,
       "title": "【ホームズ】八王子市川口町 中古戸建｜八王子市、JR中央線 八王子駅 バス24分 桜株下車 徒歩2分の中古一戸建て",
       "updated_at": "2026-09-09T03:27:20.788578+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1483160000155/": {
+      "address": "東京都武蔵野市,JR中央線",
+      "age": 25.2,
+      "area": 161.18,
+      "city": "武蔵野市",
+      "land_right": "所有権",
+      "min_walk": 10,
+      "price": 27000.0,
+      "title": "【ホームズ】武蔵野市西久保一丁目 中古戸建｜武蔵野市、JR中央線 三鷹駅 徒歩10分の中古一戸建て",
+      "updated_at": "2026-09-09T03:44:36.558829+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1490190002025/": {
       "address": "東京都八王子市,JR中央線",
