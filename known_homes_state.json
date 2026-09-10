@@ -4,6 +4,7 @@
       "https://www.homes.co.jp/kodate/b-1278120011853/",
       "https://www.homes.co.jp/kodate/b-1278120011866/",
       "https://www.homes.co.jp/kodate/b-1278120012561/",
+      "https://www.homes.co.jp/kodate/b-1471030011459/",
       "https://www.homes.co.jp/kodate/b-1485080000043/"
     ],
     "price_cursor": 0
@@ -866,6 +867,17 @@
       "price": 1380.0,
       "title": "【ホームズ】八王子市川口町 中古戸建５ＤＫ｜八王子市、JR中央線 八王子駅 バス38分 影沢下車 徒歩6分の中古一戸建て",
       "updated_at": "2026-09-10T13:08:18.780071+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1453590000071/": {
+      "address": "東京都八王子市下恩方町",
+      "age": 22.9,
+      "area": 123.86,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": null,
+      "price": 3150.0,
+      "title": "【ホームズ】下恩方町中古戸建 ２世帯住宅｜八王子市、JR中央線 高尾駅 バス19分 松竹下車 徒歩2分の中古一戸建て",
+      "updated_at": "2026-09-10T16:37:15.368620+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1465960006670/": {
       "address": "東京都八王子市元八王子町3丁目",
