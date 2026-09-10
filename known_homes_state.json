@@ -4,8 +4,7 @@
       "https://www.homes.co.jp/kodate/b-1278120011853/",
       "https://www.homes.co.jp/kodate/b-1278120011866/",
       "https://www.homes.co.jp/kodate/b-1278120012561/",
-      "https://www.homes.co.jp/kodate/b-1485080000043/",
-      "https://www.homes.co.jp/kodate/b-91240000662/"
+      "https://www.homes.co.jp/kodate/b-1485080000043/"
     ],
     "price_cursor": 0
   },
@@ -1923,6 +1922,17 @@
       "price": 8980.0,
       "title": "【ホームズ】東武東上線 北池袋駅 徒歩8分（豊島区）の中古一戸建て",
       "updated_at": "2026-09-08T17:00:49.885101+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-91240000662/": {
+      "address": "東京都八王子市石川町",
+      "age": 24.4,
+      "area": 85.85,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": 12,
+      "price": 2899.0,
+      "title": "【ホームズ】八王子市石川町 中古一戸建て｜八王子市、JR八高線 小宮駅 徒歩12分の中古一戸建て",
+      "updated_at": "2026-09-10T19:31:40.201365+00:00"
     },
     "https://www.homes.co.jp/kodate/b-91240000745/": {
       "address": "東京都八王子市,JR中央線",
