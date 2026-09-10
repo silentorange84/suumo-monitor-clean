@@ -1,0 +1,293 @@
+name: AtHome investigation test
+
+on:
+  # 調査専用。監視スケジュールや通知、既存データの更新は行わない。
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  investigate-athome:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Investigate list, pagination, and property details
+        env:
+          ATHOME_SEARCH_URL: "https://www.athome.co.jp/kodate/chuko/tokyo/list/?pref=13&cities=nakano,suginami,toshima,nerima,tachikawa,musashino,mitaka,nishitokyo&cityCds=13114,13115,13116,13120,13202,13203,13204,13229&basic=kb206,kb208,kp001,kp114,kt110,kt424,kf001,ke005,kn021,kj001&kod=ko001&sort=33&limit=30&q=1"
+        run: |
+          python - <<'PY'
+          import hashlib
+          import html
+          import json
+          import os
+          import re
+          import sys
+          import time
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+          from html.parser import HTMLParser
+
+
+          SEARCH_URL = os.environ["ATHOME_SEARCH_URL"]
+          ORIGIN = "https://www.athome.co.jp"
+          MAX_DETAIL_SAMPLES = 3
+
+          HEADERS = {
+              "User-Agent": (
+                  "Mozilla/5.0 (X11; Linux x86_64) "
+                  "AppleWebKit/537.36 (KHTML, like Gecko) "
+                  "Chrome/140.0.0.0 Safari/537.36"
+              ),
+              "Accept": (
+                  "text/html,application/xhtml+xml,application/xml;q=0.9,"
+                  "image/avif,image/webp,*/*;q=0.8"
+              ),
+              "Accept-Language": "ja-JP,ja;q=0.9,en;q=0.7",
+              "Cache-Control": "no-cache",
+              "Pragma": "no-cache",
+              "Upgrade-Insecure-Requests": "1",
+          }
+
+
+          class LinkParser(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=True)
+                  self.links = []
+
+              def handle_starttag(self, tag, attrs):
+                  if tag.lower() != "a":
+                      return
+                  values = dict(attrs)
+                  href = values.get("href")
+                  if href:
+                      self.links.append({
+                          "href": href,
+                          "rel": values.get("rel", ""),
+                          "class": values.get("class", ""),
+                      })
+
+
+          opener = urllib.request.build_opener(
+              urllib.request.HTTPCookieProcessor()
+          )
+
+
+          def fetch(url):
+              last_error = None
+              for attempt in range(1, 3):
+                  request = urllib.request.Request(url, headers=HEADERS)
+                  try:
+                      with opener.open(request, timeout=30) as response:
+                          raw = response.read()
+                          charset = response.headers.get_content_charset() or "utf-8"
+                          return {
+                              "status": response.status,
+                              "final_url": response.geturl(),
+                              "content_type": response.headers.get_content_type(),
+                              "bytes": len(raw),
+                              "sha256": hashlib.sha256(raw).hexdigest(),
+                              "text": raw.decode(charset, errors="replace"),
+                          }
+                  except urllib.error.HTTPError as error:
+                      body = error.read()
+                      last_error = f"HTTP {error.code} ({len(body)} bytes)"
+                      if error.code not in {408, 425, 429, 500, 502, 503, 504}:
+                          break
+                  except Exception as error:
+                      last_error = f"{type(error).__name__}: {error}"
+                  if attempt < 2:
+                      time.sleep(3)
+              return {"status": None, "error": last_error, "text": ""}
+
+
+          def parse_links(page_html, base_url):
+              parser = LinkParser()
+              parser.feed(page_html)
+              result = []
+              seen = set()
+              for item in parser.links:
+                  absolute = urllib.parse.urljoin(base_url, item["href"])
+                  if absolute in seen:
+                      continue
+                  seen.add(absolute)
+                  item = dict(item)
+                  item["url"] = absolute
+                  result.append(item)
+              return result
+
+
+          def property_urls(links):
+              urls = []
+              seen = set()
+              patterns = (
+                  r"^https://www\.athome\.co\.jp/kodate/\d+/?(?:[?#].*)?$",
+                  r"^https://www\.athome\.co\.jp/kodate/chuko/\d+/?(?:[?#].*)?$",
+              )
+              for link in links:
+                  url = link["url"]
+                  if any(re.search(pattern, url, re.I) for pattern in patterns):
+                      # 計測用クエリが違っても同じ物件として扱う。
+                      canonical = urllib.parse.urlunsplit(
+                          (*urllib.parse.urlsplit(url)[:3], "", "")
+                      )
+                      if canonical not in seen:
+                          seen.add(canonical)
+                          urls.append(canonical)
+              return urls
+
+
+          def pagination_candidates(links):
+              candidates = []
+              for link in links:
+                  parts = urllib.parse.urlsplit(link["url"])
+                  query = urllib.parse.parse_qs(parts.query)
+                  looks_like_page = (
+                      "next" in link["rel"].lower()
+                      or "pager" in link["class"].lower()
+                      or any(key in query for key in ("q", "page", "p"))
+                  )
+                  if (
+                      looks_like_page
+                      and parts.netloc.endswith("athome.co.jp")
+                      and "/kodate/chuko/tokyo/list/" in parts.path
+                  ):
+                      candidates.append(link["url"])
+              return list(dict.fromkeys(candidates))
+
+
+          def text_content(page_html):
+              page_html = re.sub(
+                  r"<(script|style|noscript)\b[^>]*>.*?</\1>",
+                  " ",
+                  page_html,
+                  flags=re.I | re.S,
+              )
+              value = re.sub(r"<[^>]+>", " ", page_html)
+              return re.sub(r"\s+", " ", html.unescape(value)).strip()
+
+
+          def first_match(text, patterns):
+              for pattern in patterns:
+                  match = re.search(pattern, text, flags=re.I)
+                  if match:
+                      return re.sub(r"\s+", " ", match.group(1)).strip()
+              return None
+
+
+          def extract_fields(page_html):
+              # HTMLの表示文言を対象にするため、実運用前にラベルと値を目視確認できる。
+              text = text_content(page_html)
+              separator = r"\s*(?:：|:)?\s*"
+              fields = {
+                  "price": first_match(text, (
+                      rf"(?:価格|販売価格){separator}([^｜|]{{1,40}}?万円)",
+                      r"(\d[\d,]*(?:\.\d+)?\s*万円)",
+                  )),
+                  "building_area": first_match(text, (
+                      rf"(?:建物面積|建物延べ面積){separator}([^｜|]{{1,45}}?(?:m²|㎡|平方メートル))",
+                  )),
+                  "built": first_match(text, (
+                      rf"(?:築年月|築年数|建築年月){separator}([^｜|]{{1,35}}?(?:年|月))",
+                  )),
+                  "station_walk": first_match(text, (
+                      r"((?:徒歩|歩)\s*\d+\s*分)",
+                  )),
+                  "land_right": first_match(text, (
+                      rf"(?:土地権利|権利){separator}([^｜|]{{1,25}})",
+                  )),
+                  "address": first_match(text, (
+                      rf"(?:所在地|住所){separator}([^｜|]{{1,80}}?(?:都|道|府|県)[^｜|]{{0,60}})",
+                  )),
+              }
+              return fields
+
+
+          report = {
+              "search_url": SEARCH_URL,
+              "expected_cities": [
+                  "中野区", "杉並区", "豊島区", "練馬区", "立川市",
+                  "武蔵野市", "三鷹市", "西東京市",
+              ],
+              "excluded_city": "八王子市",
+              "final_filter_reference": {
+                  "max_price_man_yen": 7000,
+                  "min_building_area_m2": 70,
+                  "max_age_years": 25,
+                  "max_station_walk_minutes": 15,
+                  "land_right": "所有権",
+              },
+          }
+
+          print("::group::1. Fetch list page")
+          listing = fetch(SEARCH_URL)
+          report["list_fetch"] = {key: value for key, value in listing.items() if key != "text"}
+          print(json.dumps(report["list_fetch"], ensure_ascii=False, indent=2))
+          print("::endgroup::")
+
+          if listing.get("status") != 200 or not listing.get("text"):
+              report["result"] = "list_fetch_failed"
+              with open("athome-investigation.json", "w", encoding="utf-8") as file:
+                  json.dump(report, file, ensure_ascii=False, indent=2)
+              sys.exit("一覧ページを取得できませんでした")
+
+          links = parse_links(listing["text"], listing["final_url"])
+          properties = property_urls(links)
+          report["property_url_count"] = len(properties)
+          report["property_url_samples"] = properties[:10]
+          print("::group::2. Property detail URLs")
+          print(json.dumps(report["property_url_samples"], ensure_ascii=False, indent=2))
+          print(f"unique property URLs: {len(properties)}")
+          print("::endgroup::")
+
+          pages = pagination_candidates(links)
+          report["pagination_candidates"] = pages[:20]
+          print("::group::3. Pagination")
+          print(json.dumps(report["pagination_candidates"], ensure_ascii=False, indent=2))
+          print("The q/page/p query and rel=next candidates above reveal the current format.")
+          print("::endgroup::")
+
+          detail_reports = []
+          print("::group::4. Detail fields")
+          for url in properties[:MAX_DETAIL_SAMPLES]:
+              time.sleep(1)
+              detail = fetch(url)
+              item = {
+                  "url": url,
+                  "fetch": {key: value for key, value in detail.items() if key != "text"},
+                  "fields": extract_fields(detail["text"]) if detail.get("text") else {},
+              }
+              detail_reports.append(item)
+              print(json.dumps(item, ensure_ascii=False, indent=2))
+          print("::endgroup::")
+          report["details"] = detail_reports
+
+          missing = []
+          for item in detail_reports:
+              absent = [name for name, value in item["fields"].items() if not value]
+              if absent:
+                  missing.append({"url": item["url"], "fields": absent})
+          report["missing_detail_fields"] = missing
+          report["result"] = "completed"
+
+          with open("athome-investigation.json", "w", encoding="utf-8") as file:
+              json.dump(report, file, ensure_ascii=False, indent=2)
+
+          if not properties:
+              sys.exit("一覧から物件詳細URLを抽出できませんでした")
+          if not detail_reports or not any(
+              any(item["fields"].values()) for item in detail_reports
+          ):
+              sys.exit("詳細ページの項目を抽出できませんでした")
+          PY
+
+      - name: Upload investigation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: athome-investigation-report
+          path: athome-investigation.json
+          if-no-files-found: warn
+          retention-days: 7
