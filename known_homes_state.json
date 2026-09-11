@@ -6,7 +6,6 @@
       "https://www.homes.co.jp/kodate/b-1278120011853/",
       "https://www.homes.co.jp/kodate/b-1278120011866/",
       "https://www.homes.co.jp/kodate/b-1278120012561/",
-      "https://www.homes.co.jp/kodate/b-1471030008658/",
       "https://www.homes.co.jp/kodate/b-1473210002255/",
       "https://www.homes.co.jp/kodate/b-1473210002523/",
       "https://www.homes.co.jp/kodate/b-1473210002536/",
@@ -426,6 +425,17 @@
       "price": 3499.0,
       "title": "【ホームズ】八王子市南陽台2丁目｜八王子市、京王線 平山城址公園駅 バス8分 東京薬科大学下車 徒歩9分の中古一戸建て",
       "updated_at": "2026-09-09T10:07:40.649325+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1189140016060/": {
+      "address": "東京都八王子市下柚木",
+      "age": 30.2,
+      "area": 90.06,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": null,
+      "price": 2380.0,
+      "title": "【ホームズ】京王相模原線 南大沢駅 下柚木 戸建｜八王子市、京王相模原線 南大沢駅 バス11分 由木折返場下車 徒歩4分の中古一戸建て",
+      "updated_at": "2026-09-11T16:39:26.628375+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1189140017138/": {
       "address": "東京都八王子市鑓水2丁目",
@@ -1152,6 +1162,17 @@
       "price": 2198.0,
       "title": "【ホームズ】八王子市川口町 中古戸建｜八王子市、JR中央線 八王子駅 バス24分 桜株下車 徒歩2分の中古一戸建て",
       "updated_at": "2026-09-09T03:27:20.788578+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1471030008658/": {
+      "address": "東京都西東京市西原町4丁目",
+      "age": 39.2,
+      "area": 62.09,
+      "city": "西東京市",
+      "land_right": "所有権",
+      "min_walk": null,
+      "price": 2280.0,
+      "title": "【ホームズ】西東京市西原町4丁目 中古一戸建て｜西東京市、西武池袋線 ひばりヶ丘駅 バス14分 西原グリーンハイツ下車 徒歩4分の中古一戸建て",
+      "updated_at": "2026-09-11T16:39:29.589183+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1471030009676/": {
       "address": "東京都西東京市保谷町1丁目",
