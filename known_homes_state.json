@@ -6,7 +6,6 @@
       "https://www.homes.co.jp/kodate/b-1278120011853/",
       "https://www.homes.co.jp/kodate/b-1278120011866/",
       "https://www.homes.co.jp/kodate/b-1278120012561/",
-      "https://www.homes.co.jp/kodate/b-1331680000561/",
       "https://www.homes.co.jp/kodate/b-1465920000132/",
       "https://www.homes.co.jp/kodate/b-1473210002255/",
       "https://www.homes.co.jp/kodate/b-1473210002523/",
@@ -911,6 +910,17 @@
       "price": 6799.0,
       "title": "【ホームズ】八王子市堀之内 中古戸建て｜八王子市、京王相模原線 京王堀之内駅 徒歩19分の中古一戸建て",
       "updated_at": "2026-09-09T17:21:50.537648+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1331680000561/": {
+      "address": "東京都練馬区谷原5丁目",
+      "age": 4.5,
+      "area": 103.77,
+      "city": "練馬区",
+      "land_right": "所有権",
+      "min_walk": 20,
+      "price": 8480.0,
+      "title": "【ホームズ】練馬区谷原５丁目戸建｜練馬区、西武池袋線 石神井公園駅 徒歩20分の中古一戸建て",
+      "updated_at": "2026-09-11T20:54:21.661977+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1351870003620/": {
       "address": "東京都八王子市,JR八高線",
