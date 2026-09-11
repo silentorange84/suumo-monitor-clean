@@ -6,12 +6,12 @@
       "https://www.homes.co.jp/kodate/b-1278120011866/",
       "https://www.homes.co.jp/kodate/b-1278120012561/",
       "https://www.homes.co.jp/kodate/b-1471030008658/",
-      "https://www.homes.co.jp/kodate/b-1471030010846/",
       "https://www.homes.co.jp/kodate/b-1473210002255/",
       "https://www.homes.co.jp/kodate/b-1485080000043/",
       "https://www.homes.co.jp/kodate/b-1541220001348/",
       "https://www.homes.co.jp/kodate/b-1545670000061/",
       "https://www.homes.co.jp/kodate/b-56050000016/",
+      "https://www.homes.co.jp/kodate/b-91220000779/",
       "https://www.homes.co.jp/kodate/b-9500077855/"
     ],
     "price_cursor": 0
@@ -1127,6 +1127,17 @@
       "price": 4180.0,
       "title": "【ホームズ】西東京市保谷町1丁目 一戸建て 全1棟｜西東京市、西武新宿線 西武柳沢駅 徒歩8分の中古一戸建て",
       "updated_at": "2026-09-09T17:02:12.428042+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1471030010846/": {
+      "address": "東京都西東京市北町2丁目",
+      "age": 22.7,
+      "area": 80.14,
+      "city": "西東京市",
+      "land_right": "所有権",
+      "min_walk": 18,
+      "price": 5099.0,
+      "title": "【ホームズ】西東京市北町2丁目 中古戸建て｜西東京市、西武池袋線 ひばりヶ丘駅 徒歩18分の中古一戸建て",
+      "updated_at": "2026-09-11T09:19:52.554349+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1471030011007/": {
       "address": "東京都三鷹市大沢4丁目",
