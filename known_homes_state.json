@@ -5,7 +5,6 @@
       "https://www.homes.co.jp/kodate/b-1278120011647/",
       "https://www.homes.co.jp/kodate/b-1278120011853/",
       "https://www.homes.co.jp/kodate/b-1278120011866/",
-      "https://www.homes.co.jp/kodate/b-1278120011987/",
       "https://www.homes.co.jp/kodate/b-1278120012561/",
       "https://www.homes.co.jp/kodate/b-1471030008658/",
       "https://www.homes.co.jp/kodate/b-1473210002255/",
@@ -636,6 +635,17 @@
       "price": 6980.0,
       "title": "【ホームズ】横川町戸建｜八王子市、JR中央線 西八王子駅 徒歩25分の中古一戸建て",
       "updated_at": "2026-09-10T05:19:12.411856+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1278120011987/": {
+      "address": "東京都杉並区和泉2丁目",
+      "age": 13.9,
+      "area": 82.45,
+      "city": "杉並区",
+      "land_right": "所有権",
+      "min_walk": 7,
+      "price": 8980.0,
+      "title": "【ホームズ】杉並区和泉2丁目の中古戸建｜杉並区、京王線 代田橋駅 徒歩7分の中古一戸建て",
+      "updated_at": "2026-09-11T12:40:20.181086+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1278120012000/": {
       "address": "東京都武蔵野市吉祥寺東町1丁目",
