@@ -331,6 +331,15 @@ jobs:
               return parse_property(final_url, page_html)
 
 
+          def defer_detail(url, deferred):
+              try:
+                  return detail(url)
+              except RuntimeError as error:
+                  deferred.append(url)
+                  print(f"::warning::DETAIL DEFERRED: {url}: {error}")
+                  return None
+
+
           state = load_state()
           now = datetime.now(timezone.utc).isoformat()
           if RESET_BASELINE:
@@ -405,9 +414,13 @@ jobs:
           cursor = int(state.get("price_cursor", 0))
           price_urls = (known_current[cursor:] + known_current[:cursor])[:PRICE_CHECK_BATCH_SIZE]
 
-          # 全詳細取得を通知・保存より先に完了する。途中で制限を検知した run は状態を一切変更しない。
-          parsed_new = [detail(url) for url in new_urls]
-          parsed_prices = [detail(url) for url in price_urls if url not in new_urls]
+          # 詳細を取得できない物件だけを状態更新から除外し、他の物件は継続する。
+          deferred = []
+          parsed_new = [prop for url in new_urls if (prop := defer_detail(url, deferred)) is not None]
+          parsed_prices = [
+              prop for url in price_urls if url not in new_urls
+              if (prop := defer_detail(url, deferred)) is not None
+          ]
 
           for prop in parsed_new:
               if prop["matches"] and not notify(prop):
@@ -439,6 +452,7 @@ jobs:
           suffix = ", list_limited=true" if list_limited else ""
           print(f"scan complete: pages={start_page}-{end_page}, listed={len(current_urls)}, "
                 f"new_checked={len(parsed_new)}, price_checked={len(parsed_prices)}{suffix}")
+          print(f"DETAIL DEFERRED COUNT: {len(deferred)}")
           PY
 
       - name: Commit monitor state
