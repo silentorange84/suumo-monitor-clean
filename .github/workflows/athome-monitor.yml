@@ -459,98 +459,98 @@ jobs:
             git reset --hard origin/main
 
             python - <<'PY'
-            import json
-            import os
-            from datetime import datetime, timezone
+          import json
+          import os
+          from datetime import datetime, timezone
 
 
-            STATE_FILE = "known_athome_state.json"
-            RUN_STATE_FILE = os.path.join(os.environ["RUNNER_TEMP"], "known_athome_run_state.json")
+          STATE_FILE = "known_athome_state.json"
+          RUN_STATE_FILE = os.path.join(os.environ["RUNNER_TEMP"], "known_athome_run_state.json")
 
 
-            def load(path):
-                try:
-                    with open(path, encoding="utf-8") as file:
-                        value = json.load(file)
-                except FileNotFoundError:
-                    value = {}
-                if not isinstance(value, dict) or not isinstance(value.get("properties", {}), dict):
-                    raise RuntimeError(f"Invalid AtHome state: {path}")
-                return value
+          def load(path):
+              try:
+                  with open(path, encoding="utf-8") as file:
+                      value = json.load(file)
+              except FileNotFoundError:
+                  value = {}
+              if not isinstance(value, dict) or not isinstance(value.get("properties", {}), dict):
+                  raise RuntimeError(f"Invalid AtHome state: {path}")
+              return value
 
 
-            def timestamp(value, fallback):
-                try:
-                    return datetime.fromisoformat(str(value).replace("Z", "+00:00"))
-                except (TypeError, ValueError):
-                    return fallback
+          def timestamp(value, fallback):
+              try:
+                  return datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+              except (TypeError, ValueError):
+                  return fallback
 
 
-            def merge_history(remote_history, run_history):
-                merged = []
-                seen = set()
-                for item in (remote_history or []) + (run_history or []):
-                    marker = json.dumps(item, ensure_ascii=False, sort_keys=True)
-                    if marker not in seen:
-                        seen.add(marker)
-                        merged.append(item)
-                return sorted(merged, key=lambda item: str(item.get("at", "")))
+          def merge_history(remote_history, run_history):
+              merged = []
+              seen = set()
+              for item in (remote_history or []) + (run_history or []):
+                  marker = json.dumps(item, ensure_ascii=False, sort_keys=True)
+                  if marker not in seen:
+                      seen.add(marker)
+                      merged.append(item)
+              return sorted(merged, key=lambda item: str(item.get("at", "")))
 
 
-            remote = load(STATE_FILE)
-            run = load(RUN_STATE_FILE)
-            merged = {**remote, **run}
-            merged_properties = {}
-            for url in remote.get("properties", {}).keys() | run.get("properties", {}).keys():
-                old = remote.get("properties", {}).get(url, {})
-                current = run.get("properties", {}).get(url, {})
-                entry = {**old, **current}
-                first_values = [value for value in (old.get("first_seen"), current.get("first_seen")) if value]
-                last_values = [value for value in (old.get("last_seen"), current.get("last_seen")) if value]
-                if first_values:
-                    entry["first_seen"] = min(first_values)
-                if last_values:
-                    entry["last_seen"] = max(last_values)
-                entry["price_history"] = merge_history(old.get("price_history"), current.get("price_history"))
-                # The just-completed run is authoritative for these fields, even
-                # when its value is null while a baseline is being constructed.
-                for field in ("price", "type", "title"):
-                    if field in current:
-                        entry[field] = current[field]
-                merged_properties[url] = entry
-            merged["properties"] = merged_properties
+          remote = load(STATE_FILE)
+          run = load(RUN_STATE_FILE)
+          merged = {**remote, **run}
+          merged_properties = {}
+          for url in remote.get("properties", {}).keys() | run.get("properties", {}).keys():
+              old = remote.get("properties", {}).get(url, {})
+              current = run.get("properties", {}).get(url, {})
+              entry = {**old, **current}
+              first_values = [value for value in (old.get("first_seen"), current.get("first_seen")) if value]
+              last_values = [value for value in (old.get("last_seen"), current.get("last_seen")) if value]
+              if first_values:
+                  entry["first_seen"] = min(first_values)
+              if last_values:
+                  entry["last_seen"] = max(last_values)
+              entry["price_history"] = merge_history(old.get("price_history"), current.get("price_history"))
+              # The just-completed run is authoritative for these fields, even
+              # when its value is null while a baseline is being constructed.
+              for field in ("price", "type", "title"):
+                  if field in current:
+                      entry[field] = current[field]
+              merged_properties[url] = entry
+          merged["properties"] = merged_properties
 
-            epoch = datetime.min.replace(tzinfo=timezone.utc)
-            remote_updated = remote.get("updated_at")
-            run_updated = run.get("updated_at")
-            remote_time = timestamp(remote_updated, epoch)
-            run_time = timestamp(run_updated, epoch)
-            remote_page = max(1, int(remote.get("page_cursor", 1)))
-            run_page = max(1, int(run.get("page_cursor", 1)))
-            run_completed = not run.get("baseline_in_progress", False)
-            remote_completed_later = (
-                not remote.get("baseline_in_progress", False) and remote_time >= run_time
-            )
-            if not run_completed and not remote_completed_later:
-                merged["page_cursor"] = max(remote_page, run_page)
-                merged["baseline_in_progress"] = True
-            else:
-                # A false value is accepted only from the just-completed run or a
-                # newer remote run, proving that a traversal legitimately wrapped.
-                merged["page_cursor"] = remote_page if remote_completed_later else run_page
-                merged["baseline_in_progress"] = False
-            merged["price_cursor"] = run.get("price_cursor", remote.get("price_cursor", 0))
+          epoch = datetime.min.replace(tzinfo=timezone.utc)
+          remote_updated = remote.get("updated_at")
+          run_updated = run.get("updated_at")
+          remote_time = timestamp(remote_updated, epoch)
+          run_time = timestamp(run_updated, epoch)
+          remote_page = max(1, int(remote.get("page_cursor", 1)))
+          run_page = max(1, int(run.get("page_cursor", 1)))
+          run_completed = not run.get("baseline_in_progress", False)
+          remote_completed_later = (
+              not remote.get("baseline_in_progress", False) and remote_time >= run_time
+          )
+          if not run_completed and not remote_completed_later:
+              merged["page_cursor"] = max(remote_page, run_page)
+              merged["baseline_in_progress"] = True
+          else:
+              # A false value is accepted only from the just-completed run or a
+              # newer remote run, proving that a traversal legitimately wrapped.
+              merged["page_cursor"] = remote_page if remote_completed_later else run_page
+              merged["baseline_in_progress"] = False
+          merged["price_cursor"] = run.get("price_cursor", remote.get("price_cursor", 0))
 
-            merged["updated_at"] = (
-                run_updated
-                if run_time >= remote_time
-                else remote_updated
-            )
-            with open(STATE_FILE + ".tmp", "w", encoding="utf-8") as file:
-                json.dump(merged, file, ensure_ascii=False, indent=2, sort_keys=True)
-                file.write("\n")
-            os.replace(STATE_FILE + ".tmp", STATE_FILE)
-            PY
+          merged["updated_at"] = (
+              run_updated
+              if run_time >= remote_time
+              else remote_updated
+          )
+          with open(STATE_FILE + ".tmp", "w", encoding="utf-8") as file:
+              json.dump(merged, file, ensure_ascii=False, indent=2, sort_keys=True)
+              file.write("\n")
+          os.replace(STATE_FILE + ".tmp", STATE_FILE)
+          PY
 
             if git diff --quiet -- known_athome_state.json; then
               echo "State already persisted by another run"
