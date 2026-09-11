@@ -5,10 +5,11 @@
       "https://www.homes.co.jp/kodate/b-1278120011853/",
       "https://www.homes.co.jp/kodate/b-1278120011866/",
       "https://www.homes.co.jp/kodate/b-1278120012561/",
-      "https://www.homes.co.jp/kodate/b-1375350001848/",
       "https://www.homes.co.jp/kodate/b-1485080000043/",
       "https://www.homes.co.jp/kodate/b-1541220001348/",
-      "https://www.homes.co.jp/kodate/b-1545670000061/"
+      "https://www.homes.co.jp/kodate/b-1545670000061/",
+      "https://www.homes.co.jp/kodate/b-56050000016/",
+      "https://www.homes.co.jp/kodate/b-9500077855/"
     ],
     "price_cursor": 0
   },
@@ -870,6 +871,17 @@
       "price": 2800.0,
       "title": "【ホームズ】高松2丁目 中古戸建 リフォーム推奨物件｜豊島区、東京メトロ有楽町線 要町駅 徒歩9分の中古一戸建て",
       "updated_at": "2026-09-10T12:25:38.129276+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1375350001848/": {
+      "address": "東京都豊島区池袋4丁目",
+      "age": 1.8,
+      "area": 97.79,
+      "city": "豊島区",
+      "land_right": "所有権",
+      "min_walk": 13,
+      "price": 13500.0,
+      "title": "【ホームズ】ー築１年弱×池袋１３分の好立地に佇む３ＬＤＫ邸宅ー｜豊島区、JR山手線 池袋駅 徒歩13分の中古一戸建て",
+      "updated_at": "2026-09-11T03:38:54.336402+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1379290001620/": {
       "address": "東京都杉並区高井戸西1丁目",
