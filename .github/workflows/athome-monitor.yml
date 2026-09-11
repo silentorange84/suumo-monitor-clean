@@ -1,0 +1,414 @@
+name: AtHome Property Monitor
+
+on:
+  workflow_dispatch:
+    inputs:
+      reset_baseline:
+        description: "現在掲載中の物件を通知せずベースライン登録する"
+        required: true
+        default: false
+        type: boolean
+  schedule:
+    - cron: "7,17,27,37,47,57 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: athome-property-monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor-athome:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+      RESET_BASELINE: ${{ github.event.inputs.reset_baseline || 'false' }}
+      ATHOME_SEARCH_URL: "https://www.athome.co.jp/kodate/tokyo/list/?pref=13&cities=nakano,suginami,toshima,nerima,tachikawa,musashino,mitaka,nishitokyo&cityCds=13114,13115,13116,13120,13202,13203,13204,13229&basic=kb206,kb208,kp001,kp114,kt110,kt424,kf001,ke005,kn021,kj001&sort=33&limit=30&q=1"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan AtHome and notify
+        run: |
+          python - <<'PY'
+          import html
+          import json
+          import os
+          import re
+          import sys
+          import time
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+          from datetime import datetime, timezone
+          from html.parser import HTMLParser
+
+
+          SEARCH_URL = os.environ["ATHOME_SEARCH_URL"]
+          ORIGIN = "https://www.athome.co.jp"
+          STATE_FILE = "known_athome_state.json"
+          MAX_LIST_PAGES = 8
+          NEW_DETAIL_BATCH_SIZE = 12
+          PRICE_CHECK_BATCH_SIZE = 8
+          DETAIL_INTERVAL_SECONDS = 3
+          MIN_LIST_PAGE_BYTES = 15_000
+          MIN_DETAIL_PAGE_BYTES = 12_000
+          RETRYABLE_STATUSES = {202, 408, 425, 429, 500, 502, 503, 504}
+          TARGET_CITIES = (
+              "中野区", "杉並区", "豊島区", "練馬区", "立川市",
+              "武蔵野市", "三鷹市", "西東京市",
+          )
+          RESET_BASELINE = os.environ.get("RESET_BASELINE", "false").lower() == "true"
+          NTFY_TOPIC = os.environ.get("NTFY_TOPIC", "").strip()
+          HEADERS = {
+              "User-Agent": (
+                  "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+                  "(KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
+              ),
+              "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+              "Accept-Language": "ja-JP,ja;q=0.9,en;q=0.7",
+              "Cache-Control": "no-cache",
+          }
+          opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor())
+
+
+          class LinkParser(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=True)
+                  self.links = []
+
+              def handle_starttag(self, tag, attrs):
+                  if tag.lower() == "a":
+                      href = dict(attrs).get("href")
+                      if href:
+                          self.links.append(str(href))
+
+
+          class FieldParser(HTMLParser):
+              TAGS = {"th", "td", "dt", "dd"}
+
+              def __init__(self):
+                  super().__init__(convert_charrefs=True)
+                  self.stack = []
+                  self.items = []
+                  self.group = 0
+                  self.current_group = None
+
+              def handle_starttag(self, tag, attrs):
+                  tag = tag.lower()
+                  if tag in {"tr", "dl"}:
+                      self.group += 1
+                      self.current_group = self.group
+                  if tag in self.TAGS:
+                      self.stack.append({"tag": tag, "group": self.current_group, "text": []})
+
+              def handle_data(self, data):
+                  if self.stack:
+                      self.stack[-1]["text"].append(data)
+
+              def handle_endtag(self, tag):
+                  tag = tag.lower()
+                  if self.stack and self.stack[-1]["tag"] == tag:
+                      item = self.stack.pop()
+                      item["text"] = re.sub(r"\s+", " ", "".join(item["text"])).strip()
+                      self.items.append(item)
+                  if tag in {"tr", "dl"}:
+                      self.current_group = None
+
+
+          def fetch(url, attempts=3, timeout=30):
+              last = None
+              for attempt in range(attempts):
+                  try:
+                      request = urllib.request.Request(url, headers=HEADERS)
+                      with opener.open(request, timeout=timeout) as response:
+                          raw = response.read()
+                          if response.status in RETRYABLE_STATUSES:
+                              last = f"HTTP {response.status}"
+                          else:
+                              charset = response.headers.get_content_charset() or "utf-8"
+                              return response.status, response.geturl(), raw.decode(charset, "replace"), len(raw)
+                  except urllib.error.HTTPError as error:
+                      error.read()
+                      last = f"HTTP {error.code}"
+                      if error.code not in RETRYABLE_STATUSES:
+                          break
+                  except (urllib.error.URLError, TimeoutError, OSError) as error:
+                      last = f"{type(error).__name__}: {error}"
+                  if attempt + 1 < attempts:
+                      time.sleep(2 * (attempt + 1))
+              raise RuntimeError(f"取得失敗: {url}: {last}")
+
+
+          def page_url(page):
+              parts = urllib.parse.urlsplit(SEARCH_URL)
+              path = "/kodate/tokyo/list/" if page == 1 else f"/kodate/tokyo/list/page{page}/"
+              return urllib.parse.urlunsplit((parts.scheme, parts.netloc, path, parts.query, ""))
+
+
+          def property_urls(page_html, base_url):
+              parser = LinkParser()
+              parser.feed(page_html)
+              found = []
+              for href in parser.links:
+                  url = urllib.parse.urljoin(base_url, href)
+                  if re.match(r"^https://www\.athome\.co\.jp/kodate/(?:chuko/)?\d+/?(?:[?#].*)?$", url):
+                      clean = urllib.parse.urlunsplit((*urllib.parse.urlsplit(url)[:3], "", ""))
+                      if clean not in found:
+                          found.append(clean)
+              return found
+
+
+          def visible_text(page_html):
+              clean = re.sub(r"<(script|style|noscript)\b[^>]*>.*?</\1>", " ", page_html, flags=re.I | re.S)
+              return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", clean))).strip()
+
+
+          def first_match(text, patterns):
+              for pattern in patterns:
+                  match = re.search(pattern, text, re.I)
+                  if match:
+                      return re.sub(r"\s+", " ", match.group(1)).strip()
+              return None
+
+
+          def structured_values(page_html):
+              parser = FieldParser()
+              parser.feed(page_html)
+              aliases = {
+                  "land_right": {"土地権利"},
+                  "built": {"築年月", "建築年月"},
+              }
+              result = {}
+              for index, item in enumerate(parser.items):
+                  label = re.sub(r"[：:]$", "", item["text"]).strip()
+                  key = next((key for key, labels in aliases.items() if label in labels), None)
+                  if not key or key in result:
+                      continue
+                  expected = "td" if item["tag"] == "th" else "dd" if item["tag"] == "dt" else item["tag"]
+                  value = next((candidate["text"] for candidate in parser.items[index + 1:index + 4]
+                                if candidate["tag"] == expected
+                                and candidate["group"] == item["group"]
+                                and candidate["text"]), None)
+                  if value:
+                      result[key] = value
+              return result
+
+
+          def classify(page_html, url, raw):
+              candidates = [raw or ""]
+              title = re.search(r"<title\b[^>]*>(.*?)</title>", page_html, re.I | re.S)
+              candidates.append(title.group(1) if title else "")
+              candidates.append("中古一戸建て" if "/chuko/" in url else "")
+              for candidate in candidates:
+                  value = re.sub(r"\s+", "", html.unescape(candidate))
+                  if "中古一戸建て" in value or "中古戸建て" in value:
+                      return "中古一戸建て"
+                  if "新築一戸建て" in value or "新築戸建て" in value:
+                      return "新築一戸建て"
+              return None
+
+
+          def numeric(value):
+              match = re.search(r"\d[\d,]*(?:\.\d+)?", value or "")
+              return float(match.group().replace(",", "")) if match else None
+
+
+          def building_age(value):
+              match = re.search(r"(\d{4})\s*年(?:\s*(\d{1,2})\s*月)?", value or "")
+              if not match:
+                  return None
+              now = datetime.now(timezone.utc)
+              year, month = int(match.group(1)), int(match.group(2) or 1)
+              return now.year - year - ((now.month, 1) < (month, 1))
+
+
+          def parse_property(url, page_html):
+              text = visible_text(page_html)
+              separator = r"\s*(?:：|:)?\s*"
+              structured = structured_values(page_html)
+              raw_type = first_match(text, (rf"(?:物件種目|物件種別){separator}([^｜|]{{1,30}})",))
+              kind = classify(page_html, url, raw_type)
+              price_text = first_match(text, (
+                  rf"(?:価格|販売価格){separator}([^｜|]{{1,40}}?万円)",
+                  r"(\d[\d,]*(?:\.\d+)?\s*万円)",
+              ))
+              area_text = first_match(text, (
+                  rf"(?:建物面積|建物延べ面積){separator}([^｜|]{{1,45}}?(?:m²|㎡|平方メートル))",
+              ))
+              walk_text = first_match(text, (r"((?:徒歩|歩)\s*\d+\s*分)",))
+              address = first_match(text, (
+                  rf"(?:所在地|住所){separator}([^｜|]{{1,100}}?東京都[^｜|]{{0,80}})",
+              ))
+              title_match = re.search(r"<title\b[^>]*>(.*?)</title>", page_html, re.I | re.S)
+              title = visible_text(title_match.group(1)) if title_match else url
+              price = numeric(price_text)
+              area = numeric(area_text)
+              walk = numeric(walk_text)
+              age = building_age(structured.get("built"))
+              land_right = structured.get("land_right")
+              city_ok = bool(address and any(city in address for city in TARGET_CITIES) and "八王子市" not in address)
+              matches = all((
+                  kind in {"新築一戸建て", "中古一戸建て"},
+                  price is not None and price <= 7000,
+                  area is not None and area >= 70,
+                  walk is not None and walk <= 15,
+                  land_right is not None and re.search(r"(?:^|[\s、,／/])所有権(?:$|[\s、,／/])", land_right),
+                  kind == "新築一戸建て" or (age is not None and age <= 25),
+                  city_ok,
+              ))
+              return {
+                  "url": url, "title": title[:160], "type": kind, "price": price,
+                  "area": area, "walk": walk, "built": structured.get("built"),
+                  "land_right": land_right, "address": address, "matches": matches,
+              }
+
+
+          def load_state():
+              if not os.path.exists(STATE_FILE):
+                  return {"properties": {}, "price_cursor": 0}
+              with open(STATE_FILE, encoding="utf-8") as file:
+                  state = json.load(file)
+              if not isinstance(state.get("properties"), dict):
+                  raise RuntimeError("状態ファイルの形式が不正です")
+              state.setdefault("price_cursor", 0)
+              return state
+
+
+          def notify(prop, old_price=None):
+              if not NTFY_TOPIC:
+                  print("::error::NTFY_TOPIC secret が未設定です")
+                  return False
+              if old_price is None:
+                  title = f"AtHome 新着 [{prop['type']}]"
+                  message = f"{prop['title']}\n{prop['price']:,.0f}万円 / {prop['area']:g}㎡ / 徒歩{prop['walk']:g}分"
+              else:
+                  title = f"AtHome 値下げ [{prop['type']}]"
+                  message = f"{prop['title']}\n{old_price:,.0f}万円 → {prop['price']:,.0f}万円"
+              request = urllib.request.Request(
+                  "https://ntfy.sh/" + urllib.parse.quote(NTFY_TOPIC, safe=""),
+                  data=message.encode(), method="POST",
+                  headers={
+                      "Title": title.encode("utf-8").decode("latin-1"),
+                      "Click": prop["url"],
+                      "Tags": "house",
+                  },
+              )
+              try:
+                  with urllib.request.urlopen(request, timeout=15) as response:
+                      return 200 <= response.status < 300
+              except Exception as error:
+                  print(f"::warning::NTFY通知失敗（次回再試行）: {error}")
+                  return False
+
+
+          def detail(url):
+              time.sleep(DETAIL_INTERVAL_SECONDS)
+              status, final_url, page_html, size = fetch(url, attempts=3)
+              if status != 200:
+                  raise RuntimeError(f"詳細ページ HTTP {status}: {url}")
+              if size < MIN_DETAIL_PAGE_BYTES:
+                  raise RuntimeError(f"取得制限・簡易ページを検知 ({size} bytes): {url}")
+              return parse_property(final_url, page_html)
+
+
+          # 一覧が一部でも取れなければ、現在の掲載集合を確定できないため状態を更新しない。
+          current_urls = []
+          for page in range(1, MAX_LIST_PAGES + 1):
+              url = page_url(page)
+              status, final_url, page_html, size = fetch(url, attempts=3)
+              if status != 200 or size < MIN_LIST_PAGE_BYTES:
+                  raise RuntimeError(f"一覧の取得制限・簡易ページを検知: page={page}, status={status}, bytes={size}")
+              urls = property_urls(page_html, final_url)
+              print(f"list page {page}: {len(urls)} properties ({url})")
+              if not urls:
+                  if page == 1:
+                      raise RuntimeError("一覧1ページ目から物件URLを抽出できません")
+                  break
+              previous_count = len(current_urls)
+              current_urls.extend(item for item in urls if item not in current_urls)
+              if len(current_urls) == previous_count or len(urls) < 30:
+                  break
+
+          state = load_state()
+          now = datetime.now(timezone.utc).isoformat()
+          if RESET_BASELINE:
+              state = {
+                  "properties": {
+                      url: {"first_seen": now, "last_seen": now, "price": None, "price_history": []}
+                      for url in current_urls
+                  },
+                  "price_cursor": 0,
+                  "updated_at": now,
+              }
+              with open(STATE_FILE + ".tmp", "w", encoding="utf-8") as file:
+                  json.dump(state, file, ensure_ascii=False, indent=2, sort_keys=True)
+                  file.write("\n")
+              os.replace(STATE_FILE + ".tmp", STATE_FILE)
+              print(f"ベースライン登録: {len(current_urls)}件（通知なし）")
+              sys.exit(0)
+
+          known = state["properties"]
+          new_urls = [url for url in current_urls if url not in known][:NEW_DETAIL_BATCH_SIZE]
+          known_current = [url for url in current_urls if url in known]
+          cursor = int(state.get("price_cursor", 0))
+          price_urls = (known_current[cursor:] + known_current[:cursor])[:PRICE_CHECK_BATCH_SIZE]
+
+          # 全詳細取得を通知・保存より先に完了する。途中で制限を検知した run は状態を一切変更しない。
+          parsed_new = [detail(url) for url in new_urls]
+          parsed_prices = [detail(url) for url in price_urls if url not in new_urls]
+
+          for prop in parsed_new:
+              if prop["matches"] and not notify(prop):
+                  continue
+              entry = {
+                  "first_seen": now, "last_seen": now, "price": prop["price"],
+                  "price_history": [], "type": prop["type"], "title": prop["title"],
+              }
+              if prop["price"] is not None:
+                  entry["price_history"].append({"at": now, "price": prop["price"]})
+              known[prop["url"]] = entry
+
+          for prop in parsed_prices:
+              entry = known[prop["url"]]
+              old_price = entry.get("price")
+              if prop["matches"] and old_price is not None and prop["price"] is not None and prop["price"] < old_price:
+                  if not notify(prop, old_price):
+                      continue
+              entry["last_seen"] = now
+              entry["type"] = prop["type"]
+              entry["title"] = prop["title"]
+              if prop["price"] is not None and prop["price"] != old_price:
+                  entry.setdefault("price_history", []).append({"at": now, "price": prop["price"]})
+                  entry["price"] = prop["price"]
+
+          state["price_cursor"] = (cursor + len(price_urls)) % max(1, len(known_current))
+          state["updated_at"] = now
+          with open(STATE_FILE + ".tmp", "w", encoding="utf-8") as file:
+              json.dump(state, file, ensure_ascii=False, indent=2, sort_keys=True)
+              file.write("\n")
+          os.replace(STATE_FILE + ".tmp", STATE_FILE)
+          print(f"scan complete: listed={len(current_urls)}, new_checked={len(parsed_new)}, price_checked={len(parsed_prices)}")
+          PY
+
+      - name: Commit monitor state
+        run: |
+          if [ -z "$(git status --porcelain -- known_athome_state.json)" ]; then
+            echo "No state changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add known_athome_state.json
+          git commit -m "Update AtHome monitor state"
+          for attempt in 1 2 3; do
+            git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}" && exit 0
+            sleep $((attempt * 2))
+          done
+          echo "Failed to persist monitor state" >&2
+          exit 1
