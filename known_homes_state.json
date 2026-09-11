@@ -5,7 +5,6 @@
       "https://www.homes.co.jp/kodate/b-1278120011853/",
       "https://www.homes.co.jp/kodate/b-1278120011866/",
       "https://www.homes.co.jp/kodate/b-1278120012561/",
-      "https://www.homes.co.jp/kodate/b-1278120012575/",
       "https://www.homes.co.jp/kodate/b-1368970005570/",
       "https://www.homes.co.jp/kodate/b-1471030010846/",
       "https://www.homes.co.jp/kodate/b-1473210002255/",
@@ -754,6 +753,17 @@
       "price": 7280.0,
       "title": "【ホームズ】杉並区天沼2丁目の中古戸建｜杉並区、JR中央線 荻窪駅 徒歩12分の中古一戸建て",
       "updated_at": "2026-09-10T08:25:05.126148+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1278120012575/": {
+      "address": "東京都中野区上鷺宮1丁目",
+      "age": 7.3,
+      "area": 70.06,
+      "city": "中野区",
+      "land_right": "所有権",
+      "min_walk": 12,
+      "price": 7780.0,
+      "title": "【ホームズ】中野区上鷺宮1丁目の中古戸建｜中野区、西武池袋線 中村橋駅 徒歩12分の中古一戸建て",
+      "updated_at": "2026-09-11T08:21:24.639740+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1278120012581/": {
       "address": "東京都中野区弥生町4丁目",
