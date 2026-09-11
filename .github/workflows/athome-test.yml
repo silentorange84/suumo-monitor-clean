@@ -34,7 +34,10 @@ jobs:
 
           SEARCH_URL = os.environ["ATHOME_SEARCH_URL"]
           ORIGIN = "https://www.athome.co.jp"
-          MAX_DETAIL_SAMPLES = 30
+          MAX_DETAIL_SAMPLES = 6
+          DETAIL_REQUEST_INTERVAL_SECONDS = 3
+          # 前回の制限応答は約 8,127 bytes。通常の詳細ページとして誤解析しない。
+          MIN_DETAIL_PAGE_BYTES = 12_000
 
           HEADERS = {
               "User-Agent": (
@@ -69,6 +72,90 @@ jobs:
                           "rel": values.get("rel", ""),
                           "class": values.get("class", ""),
                       })
+
+
+          class StructuredFieldParser(HTMLParser):
+              """table/dl のラベルと隣接値を、表示テキストの順序どおり収集する。"""
+
+              TAGS = {"th", "td", "dt", "dd"}
+
+              def __init__(self):
+                  super().__init__(convert_charrefs=True)
+                  self.stack = []
+                  self.items = []
+                  self.group = 0
+                  self.current_group = None
+
+              def handle_starttag(self, tag, attrs):
+                  tag = tag.lower()
+                  if tag in {"tr", "dl"}:
+                      self.group += 1
+                      self.current_group = self.group
+                  if tag in self.TAGS:
+                      self.stack.append({
+                          "tag": tag, "group": self.current_group, "text": []
+                      })
+
+              def handle_startendtag(self, tag, attrs):
+                  return
+
+              def handle_data(self, data):
+                  if self.stack:
+                      self.stack[-1]["text"].append(data)
+
+              def handle_endtag(self, tag):
+                  if not self.stack:
+                      if tag.lower() in {"tr", "dl"}:
+                          self.current_group = None
+                      return
+                  current = self.stack[-1]
+                  if tag.lower() == current["tag"]:
+                      current["text"] = re.sub(
+                          r"\s+", " ", "".join(current["text"])
+                      ).strip()
+                      self.items.append(current)
+                      self.stack.pop()
+                  if tag.lower() in {"tr", "dl"}:
+                      self.current_group = None
+
+
+          class PaginationProbeParser(HTMLParser):
+              """ページ送りに使われ得る form と data-* を限定的に収集する。"""
+
+              def __init__(self):
+                  super().__init__(convert_charrefs=True)
+                  self.forms = []
+                  self.data_attributes = []
+                  self.current_form = None
+
+              def handle_starttag(self, tag, attrs):
+                  values = dict(attrs)
+                  if tag.lower() == "form":
+                      self.current_form = {
+                          "action": values.get("action", ""),
+                          "method": values.get("method", "get").lower(),
+                          "inputs": [],
+                      }
+                      self.forms.append(self.current_form)
+                  elif tag.lower() == "input" and self.current_form is not None:
+                      self.current_form["inputs"].append({
+                          "name": values.get("name", ""),
+                          "value": values.get("value", ""),
+                          "type": values.get("type", ""),
+                      })
+                  for name, value in attrs:
+                      if name.lower().startswith("data-") and re.search(
+                          r"(?:page|pager|pagination|url|href|query|q)", name, re.I
+                      ):
+                          self.data_attributes.append({
+                              "tag": tag,
+                              "name": name,
+                              "value": (value or "")[:300],
+                          })
+
+              def handle_endtag(self, tag):
+                  if tag.lower() == "form":
+                      self.current_form = None
 
 
           opener = urllib.request.build_opener(
@@ -159,6 +246,40 @@ jobs:
               return list(dict.fromkeys(candidates))
 
 
+          def pagination_evidence(page_html, base_url):
+              parser = PaginationProbeParser()
+              parser.feed(page_html)
+              relevant_forms = []
+              for form in parser.forms:
+                  encoded = json.dumps(form, ensure_ascii=False)
+                  if re.search(r"(?:page|pager|pagination|[\"']q[\"']|q=)", encoded, re.I):
+                      item = dict(form)
+                      item["action"] = urllib.parse.urljoin(base_url, item["action"])
+                      item["inputs"] = item["inputs"][:30]
+                      relevant_forms.append(item)
+
+              # script 全文は出さず、ページ2らしい URL/クエリの前後だけを出す。
+              script_text = " ".join(re.findall(
+                  r"<script\b[^>]*>(.*?)</script>", page_html, flags=re.I | re.S
+              ))
+              script_candidates = []
+              for match in re.finditer(
+                  r"[^\s\"'<>]{0,180}(?:[?&]q=2|page(?:No|Num|Index)?[\"']?\s*[:=]\s*[\"']?2)"
+                  r"[^\s\"'<>]{0,180}",
+                  script_text,
+                  flags=re.I,
+              ):
+                  candidate = html.unescape(match.group(0))[:400]
+                  if candidate not in script_candidates:
+                      script_candidates.append(candidate)
+              return {
+                  "forms": relevant_forms[:10],
+                  "data_attributes": parser.data_attributes[:30],
+                  "script_q2_candidates": script_candidates[:20],
+                  "literal_q2_occurrences": len(re.findall(r"(?:[?&]|&amp;)q=2\b", page_html)),
+              }
+
+
           def text_content(page_html):
               page_html = re.sub(
                   r"<(script|style|noscript)\b[^>]*>.*?</\1>",
@@ -178,10 +299,45 @@ jobs:
               return None
 
 
+          def structured_fields(page_html):
+              parser = StructuredFieldParser()
+              parser.feed(page_html)
+              aliases = {
+                  "land_right": {"土地権利"},
+                  "built": {"築年月", "建築年月"},
+              }
+              found = {}
+              contexts = {}
+              for index, item in enumerate(parser.items):
+                  label = re.sub(r"[：:]$", "", item["text"]).strip()
+                  field = next(
+                      (name for name, labels in aliases.items() if label in labels), None
+                  )
+                  if not field or field in found:
+                      continue
+                  expected = "td" if item["tag"] == "th" else "dd" if item["tag"] == "dt" else item["tag"]
+                  adjacent = next((
+                      candidate for candidate in parser.items[index + 1:index + 4]
+                      if candidate["tag"] == expected
+                      and candidate["group"] == item["group"]
+                      and candidate["text"]
+                  ), None)
+                  if adjacent:
+                      found[field] = adjacent["text"]
+                  # 値と属性だけの安全な再構成。元HTMLや個人情報を広範囲に出さない。
+                  nearby = parser.items[max(0, index - 1):index + 3]
+                  contexts[field] = " ".join(
+                      f"<{part['tag']}>{html.escape(part['text'][:160])}</{part['tag']}>"
+                      for part in nearby
+                  )[:800]
+              return found, contexts
+
+
           def extract_fields(page_html):
               # HTMLの表示文言を対象にするため、実運用前にラベルと値を目視確認できる。
               text = text_content(page_html)
               separator = r"\s*(?:：|:)?\s*"
+              structured, contexts = structured_fields(page_html)
               fields = {
                   "property_type_raw": first_match(text, (
                       rf"(?:物件種目|物件種別){separator}([^｜|]{{1,30}})",
@@ -193,20 +349,19 @@ jobs:
                   "building_area": first_match(text, (
                       rf"(?:建物面積|建物延べ面積){separator}([^｜|]{{1,45}}?(?:m²|㎡|平方メートル))",
                   )),
-                  "built": first_match(text, (
-                      rf"(?:築年月|築年数|建築年月){separator}([^｜|]{{1,35}}?(?:年|月))",
+                  "built": structured.get("built") or first_match(text, (
+                      rf"(?:築年月|建築年月){separator}([^｜|]{{0,25}}?\d{{4}}\s*年\s*\d{{1,2}}\s*月)",
                   )),
                   "station_walk": first_match(text, (
                       r"((?:徒歩|歩)\s*\d+\s*分)",
                   )),
-                  "land_right": first_match(text, (
-                      rf"(?:土地権利|権利){separator}([^｜|]{{1,25}})",
-                  )),
+                  # 「権利」などの曖昧な全文検索は禁止し、完全一致ラベルの隣だけを見る。
+                  "land_right": structured.get("land_right"),
                   "address": first_match(text, (
                       rf"(?:所在地|住所){separator}([^｜|]{{1,80}}?(?:都|道|府|県)[^｜|]{{0,60}})",
                   )),
               }
-              return fields
+              return fields, contexts
 
 
           def classify_property_type(fields, page_html, url):
@@ -326,17 +481,58 @@ jobs:
 
           pages = pagination_candidates(links)
           report["pagination_candidates"] = pages[:20]
+          report["pagination_evidence"] = pagination_evidence(
+              listing["text"], listing["final_url"]
+          )
           print("::group::3. Pagination")
           print(json.dumps(report["pagination_candidates"], ensure_ascii=False, indent=2))
+          print(json.dumps(report["pagination_evidence"], ensure_ascii=False, indent=2))
           print("The q/page/p query and rel=next candidates above reveal the current format.")
+          print("::endgroup::")
+
+          # 現行URLの条件を一切変えず q だけを2にし、物件集合が変わるか確認する。
+          search_parts = urllib.parse.urlsplit(SEARCH_URL)
+          q2_query = urllib.parse.parse_qsl(search_parts.query, keep_blank_values=True)
+          q2_query = [(key, "2" if key == "q" else value) for key, value in q2_query]
+          if not any(key == "q" for key, _ in q2_query):
+              q2_query.append(("q", "2"))
+          q2_url = urllib.parse.urlunsplit((
+              search_parts.scheme, search_parts.netloc, search_parts.path,
+              urllib.parse.urlencode(q2_query), search_parts.fragment,
+          ))
+          time.sleep(DETAIL_REQUEST_INTERVAL_SECONDS)
+          q2_listing = fetch(q2_url)
+          q2_properties = property_urls(parse_links(
+              q2_listing.get("text", ""), q2_listing.get("final_url", q2_url)
+          ))
+          report["direct_q2_probe"] = {
+              "url": q2_url,
+              "fetch": {key: value for key, value in q2_listing.items() if key != "text"},
+              "property_url_count": len(q2_properties),
+              "property_url_samples": q2_properties[:10],
+              "same_as_page_1": set(q2_properties) == set(properties),
+              "only_on_page_2_samples": list(set(q2_properties) - set(properties))[:10],
+              "only_on_page_1_samples": list(set(properties) - set(q2_properties))[:10],
+          }
+          print("::group::3b. Direct q=2 probe")
+          print(json.dumps(report["direct_q2_probe"], ensure_ascii=False, indent=2))
           print("::endgroup::")
 
           detail_reports = []
           print("::group::4. Detail fields")
           for url in properties[:MAX_DETAIL_SAMPLES]:
-              time.sleep(1)
+              time.sleep(DETAIL_REQUEST_INTERVAL_SECONDS)
               detail = fetch(url)
-              fields = extract_fields(detail["text"]) if detail.get("text") else {}
+              limited_page = bool(
+                  detail.get("text")
+                  and detail.get("bytes", 0) < MIN_DETAIL_PAGE_BYTES
+              )
+              if limited_page:
+                  fields, field_contexts = {}, {}
+              elif detail.get("text"):
+                  fields, field_contexts = extract_fields(detail["text"])
+              else:
+                  fields, field_contexts = {}, {}
               if fields:
                   fields["property_type"] = classify_property_type(
                       fields, detail["text"], url
@@ -344,7 +540,11 @@ jobs:
               item = {
                   "url": url,
                   "fetch": {key: value for key, value in detail.items() if key != "text"},
+                  "page_classification": (
+                      "取得制限・簡易ページ候補" if limited_page else "通常ページ候補"
+                  ),
                   "fields": fields,
+                  "structured_label_contexts": field_contexts,
                   "filter_evaluation": evaluate_conditions(fields)
                   if fields.get("property_type") else None,
               }
