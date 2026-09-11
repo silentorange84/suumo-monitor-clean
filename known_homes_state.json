@@ -6,7 +6,6 @@
       "https://www.homes.co.jp/kodate/b-1278120011853/",
       "https://www.homes.co.jp/kodate/b-1278120011866/",
       "https://www.homes.co.jp/kodate/b-1278120012561/",
-      "https://www.homes.co.jp/kodate/b-1465920000116/",
       "https://www.homes.co.jp/kodate/b-1465920000132/",
       "https://www.homes.co.jp/kodate/b-1473210002255/",
       "https://www.homes.co.jp/kodate/b-1473210002523/",
@@ -1142,6 +1141,17 @@
       "price": 3150.0,
       "title": "【ホームズ】下恩方町中古戸建 ２世帯住宅｜八王子市、JR中央線 高尾駅 バス19分 松竹下車 徒歩2分の中古一戸建て",
       "updated_at": "2026-09-10T16:37:15.368620+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1465920000116/": {
+      "address": "東京都八王子市美山町2110-1",
+      "age": 18.6,
+      "area": 107.31,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": null,
+      "price": 1980.0,
+      "title": "【ホームズ】八王子市美山町 中古戸建｜八王子市、JR中央線 高尾駅 バス25分 美山小学校下車 徒歩2分の中古一戸建て",
+      "updated_at": "2026-09-11T19:04:04.167237+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1465960006670/": {
       "address": "東京都八王子市元八王子町3丁目",
