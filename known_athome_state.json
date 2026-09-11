@@ -1,6 +1,6 @@
 {
   "baseline_in_progress": true,
-  "page_cursor": 4,
+  "page_cursor": 7,
   "price_cursor": 0,
   "properties": {
     "https://www.athome.co.jp/kodate/1012860620/": {
@@ -36,6 +36,90 @@
     "https://www.athome.co.jp/kodate/1012862020/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
       "last_seen": "2026-09-11T02:42:36.622271+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1019023287/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1019049387/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1019051587/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1019102287/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1020417791/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1020446591/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1020581491/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1020707991/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1020708091/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1020762891/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1020762991/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1020777191/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1020793691/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1020833891/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
       "price": null,
       "price_history": []
     },
@@ -75,6 +159,24 @@
       "price": null,
       "price_history": []
     },
+    "https://www.athome.co.jp/kodate/1106233119/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1107342614/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1107426714/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
     "https://www.athome.co.jp/kodate/1107663314/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
       "last_seen": "2026-09-11T02:42:36.622271+00:00",
@@ -84,6 +186,24 @@
     "https://www.athome.co.jp/kodate/1109269603/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
       "last_seen": "2026-09-11T02:42:36.622271+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1112472018/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1112691418/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1112719918/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
       "price": null,
       "price_history": []
     },
@@ -99,9 +219,39 @@
       "price": null,
       "price_history": []
     },
+    "https://www.athome.co.jp/kodate/1119125418/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1127248213/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
     "https://www.athome.co.jp/kodate/1130382117/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
       "last_seen": "2026-09-11T02:42:36.622271+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1131961105/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1134389827/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1134401527/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
       "price": null,
       "price_history": []
     },
@@ -123,15 +273,99 @@
       "price": null,
       "price_history": []
     },
+    "https://www.athome.co.jp/kodate/1144313723/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
     "https://www.athome.co.jp/kodate/1144472614/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
       "last_seen": "2026-09-11T02:42:36.622271+00:00",
       "price": null,
       "price_history": []
     },
+    "https://www.athome.co.jp/kodate/1144578914/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1144580614/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1144599114/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1150646120/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1150646220/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1150810431/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1150853320/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
     "https://www.athome.co.jp/kodate/1150855020/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
       "last_seen": "2026-09-11T02:42:36.622271+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1150862120/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1150870420/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1150873020/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1150880520/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1150880620/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1150897731/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
       "price": null,
       "price_history": []
     },
@@ -243,6 +477,12 @@
       "price": null,
       "price_history": []
     },
+    "https://www.athome.co.jp/kodate/1154858627/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
     "https://www.athome.co.jp/kodate/1154899927/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
       "last_seen": "2026-09-11T02:42:36.622271+00:00",
@@ -255,9 +495,21 @@
       "price": null,
       "price_history": []
     },
+    "https://www.athome.co.jp/kodate/1154990327/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
     "https://www.athome.co.jp/kodate/1155002327/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
       "last_seen": "2026-09-11T02:42:36.622271+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1155030227/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
       "price": null,
       "price_history": []
     },
@@ -273,6 +525,12 @@
       "price": null,
       "price_history": []
     },
+    "https://www.athome.co.jp/kodate/1156688510/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
     "https://www.athome.co.jp/kodate/1163903726/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
       "last_seen": "2026-09-11T02:42:36.622271+00:00",
@@ -282,6 +540,24 @@
     "https://www.athome.co.jp/kodate/1164233726/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
       "last_seen": "2026-09-11T02:42:36.622271+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1164236826/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1164812326/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1165997726/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
       "price": null,
       "price_history": []
     },
@@ -297,15 +573,57 @@
       "price": null,
       "price_history": []
     },
+    "https://www.athome.co.jp/kodate/1167541831/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1168068431/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1168516631/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1168611931/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
     "https://www.athome.co.jp/kodate/1168690131/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
       "last_seen": "2026-09-11T02:42:36.622271+00:00",
       "price": null,
       "price_history": []
     },
+    "https://www.athome.co.jp/kodate/1169000129/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
     "https://www.athome.co.jp/kodate/1169083331/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
       "last_seen": "2026-09-11T02:42:36.622271+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1172504728/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1172514028/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
       "price": null,
       "price_history": []
     },
@@ -333,9 +651,33 @@
       "price": null,
       "price_history": []
     },
+    "https://www.athome.co.jp/kodate/1176381515/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
     "https://www.athome.co.jp/kodate/1176488115/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
       "last_seen": "2026-09-11T02:42:36.622271+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1176596614/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1176665514/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1182607028/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
       "price": null,
       "price_history": []
     },
@@ -381,6 +723,36 @@
       "price": null,
       "price_history": []
     },
+    "https://www.athome.co.jp/kodate/1186824415/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1186833015/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1186833115/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1186846115/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1187379610/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
     "https://www.athome.co.jp/kodate/1190242319/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
       "last_seen": "2026-09-11T02:42:36.622271+00:00",
@@ -393,15 +765,75 @@
       "price": null,
       "price_history": []
     },
+    "https://www.athome.co.jp/kodate/1195022921/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1195058221/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
     "https://www.athome.co.jp/kodate/1195071321/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
       "last_seen": "2026-09-11T02:42:36.622271+00:00",
       "price": null,
       "price_history": []
     },
+    "https://www.athome.co.jp/kodate/1195076521/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
     "https://www.athome.co.jp/kodate/1195078821/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
       "last_seen": "2026-09-11T02:42:36.622271+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1195079221/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1195081421/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1195083521/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1195415821/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1195432521/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1195701921/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1195746621/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
       "price": null,
       "price_history": []
     },
@@ -429,6 +861,24 @@
       "price": null,
       "price_history": []
     },
+    "https://www.athome.co.jp/kodate/1199297824/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1199301024/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1199302524/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
     "https://www.athome.co.jp/kodate/1199307524/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
       "last_seen": "2026-09-11T02:42:36.622271+00:00",
@@ -453,6 +903,18 @@
       "price": null,
       "price_history": []
     },
+    "https://www.athome.co.jp/kodate/6989540544/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/6990252883/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
     "https://www.athome.co.jp/kodate/6991007539/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
       "last_seen": "2026-09-11T02:42:36.622271+00:00",
@@ -462,6 +924,84 @@
     "https://www.athome.co.jp/kodate/6991469133/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
       "last_seen": "2026-09-11T02:42:36.622271+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/6991531068/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/6991645177/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/6991665702/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/6991667113/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/6991694907/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/6991801320/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/6991845219/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/6991854041/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/6991859670/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/6991905447/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/6991925242/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/6991991696/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
+      "price": null,
+      "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/6992003106/": {
+      "first_seen": "2026-09-11T02:44:39.300032+00:00",
+      "last_seen": "2026-09-11T02:44:39.300032+00:00",
       "price": null,
       "price_history": []
     },
@@ -544,5 +1084,5 @@
       "price_history": []
     }
   },
-  "updated_at": "2026-09-11T02:42:36.622271+00:00"
+  "updated_at": "2026-09-11T02:44:39.300032+00:00"
 }
