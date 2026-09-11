@@ -7,7 +7,6 @@
       "https://www.homes.co.jp/kodate/b-1278120011866/",
       "https://www.homes.co.jp/kodate/b-1278120012561/",
       "https://www.homes.co.jp/kodate/b-1465920000132/",
-      "https://www.homes.co.jp/kodate/b-1473210002255/",
       "https://www.homes.co.jp/kodate/b-1473210002523/",
       "https://www.homes.co.jp/kodate/b-1473210002536/",
       "https://www.homes.co.jp/kodate/b-1485080000043/",
@@ -1350,6 +1349,17 @@
       "price": 3480.0,
       "title": "【ホームズ】杉並区成田東3丁目 中古戸建｜杉並区、東京メトロ丸ノ内線 南阿佐ケ谷駅 徒歩8分の中古一戸建て",
       "updated_at": "2026-09-09T22:28:04.604390+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1473210002255/": {
+      "address": "東京都八王子市暁町1丁目",
+      "age": 39.8,
+      "area": 96.66,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": null,
+      "price": 2750.0,
+      "title": "【ホームズ】八王子市暁町1丁目 中古戸建｜八王子市、JR中央線 八王子駅 バス5分 八王子郵便局下車 徒歩5分の中古一戸建て",
+      "updated_at": "2026-09-11T22:51:30.598145+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1473210002284/": {
       "address": "東京都八王子市絹ケ丘1丁目",
