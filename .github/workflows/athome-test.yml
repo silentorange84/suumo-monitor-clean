@@ -56,25 +56,48 @@ jobs:
           }
 
 
+          def safe_text(value):
+              """HTML由来の値を、正規表現や文字列操作に安全な文字列へ変換する。"""
+              if value is None:
+                  return ""
+              if isinstance(value, (list, tuple, set)):
+                  return " ".join(
+                      part for item in value if (part := safe_text(item))
+                  )
+              if isinstance(value, bytes):
+                  return value.decode("utf-8", errors="replace")
+              return str(value)
+
+
           class LinkParser(HTMLParser):
               def __init__(self):
                   super().__init__(convert_charrefs=True)
                   self.links = []
                   self.current_link = None
 
+              def finish_current_link(self):
+                  if self.current_link is None:
+                      return
+                  self.current_link["text"] = re.sub(
+                      r"\s+", " ", safe_text(self.current_link.get("text"))
+                  ).strip()
+                  self.current_link = None
+
               def handle_starttag(self, tag, attrs):
                   if tag.lower() != "a":
                       return
+                  # 壊れたHTMLで前の a が閉じないまま次の a が始まっても確定する。
+                  self.finish_current_link()
                   values = dict(attrs)
-                  href = values.get("href")
+                  href = safe_text(values.get("href"))
                   if href:
                       self.current_link = {
                           "href": href,
-                          "rel": values.get("rel", ""),
-                          "class": values.get("class", ""),
-                          "onclick": values.get("onclick", ""),
+                          "rel": safe_text(values.get("rel")),
+                          "class": safe_text(values.get("class")),
+                          "onclick": safe_text(values.get("onclick")),
                           "data": {
-                              name: value for name, value in attrs
+                              name: safe_text(value) for name, value in attrs
                               if name.lower().startswith("data-")
                           },
                           "text": [],
@@ -83,14 +106,16 @@ jobs:
 
               def handle_data(self, data):
                   if self.current_link is not None:
-                      self.current_link["text"].append(data)
+                      self.current_link["text"].append(safe_text(data))
 
               def handle_endtag(self, tag):
-                  if tag.lower() == "a" and self.current_link is not None:
-                      self.current_link["text"] = re.sub(
-                          r"\s+", " ", "".join(self.current_link["text"])
-                      ).strip()
-                      self.current_link = None
+                  if tag.lower() == "a":
+                      self.finish_current_link()
+
+              def close(self):
+                  # EOFまで a が閉じられない不完全なHTMLでも text を list のまま残さない。
+                  super().close()
+                  self.finish_current_link()
 
 
           class StructuredFieldParser(HTMLParser):
@@ -228,6 +253,7 @@ jobs:
           def parse_links(page_html, base_url):
               parser = LinkParser()
               parser.feed(page_html)
+              parser.close()
               result = []
               seen = set()
               for item in parser.links:
@@ -264,12 +290,16 @@ jobs:
           def pagination_candidates(links):
               candidates = []
               for link in links:
-                  parts = urllib.parse.urlsplit(link["url"])
+                  url = safe_text(link.get("url"))
+                  rel = safe_text(link.get("rel")).lower()
+                  css_class = safe_text(link.get("class")).lower()
+                  link_text = safe_text(link.get("text"))
+                  parts = urllib.parse.urlsplit(url)
                   query = urllib.parse.parse_qs(parts.query)
                   looks_like_page = (
-                      "next" in link["rel"].lower()
-                      or "pager" in link["class"].lower()
-                      or re.search(r"(?:次へ|^2$|2ページ)", link.get("text", ""))
+                      "next" in rel
+                      or "pager" in css_class
+                      or re.search(r"(?:次へ|^2$|2ページ)", link_text)
                       or any(key in query for key in ("page", "p", "offset", "cursor"))
                   )
                   if (
@@ -277,7 +307,7 @@ jobs:
                       and parts.netloc.endswith("athome.co.jp")
                       and "/kodate/tokyo/list/" in parts.path
                   ):
-                      candidates.append(link["url"])
+                      candidates.append(url)
               return list(dict.fromkeys(candidates))
 
 
@@ -543,11 +573,21 @@ jobs:
           print(f"unique property URLs: {len(properties)}")
           print("::endgroup::")
 
-          pages = pagination_candidates(links)
-          report["pagination_candidates"] = pages[:20]
-          report["pagination_evidence"] = pagination_evidence(
-              listing["text"], listing["final_url"]
-          )
+          try:
+              pages = pagination_candidates(links)
+              report["pagination_candidates"] = pages[:20]
+              report["pagination_evidence"] = pagination_evidence(
+                  listing["text"], listing["final_url"]
+              )
+          except Exception as error:
+              # ページ送り調査は補助情報なので、失敗しても詳細調査を継続し、
+              # 後続処理が別の理由で終了する場合にも診断結果を artifact に残す。
+              report["pagination_candidates"] = []
+              report["pagination_evidence"] = {}
+              report["pagination_error"] = f"{type(error).__name__}: {error}"
+              with open("athome-investigation.json", "w", encoding="utf-8") as file:
+                  json.dump(report, file, ensure_ascii=False, indent=2)
+              print(f"::warning::ページ送り調査を継続できませんでした: {report['pagination_error']}")
           print("::group::3. Pagination")
           print(json.dumps(report["pagination_candidates"], ensure_ascii=False, indent=2))
           print(json.dumps(report["pagination_evidence"], ensure_ascii=False, indent=2))
