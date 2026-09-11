@@ -5,7 +5,6 @@
       "https://www.homes.co.jp/kodate/b-1278120011853/",
       "https://www.homes.co.jp/kodate/b-1278120011866/",
       "https://www.homes.co.jp/kodate/b-1278120012561/",
-      "https://www.homes.co.jp/kodate/b-1368970005570/",
       "https://www.homes.co.jp/kodate/b-1471030008658/",
       "https://www.homes.co.jp/kodate/b-1471030010846/",
       "https://www.homes.co.jp/kodate/b-1473210002255/",
@@ -908,6 +907,17 @@
       "price": 5499.0,
       "title": "【ホームズ】八王子市 兵衛 新築未入居戸建て 1期 2号棟｜八王子市、JR横浜線 八王子みなみ野駅 徒歩10分の中古一戸建て",
       "updated_at": "2026-09-09T00:48:47.204089+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1368970005570/": {
+      "address": "東京都八王子市川口町1890-28",
+      "age": 47.2,
+      "area": 118.82,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": null,
+      "price": 2880.0,
+      "title": "【ホームズ】八王子市 川口町 中古戸建て｜八王子市、JR中央線 八王子駅 バス27分 新川口下車 徒歩9分の中古一戸建て",
+      "updated_at": "2026-09-11T08:56:48.737677+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1368970005685/": {
       "address": "東京都八王子市城山手1丁目17-2",
