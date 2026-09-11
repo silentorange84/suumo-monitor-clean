@@ -5,7 +5,6 @@
       "https://www.homes.co.jp/kodate/b-1278120011647/",
       "https://www.homes.co.jp/kodate/b-1278120011853/",
       "https://www.homes.co.jp/kodate/b-1278120011866/",
-      "https://www.homes.co.jp/kodate/b-1278120012328/",
       "https://www.homes.co.jp/kodate/b-1278120012561/",
       "https://www.homes.co.jp/kodate/b-1471030008658/",
       "https://www.homes.co.jp/kodate/b-1473210002255/",
@@ -702,6 +701,17 @@
       "price": 6780.0,
       "title": "【ホームズ】杉並区善福寺1丁目の中古戸建｜杉並区、JR中央線 西荻窪駅 徒歩15分の中古一戸建て",
       "updated_at": "2026-09-11T04:55:09.577883+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1278120012328/": {
+      "address": "東京都杉並区阿佐谷北2丁目",
+      "age": 8.2,
+      "area": 59.62,
+      "city": "杉並区",
+      "land_right": "所有権",
+      "min_walk": 7,
+      "price": 7480.0,
+      "title": "【ホームズ】杉並区阿佐谷北2丁目の中古戸建｜杉並区、JR中央線 阿佐ケ谷駅 徒歩7分の中古一戸建て",
+      "updated_at": "2026-09-11T13:38:57.894829+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1278120012344/": {
       "address": "東京都豊島区長崎6丁目",
