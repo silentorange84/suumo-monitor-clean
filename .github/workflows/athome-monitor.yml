@@ -53,6 +53,8 @@ jobs:
           ORIGIN = "https://www.athome.co.jp"
           STATE_FILE = "known_athome_state.json"
           MAX_LIST_PAGES = 8
+          LIST_PAGES_PER_RUN = 3
+          LIST_INTERVAL_SECONDS = 1.5
           NEW_DETAIL_BATCH_SIZE = 12
           PRICE_CHECK_BATCH_SIZE = 8
           DETAIL_INTERVAL_SECONDS = 3
@@ -271,13 +273,25 @@ jobs:
 
           def load_state():
               if not os.path.exists(STATE_FILE):
-                  return {"properties": {}, "price_cursor": 0}
+                  return {
+                      "properties": {}, "price_cursor": 0, "page_cursor": 1,
+                      "baseline_in_progress": True,
+                  }
               with open(STATE_FILE, encoding="utf-8") as file:
                   state = json.load(file)
               if not isinstance(state.get("properties"), dict):
                   raise RuntimeError("状態ファイルの形式が不正です")
               state.setdefault("price_cursor", 0)
+              state.setdefault("page_cursor", 1)
+              state.setdefault("baseline_in_progress", False)
               return state
+
+
+          def save_state(state):
+              with open(STATE_FILE + ".tmp", "w", encoding="utf-8") as file:
+                  json.dump(state, file, ensure_ascii=False, indent=2, sort_keys=True)
+                  file.write("\n")
+              os.replace(STATE_FILE + ".tmp", STATE_FILE)
 
 
           def notify(prop, old_price=None):
@@ -317,40 +331,72 @@ jobs:
               return parse_property(final_url, page_html)
 
 
-          # 一覧が一部でも取れなければ、現在の掲載集合を確定できないため状態を更新しない。
-          current_urls = []
-          for page in range(1, MAX_LIST_PAGES + 1):
-              url = page_url(page)
-              status, final_url, page_html, size = fetch(url, attempts=3)
-              if status != 200 or size < MIN_LIST_PAGE_BYTES:
-                  raise RuntimeError(f"一覧の取得制限・簡易ページを検知: page={page}, status={status}, bytes={size}")
-              urls = property_urls(page_html, final_url)
-              print(f"list page {page}: {len(urls)} properties ({url})")
-              if not urls:
-                  if page == 1:
-                      raise RuntimeError("一覧1ページ目から物件URLを抽出できません")
-                  break
-              previous_count = len(current_urls)
-              current_urls.extend(item for item in urls if item not in current_urls)
-              if len(current_urls) == previous_count or len(urls) < 30:
-                  break
-
           state = load_state()
           now = datetime.now(timezone.utc).isoformat()
           if RESET_BASELINE:
               state = {
-                  "properties": {
-                      url: {"first_seen": now, "last_seen": now, "price": None, "price_history": []}
-                      for url in current_urls
-                  },
-                  "price_cursor": 0,
-                  "updated_at": now,
+                  "properties": {}, "price_cursor": 0, "page_cursor": 1,
+                  "baseline_in_progress": True,
               }
-              with open(STATE_FILE + ".tmp", "w", encoding="utf-8") as file:
-                  json.dump(state, file, ensure_ascii=False, indent=2, sort_keys=True)
-                  file.write("\n")
-              os.replace(STATE_FILE + ".tmp", STATE_FILE)
-              print(f"ベースライン登録: {len(current_urls)}件（通知なし）")
+
+          start_page = max(1, min(MAX_LIST_PAGES, int(state.get("page_cursor", 1))))
+          end_page = min(MAX_LIST_PAGES, start_page + LIST_PAGES_PER_RUN - 1)
+          current_urls = []
+          next_page = start_page
+          cycle_complete = False
+          list_limited = False
+          for page in range(start_page, end_page + 1):
+              if page > start_page:
+                  time.sleep(LIST_INTERVAL_SECONDS)
+              url = page_url(page)
+              try:
+                  status, final_url, page_html, size = fetch(url, attempts=3)
+              except RuntimeError as error:
+                  print(f"::warning::一覧取得を中断します: page={page}: {error}")
+                  list_limited = True
+                  next_page = page
+                  break
+              if status != 200 or size < MIN_LIST_PAGE_BYTES:
+                  print(f"::warning::一覧の取得制限・簡易ページを検知: page={page}, status={status}, bytes={size}")
+                  list_limited = True
+                  next_page = page
+                  break
+              urls = property_urls(page_html, final_url)
+              print(f"list page {page}: {len(urls)} properties ({url})")
+              if not urls:
+                  if page == 1:
+                      print("::warning::一覧1ページ目から物件URLを抽出できません")
+                      list_limited = True
+                      next_page = page
+                      break
+                  cycle_complete = True
+                  next_page = 1
+                  break
+              previous_count = len(current_urls)
+              current_urls.extend(item for item in urls if item not in current_urls)
+              if len(current_urls) == previous_count or len(urls) < 30:
+                  cycle_complete = True
+                  next_page = 1
+                  break
+              if page == MAX_LIST_PAGES:
+                  cycle_complete = True
+                  next_page = 1
+              else:
+                  next_page = page + 1
+
+          state["page_cursor"] = next_page
+          if state.get("baseline_in_progress"):
+              known = state["properties"]
+              for url in current_urls:
+                  known.setdefault(url, {
+                      "first_seen": now, "last_seen": now, "price": None, "price_history": [],
+                  })
+              if cycle_complete:
+                  state["baseline_in_progress"] = False
+              state["updated_at"] = now
+              save_state(state)
+              progress = "完了" if cycle_complete else "構築中"
+              print(f"ベースライン{progress}: 今回{len(current_urls)}件 / 累計{len(known)}件（通知なし）")
               sys.exit(0)
 
           known = state["properties"]
@@ -389,11 +435,10 @@ jobs:
 
           state["price_cursor"] = (cursor + len(price_urls)) % max(1, len(known_current))
           state["updated_at"] = now
-          with open(STATE_FILE + ".tmp", "w", encoding="utf-8") as file:
-              json.dump(state, file, ensure_ascii=False, indent=2, sort_keys=True)
-              file.write("\n")
-          os.replace(STATE_FILE + ".tmp", STATE_FILE)
-          print(f"scan complete: listed={len(current_urls)}, new_checked={len(parsed_new)}, price_checked={len(parsed_prices)}")
+          save_state(state)
+          suffix = ", list_limited=true" if list_limited else ""
+          print(f"scan complete: pages={start_page}-{end_page}, listed={len(current_urls)}, "
+                f"new_checked={len(parsed_new)}, price_checked={len(parsed_prices)}{suffix}")
           PY
 
       - name: Commit monitor state
