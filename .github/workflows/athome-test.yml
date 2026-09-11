@@ -60,6 +60,7 @@ jobs:
               def __init__(self):
                   super().__init__(convert_charrefs=True)
                   self.links = []
+                  self.current_link = None
 
               def handle_starttag(self, tag, attrs):
                   if tag.lower() != "a":
@@ -67,11 +68,29 @@ jobs:
                   values = dict(attrs)
                   href = values.get("href")
                   if href:
-                      self.links.append({
+                      self.current_link = {
                           "href": href,
                           "rel": values.get("rel", ""),
                           "class": values.get("class", ""),
-                      })
+                          "onclick": values.get("onclick", ""),
+                          "data": {
+                              name: value for name, value in attrs
+                              if name.lower().startswith("data-")
+                          },
+                          "text": [],
+                      }
+                      self.links.append(self.current_link)
+
+              def handle_data(self, data):
+                  if self.current_link is not None:
+                      self.current_link["text"].append(data)
+
+              def handle_endtag(self, tag):
+                  if tag.lower() == "a" and self.current_link is not None:
+                      self.current_link["text"] = re.sub(
+                          r"\s+", " ", "".join(self.current_link["text"])
+                      ).strip()
+                      self.current_link = None
 
 
           class StructuredFieldParser(HTMLParser):
@@ -120,16 +139,31 @@ jobs:
 
 
           class PaginationProbeParser(HTMLParser):
-              """ページ送りに使われ得る form と data-* を限定的に収集する。"""
+              """ページ送りに使われ得る form、イベント、data-* を収集する。"""
 
               def __init__(self):
                   super().__init__(convert_charrefs=True)
                   self.forms = []
                   self.data_attributes = []
+                  self.controls = []
                   self.current_form = None
 
               def handle_starttag(self, tag, attrs):
                   values = dict(attrs)
+                  pagination_attributes = {
+                      name: value for name, value in attrs
+                      if name.lower() == "onclick" or name.lower().startswith("data-")
+                  }
+                  if pagination_attributes and re.search(
+                      r"(?:next|次へ|page|pager|pagination|offset|cursor|2)",
+                      json.dumps(pagination_attributes, ensure_ascii=False), re.I,
+                  ):
+                      self.controls.append({
+                          "tag": tag,
+                          "id": values.get("id", ""),
+                          "class": values.get("class", ""),
+                          "attributes": pagination_attributes,
+                      })
                   if tag.lower() == "form":
                       self.current_form = {
                           "action": values.get("action", ""),
@@ -235,7 +269,8 @@ jobs:
                   looks_like_page = (
                       "next" in link["rel"].lower()
                       or "pager" in link["class"].lower()
-                      or any(key in query for key in ("q", "page", "p"))
+                      or re.search(r"(?:次へ|^2$|2ページ)", link.get("text", ""))
+                      or any(key in query for key in ("page", "p", "offset", "cursor"))
                   )
                   if (
                       looks_like_page
@@ -252,22 +287,22 @@ jobs:
               relevant_forms = []
               for form in parser.forms:
                   encoded = json.dumps(form, ensure_ascii=False)
-                  if re.search(r"(?:page|pager|pagination|[\"']q[\"']|q=)", encoded, re.I):
+                  if re.search(r"(?:page|pager|pagination|offset|cursor|next)", encoded, re.I):
                       item = dict(form)
                       item["action"] = urllib.parse.urljoin(base_url, item["action"])
                       item["inputs"] = item["inputs"][:30]
                       relevant_forms.append(item)
 
-              # script 全文は出さず、ページ2らしい URL/クエリの前後だけを出す。
+              # script 全文は出さず、ページ送り/APIらしい記述の前後だけを出す。
               script_text = " ".join(re.findall(
                   r"<script\b[^>]*>(.*?)</script>", page_html, flags=re.I | re.S
               ))
               script_candidates = []
               for match in re.finditer(
-                  r"[^\s\"'<>]{0,180}(?:[?&]q=2|page(?:No|Num|Index)?[\"']?\s*[:=]\s*[\"']?2)"
-                  r"[^\s\"'<>]{0,180}",
+                  r".{0,180}(?:page(?:No|Num|Index)?[\"']?\s*[:=]\s*[\"']?2|"
+                  r"(?:next|pager|pagination|offset|cursor|fetch|ajax|xhr)).{0,180}",
                   script_text,
-                  flags=re.I,
+                  flags=re.I | re.S,
               ):
                   candidate = html.unescape(match.group(0))[:400]
                   if candidate not in script_candidates:
@@ -275,9 +310,38 @@ jobs:
               return {
                   "forms": relevant_forms[:10],
                   "data_attributes": parser.data_attributes[:30],
-                  "script_q2_candidates": script_candidates[:20],
-                  "literal_q2_occurrences": len(re.findall(r"(?:[?&]|&amp;)q=2\b", page_html)),
+                  "pagination_controls": parser.controls[:30],
+                  "script_and_api_candidates": script_candidates[:30],
+                  "next_text_occurrences": len(re.findall(r">\s*次へ\s*<", page_html)),
+                  "page_2_control_occurrences": len(re.findall(
+                      r">\s*(?:2|2ページ目)\s*<", page_html
+                  )),
               }
+
+
+          def listing_type_candidates(page_html, properties):
+              """詳細リンク周辺のカードHTMLだけから種別候補を推定する。"""
+              buckets = {"新築一戸建て": [], "中古一戸建て": [], "不明": []}
+              for url in properties:
+                  path = urllib.parse.urlsplit(url).path.rstrip("/")
+                  positions = [match.start() for match in re.finditer(
+                      re.escape(path), page_html, flags=re.I
+                  )]
+                  snippets = [
+                      text_content(page_html[max(0, pos - 2500):pos + 2500])
+                      for pos in positions[:5]
+                  ]
+                  context = " ".join(snippets)
+                  new_match = re.search(r"新築(?:一戸建て|戸建て|住宅)", context)
+                  used_match = re.search(r"中古(?:一戸建て|戸建て|住宅)", context)
+                  if "/kodate/chuko/" in url or (used_match and not new_match):
+                      kind = "中古一戸建て"
+                  elif "/kodate/shinchiku/" in url or (new_match and not used_match):
+                      kind = "新築一戸建て"
+                  else:
+                      kind = "不明"
+                  buckets[kind].append(url)
+              return buckets
 
 
           def text_content(page_html):
@@ -487,40 +551,38 @@ jobs:
           print("::group::3. Pagination")
           print(json.dumps(report["pagination_candidates"], ensure_ascii=False, indent=2))
           print(json.dumps(report["pagination_evidence"], ensure_ascii=False, indent=2))
-          print("The q/page/p query and rel=next candidates above reveal the current format.")
+          print("q is intentionally excluded: run #3 proved q=2 returns the same listings.")
+          print("The controls, onclick/data attributes, scripts and API clues above are the pagination evidence.")
           print("::endgroup::")
 
-          # 現行URLの条件を一切変えず q だけを2にし、物件集合が変わるか確認する。
-          search_parts = urllib.parse.urlsplit(SEARCH_URL)
-          q2_query = urllib.parse.parse_qsl(search_parts.query, keep_blank_values=True)
-          q2_query = [(key, "2" if key == "q" else value) for key, value in q2_query]
-          if not any(key == "q" for key, _ in q2_query):
-              q2_query.append(("q", "2"))
-          q2_url = urllib.parse.urlunsplit((
-              search_parts.scheme, search_parts.netloc, search_parts.path,
-              urllib.parse.urlencode(q2_query), search_parts.fragment,
-          ))
-          time.sleep(DETAIL_REQUEST_INTERVAL_SECONDS)
-          q2_listing = fetch(q2_url)
-          q2_properties = property_urls(parse_links(
-              q2_listing.get("text", ""), q2_listing.get("final_url", q2_url)
-          ))
-          report["direct_q2_probe"] = {
-              "url": q2_url,
-              "fetch": {key: value for key, value in q2_listing.items() if key != "text"},
-              "property_url_count": len(q2_properties),
-              "property_url_samples": q2_properties[:10],
-              "same_as_page_1": set(q2_properties) == set(properties),
-              "only_on_page_2_samples": list(set(q2_properties) - set(properties))[:10],
-              "only_on_page_1_samples": list(set(properties) - set(q2_properties))[:10],
+          listing_candidates = listing_type_candidates(listing["text"], properties)
+          report["listing_type_candidates"] = {
+              kind: urls[:10] for kind, urls in listing_candidates.items()
           }
-          print("::group::3b. Direct q=2 probe")
-          print(json.dumps(report["direct_q2_probe"], ensure_ascii=False, indent=2))
+          # 各種別を最大2件まで優先する。不明候補は誤判定時の少数探索用。
+          detail_queue = []
+          for index in range(2):
+              for kind in ("新築一戸建て", "中古一戸建て"):
+                  if index < len(listing_candidates[kind]):
+                      detail_queue.append(listing_candidates[kind][index])
+          detail_queue.extend(listing_candidates["不明"])
+          detail_queue.extend(properties)
+          detail_queue = list(dict.fromkeys(detail_queue))[:MAX_DETAIL_SAMPLES]
+          report["detail_selection"] = {
+              "strategy": "一覧種別候補を交互に優先し、不明候補を1件ずつ少数探索",
+              "max_requests": MAX_DETAIL_SAMPLES,
+              "queue": detail_queue,
+          }
+          print("::group::3b. Listing type candidates and detail queue")
+          print(json.dumps(report["listing_type_candidates"], ensure_ascii=False, indent=2))
+          print(json.dumps(report["detail_selection"], ensure_ascii=False, indent=2))
           print("::endgroup::")
 
           detail_reports = []
           print("::group::4. Detail fields")
-          for url in properties[:MAX_DETAIL_SAMPLES]:
+          confirmed_types = set()
+          stopped_on_limited_page = False
+          for url in detail_queue:
               time.sleep(DETAIL_REQUEST_INTERVAL_SECONDS)
               detail = fetch(url)
               limited_page = bool(
@@ -550,8 +612,18 @@ jobs:
               }
               detail_reports.append(item)
               print(json.dumps(item, ensure_ascii=False, indent=2))
+              if fields.get("property_type"):
+                  confirmed_types.add(fields["property_type"])
+              if limited_page:
+                  stopped_on_limited_page = True
+                  print("::warning::取得制限・簡易ページ候補を検出したため、残りの詳細取得を打ち切ります")
+                  break
+              if confirmed_types == {"新築一戸建て", "中古一戸建て"}:
+                  print("両方の物件種別を確認できたため、詳細探索を終了します")
+                  break
           print("::endgroup::")
           report["details"] = detail_reports
+          report["detail_selection"]["stopped_on_limited_page"] = stopped_on_limited_page
           report["property_type_counts"] = {
               property_type: sum(
                   item["fields"].get("property_type") == property_type
@@ -570,19 +642,25 @@ jobs:
               if absent:
                   missing.append({"url": item["url"], "fields": absent})
           report["missing_detail_fields"] = missing
-          report["result"] = "completed"
+          both_types_confirmed = all(report["property_type_counts"].values())
+          report["result"] = "completed" if both_types_confirmed else "incomplete"
+          if not both_types_confirmed:
+              report["warning"] = (
+                  "新築一戸建てと中古一戸建ての両方は確認できませんでした。"
+                  "アクセス抑制のため調査結果を incomplete とし、Workflowは継続します。"
+              )
 
           with open("athome-investigation.json", "w", encoding="utf-8") as file:
               json.dump(report, file, ensure_ascii=False, indent=2)
 
           if not properties:
               sys.exit("一覧から物件詳細URLを抽出できませんでした")
-          if not detail_reports or not any(
+          if (not stopped_on_limited_page) and (not detail_reports or not any(
               any(item["fields"].values()) for item in detail_reports
-          ):
+          )):
               sys.exit("詳細ページの項目を抽出できませんでした")
-          if not all(report["property_type_counts"].values()):
-              sys.exit("新築一戸建てと中古一戸建ての両方を識別できませんでした")
+          if not both_types_confirmed:
+              print(f"::warning::{report['warning']}")
           PY
 
       - name: Upload investigation report
