@@ -5,6 +5,7 @@
       "https://www.homes.co.jp/kodate/b-1278120011853/",
       "https://www.homes.co.jp/kodate/b-1278120011866/",
       "https://www.homes.co.jp/kodate/b-1278120012561/",
+      "https://www.homes.co.jp/kodate/b-1471030010846/",
       "https://www.homes.co.jp/kodate/b-1485080000043/",
       "https://www.homes.co.jp/kodate/b-1541220001348/",
       "https://www.homes.co.jp/kodate/b-1545670000061/",
@@ -365,6 +366,17 @@
       "price": 7700.0,
       "title": "【ホームズ】練馬区下石神井6丁目｜練馬区、西武新宿線 上井草駅 徒歩12分の中古一戸建て",
       "updated_at": "2026-09-09T10:07:37.228073+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1175550015945/": {
+      "address": "東京都西東京市芝久保町5丁目",
+      "age": 21.3,
+      "area": 80.11,
+      "city": "西東京市",
+      "land_right": "所有権",
+      "min_walk": 18,
+      "price": 4499.0,
+      "title": "【ホームズ】西東京市芝久保町5丁目 中古一戸建住宅 （保谷店）｜西東京市、西武新宿線 田無駅 徒歩18分の中古一戸建て",
+      "updated_at": "2026-09-11T05:52:59.762813+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1175550015978/": {
       "address": "東京都中野区上鷺宮1丁目",
