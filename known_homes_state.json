@@ -7,6 +7,7 @@
       "https://www.homes.co.jp/kodate/b-1278120011853/",
       "https://www.homes.co.jp/kodate/b-1278120011866/",
       "https://www.homes.co.jp/kodate/b-1278120012561/",
+      "https://www.homes.co.jp/kodate/b-1331680000552/",
       "https://www.homes.co.jp/kodate/b-1465920000132/",
       "https://www.homes.co.jp/kodate/b-1471030010490/",
       "https://www.homes.co.jp/kodate/b-1471030011413/",
@@ -30,6 +31,17 @@
     "price_cursor": 0
   },
   "properties": {
+    "https://www.homes.co.jp/kodate/b-1000980102857/": {
+      "address": "東京都練馬区春日町6丁目",
+      "age": 5.8,
+      "area": 154.63,
+      "city": "練馬区",
+      "land_right": "所有権",
+      "min_walk": 7,
+      "price": 12980.0,
+      "title": "【ホームズ】練馬区春日町6丁目 中古戸建て｜練馬区、都営大江戸線 練馬春日町駅 徒歩7分の中古一戸建て",
+      "updated_at": "2026-09-12T11:32:45.293434+00:00"
+    },
     "https://www.homes.co.jp/kodate/b-1000980106700/": {
       "address": "東京都練馬区,西武新宿線",
       "age": 25.0,
