@@ -1,7 +1,7 @@
 {
   "baseline_in_progress": false,
-  "page_cursor": 1,
-  "price_cursor": 12,
+  "page_cursor": 4,
+  "price_cursor": 20,
   "properties": {
     "https://www.athome.co.jp/kodate/1012848820/": {
       "first_seen": "2026-09-11T12:23:14.106524+00:00",
@@ -71,6 +71,19 @@
       "last_seen": "2026-09-11T02:42:36.622271+00:00",
       "price": null,
       "price_history": []
+    },
+    "https://www.athome.co.jp/kodate/1013280979/": {
+      "first_seen": "2026-09-12T22:15:39.472569+00:00",
+      "last_seen": "2026-09-12T22:15:39.472569+00:00",
+      "price": 6980.0,
+      "price_history": [
+        {
+          "at": "2026-09-12T22:15:39.472569+00:00",
+          "price": 6980.0
+        }
+      ],
+      "title": "【アットホーム】練馬区 田柄１丁目（平和台駅） 3階建 ２ＳＬＤＫ[1013280979]練馬区の一戸建て（提供元：(株)ミヤマハウジング）｜一軒家・家の購入",
+      "type": "新築一戸建て"
     },
     "https://www.athome.co.jp/kodate/1018711791/": {
       "first_seen": "2026-09-11T09:46:00.706636+00:00",
@@ -1041,7 +1054,7 @@
     },
     "https://www.athome.co.jp/kodate/1150936620/": {
       "first_seen": "2026-09-12T04:52:17.851429+00:00",
-      "last_seen": "2026-09-12T04:52:17.851429+00:00",
+      "last_seen": "2026-09-12T22:15:39.472569+00:00",
       "price": 6890.0,
       "price_history": [
         {
@@ -2591,5 +2604,5 @@
       "type": "新築一戸建て"
     }
   },
-  "updated_at": "2026-09-12T21:59:01.623610+00:00"
+  "updated_at": "2026-09-12T22:15:39.472569+00:00"
 }
