@@ -14,6 +14,7 @@
       "https://www.homes.co.jp/kodate/b-1541220001348/",
       "https://www.homes.co.jp/kodate/b-1545670000061/",
       "https://www.homes.co.jp/kodate/b-1545870000144/",
+      "https://www.homes.co.jp/kodate/b-1568160000105/",
       "https://www.homes.co.jp/kodate/b-35505590000065/",
       "https://www.homes.co.jp/kodate/b-56050000016/",
       "https://www.homes.co.jp/kodate/b-91120000054/",
@@ -462,6 +463,17 @@
       "price": 7780.0,
       "title": "【ホームズ】中野区上鷺宮1丁目 中古一戸建住宅 （成増店）｜中野区、西武池袋線 中村橋駅 徒歩12分の中古一戸建て",
       "updated_at": "2026-09-10T05:19:11.250060+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1184720013432/": {
+      "address": "東京都八王子市子安町1丁目",
+      "age": 6.1,
+      "area": 94.08,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": 13,
+      "price": 5780.0,
+      "title": "【ホームズ】八王子市子安町1丁目｜八王子市、京王線 京王八王子駅 徒歩13分の中古一戸建て",
+      "updated_at": "2026-09-12T03:53:33.127983+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1188950012222/": {
       "address": "東京都八王子市北野台1丁目",
