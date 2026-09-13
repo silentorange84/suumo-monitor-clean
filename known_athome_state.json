@@ -1,7 +1,7 @@
 {
   "baseline_in_progress": false,
-  "page_cursor": 4,
-  "price_cursor": 44,
+  "page_cursor": 7,
+  "price_cursor": 52,
   "properties": {
     "https://www.athome.co.jp/kodate/1012848820/": {
       "first_seen": "2026-09-11T12:23:14.106524+00:00",
@@ -566,7 +566,7 @@
     },
     "https://www.athome.co.jp/kodate/1112691418/": {
       "first_seen": "2026-09-11T02:44:39.300032+00:00",
-      "last_seen": "2026-09-11T16:53:35.153800+00:00",
+      "last_seen": "2026-09-13T01:51:30.675037+00:00",
       "price": 5499.0,
       "price_history": [
         {
@@ -1523,9 +1523,16 @@
     },
     "https://www.athome.co.jp/kodate/1164812326/": {
       "first_seen": "2026-09-11T02:44:39.300032+00:00",
-      "last_seen": "2026-09-11T02:44:39.300032+00:00",
-      "price": null,
-      "price_history": []
+      "last_seen": "2026-09-13T01:51:30.675037+00:00",
+      "price": 5590.0,
+      "price_history": [
+        {
+          "at": "2026-09-13T01:51:30.675037+00:00",
+          "price": 5590.0
+        }
+      ],
+      "title": "【アットホーム】立川市 栄町４丁目（立川駅） 2階建 ４ＬＤＫ[1164812326]立川市の一戸建て（提供元：ミライズホーム(株)）｜一軒家・家の購入",
+      "type": "新築一戸建て"
     },
     "https://www.athome.co.jp/kodate/1165542226/": {
       "first_seen": "2026-09-11T09:46:00.706636+00:00",
@@ -2755,5 +2762,5 @@
       "type": "新築一戸建て"
     }
   },
-  "updated_at": "2026-09-13T01:37:35.009125+00:00"
+  "updated_at": "2026-09-13T01:51:30.675037+00:00"
 }
