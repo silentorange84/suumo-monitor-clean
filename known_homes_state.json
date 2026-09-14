@@ -5,7 +5,6 @@
       "https://www.homes.co.jp/kodate/b-1020740087872/",
       "https://www.homes.co.jp/kodate/b-1140530012291/",
       "https://www.homes.co.jp/kodate/b-1140530012359/",
-      "https://www.homes.co.jp/kodate/b-1278120011502/",
       "https://www.homes.co.jp/kodate/b-1278120011647/",
       "https://www.homes.co.jp/kodate/b-1278120011853/",
       "https://www.homes.co.jp/kodate/b-1278120011866/",
@@ -907,6 +906,17 @@
       "price": 6980.0,
       "title": "【ホームズ】横川町戸建｜八王子市、JR中央線 西八王子駅 徒歩25分の中古一戸建て",
       "updated_at": "2026-09-10T05:19:12.411856+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1278120011502/": {
+      "address": "東京都中野区本町2丁目",
+      "age": 28.4,
+      "area": 215.95,
+      "city": "中野区",
+      "land_right": "所有権",
+      "min_walk": 9,
+      "price": 11.0,
+      "title": "【ホームズ】中野区本町2丁目の中古戸建｜中野区、都営大江戸線 中野坂上駅 徒歩9分の中古一戸建て",
+      "updated_at": "2026-09-14T12:53:28.236556+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1278120011551/": {
       "address": "東京都中野区東中野2丁目",
