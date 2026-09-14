@@ -1,7 +1,7 @@
 {
   "baseline_in_progress": false,
-  "page_cursor": 4,
-  "price_cursor": 8,
+  "page_cursor": 7,
+  "price_cursor": 16,
   "properties": {
     "https://www.athome.co.jp/kodate/1012848820/": {
       "first_seen": "2026-09-11T12:23:14.106524+00:00",
@@ -1319,9 +1319,16 @@
     },
     "https://www.athome.co.jp/kodate/1151025431/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
-      "last_seen": "2026-09-11T02:42:36.622271+00:00",
-      "price": null,
-      "price_history": []
+      "last_seen": "2026-09-14T02:56:03.521345+00:00",
+      "price": 6980.0,
+      "price_history": [
+        {
+          "at": "2026-09-14T02:56:03.521345+00:00",
+          "price": 6980.0
+        }
+      ],
+      "title": "【アットホーム】豊島区 池袋本町２丁目（北池袋駅） 3階建 ３ＬＤＫ[1151025431]豊島区の一戸建て（提供元：東京リアルティ(株)）｜一軒家・家の購入",
+      "type": "中古一戸建て"
     },
     "https://www.athome.co.jp/kodate/1151087331/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
@@ -1576,7 +1583,7 @@
     },
     "https://www.athome.co.jp/kodate/1154947527/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
-      "last_seen": "2026-09-13T17:58:59.487031+00:00",
+      "last_seen": "2026-09-14T02:56:03.521345+00:00",
       "price": 5980.0,
       "price_history": [
         {
@@ -3188,5 +3195,5 @@
       "type": "新築一戸建て"
     }
   },
-  "updated_at": "2026-09-14T02:46:25.988750+00:00"
+  "updated_at": "2026-09-14T02:56:03.521345+00:00"
 }
