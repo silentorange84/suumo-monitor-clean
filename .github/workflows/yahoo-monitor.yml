@@ -712,7 +712,9 @@ jobs:
           os.replace(STATE_FILE + ".tmp", STATE_FILE)
           PY
 
-            if git diff --quiet -- known_yahoo_state.json; then
+            # Unlike git diff, status --porcelain also reports the state file
+            # when the first baseline run creates it as an untracked file.
+            if [ -z "$(git status --porcelain -- known_yahoo_state.json)" ]; then
               echo "Yahoo state already persisted by another run"
               exit 0
             fi
