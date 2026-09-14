@@ -1,0 +1,655 @@
+name: Yahoo Real Estate Property Monitor
+
+on:
+  workflow_dispatch:
+    inputs:
+      reset_baseline:
+        description: "現在掲載中の物件を通知せずベースライン登録する"
+        required: true
+        default: false
+        type: boolean
+  schedule:
+    # AtHome runs at minutes ending in 7; keep this monitor offset from it.
+    - cron: "4,14,24,34,44,54 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: yahoo-property-monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor-yahoo-real-estate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+      RESET_BASELINE: ${{ github.event.inputs.reset_baseline || 'false' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan Yahoo Real Estate and notify
+        run: |
+          python - <<'PY'
+          import hashlib
+          import html
+          import json
+          import os
+          import re
+          import time
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+          from datetime import datetime, timedelta, timezone
+          from html.parser import HTMLParser
+
+
+          ORIGIN = "https://realestate.yahoo.co.jp"
+          STATE_FILE = "known_yahoo_state.json"
+          # These municipality codes and first-page URLs were verified by yahoo-test.yml.
+          AREA_URLS = {
+              "中野区": f"{ORIGIN}/used/house/search/03/13/13114/",
+              "杉並区": f"{ORIGIN}/used/house/search/03/13/13115/",
+              "豊島区": f"{ORIGIN}/used/house/search/03/13/13116/",
+              "練馬区": f"{ORIGIN}/used/house/search/03/13/13120/",
+              "立川市": f"{ORIGIN}/used/house/search/03/13/13202/",
+              "武蔵野市": f"{ORIGIN}/used/house/search/03/13/13203/",
+              "三鷹市": f"{ORIGIN}/used/house/search/03/13/13204/",
+              "西東京市": f"{ORIGIN}/used/house/search/03/13/13229/",
+          }
+          PRICE_CHECK_BATCH_SIZE = 20
+          RETRYABLE = {403, 408, 425, 429, 500, 502, 503, 504}
+          RETRY_WAITS = (2, 5, 10)
+          MIN_LIST_BYTES = 8_000
+          MIN_DETAIL_BYTES = 8_000
+          RESET_BASELINE = os.environ.get("RESET_BASELINE", "false").lower() == "true"
+          NTFY_TOPIC = os.environ.get("NTFY_TOPIC", "").strip()
+          HEADERS = {
+              "User-Agent": (
+                  "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+                  "(KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
+              ),
+              "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+              "Accept-Language": "ja-JP,ja;q=0.9,en;q=0.5",
+              "Cache-Control": "no-cache",
+          }
+          CHALLENGE = re.compile(
+              r"captcha|cloudflare ray id|cf-chl-|challenge-platform|access denied|"
+              r"request blocked|temporarily blocked|\bblocked\b|bot detection|verify (?:that )?you are human|"
+              r"不正なアクセス|アクセスが集中|アクセス(?:が)?拒否されました",
+              re.I,
+          )
+          opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor())
+          last_request_at = 0.0
+
+
+          class PageParser(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=True)
+                  self.links = []
+                  self.current_link = None
+                  self.cells = []
+                  self.current_cell = None
+                  self.visible = []
+                  self.skip = 0
+                  self.title = []
+                  self.in_title = False
+
+              def handle_starttag(self, tag, attrs):
+                  tag = tag.lower()
+                  values = dict(attrs)
+                  if tag in {"script", "style", "noscript"}:
+                      self.skip += 1
+                  elif tag == "a":
+                      self.current_link = {"href": values.get("href", ""), "text": []}
+                      self.links.append(self.current_link)
+                  elif tag in {"th", "td", "dt", "dd"}:
+                      self.current_cell = {"tag": tag, "text": []}
+                      self.cells.append(self.current_cell)
+                  elif tag == "title":
+                      self.in_title = True
+
+              def handle_data(self, data):
+                  if self.skip:
+                      return
+                  self.visible.append(data)
+                  if self.current_link is not None:
+                      self.current_link["text"].append(data)
+                  if self.current_cell is not None:
+                      self.current_cell["text"].append(data)
+                  if self.in_title:
+                      self.title.append(data)
+
+              def handle_endtag(self, tag):
+                  tag = tag.lower()
+                  if tag in {"script", "style", "noscript"} and self.skip:
+                      self.skip -= 1
+                  elif tag == "a":
+                      self.current_link = None
+                  elif tag in {"th", "td", "dt", "dd"}:
+                      self.current_cell = None
+                  elif tag == "title":
+                      self.in_title = False
+
+              def finish(self):
+                  self.text = compact(" ".join(self.visible))
+                  self.page_title = compact("".join(self.title))
+                  for item in self.links + self.cells:
+                      item["text"] = compact("".join(item["text"]))
+                  return self
+
+
+          def compact(value):
+              return re.sub(r"\s+", " ", html.unescape(value or "")).strip()
+
+
+          def parse_page(body):
+              parser = PageParser()
+              parser.feed(body)
+              parser.close()
+              return parser.finish()
+
+
+          def normalized_detail_url(href, base):
+              if not href:
+                  return None
+              url = urllib.parse.urljoin(base, html.unescape(href))
+              parts = urllib.parse.urlsplit(url)
+              if parts.netloc.lower() != "realestate.yahoo.co.jp":
+                  return None
+              path = re.sub(r"/{2,}", "/", parts.path)
+              if not re.match(r"^/used/house/detail_corp/[^/]+(?:/[^/]+)*/?$", path, re.I):
+                  return None
+              # A detail_corp path identifies an individual broker listing. Tracking
+              # parameters and fragments must not create a second identity.
+              return urllib.parse.urlunsplit(("https", parts.netloc.lower(), path.rstrip("/") + "/", "", ""))
+
+
+          def property_urls(page, base):
+              found = []
+              for link in page.links:
+                  url = normalized_detail_url(link["href"], base)
+                  if url and url not in found:
+                      found.append(url)
+              return found
+
+
+          def transient_reason(status, body, size, content_type):
+              if status in RETRYABLE or status is None:
+                  return f"HTTP {status}"
+              if status != 200:
+                  return None
+              if size < MIN_DETAIL_BYTES:
+                  return f"extremely small HTML ({size} bytes)"
+              if "html" not in (content_type or "").lower():
+                  return f"non-HTML response ({content_type})"
+              marker = CHALLENGE.search(body)
+              if marker:
+                  return f"challenge marker: {marker.group(0)[:60]}"
+              # The ordinary 'JavaScriptが無効' notice is intentionally not a block signal.
+              return None
+
+
+          def fetch(url, minimum_bytes, interval):
+              global last_request_at
+              last_reason = "unknown response"
+              # One initial request plus at most three retries (2s, 5s, 10s).
+              for attempt in range(4):
+                  delay = interval - (time.monotonic() - last_request_at)
+                  if delay > 0:
+                      time.sleep(delay)
+                  status, body, size, content_type, final_url = None, "", 0, "", url
+                  try:
+                      request = urllib.request.Request(url, headers=HEADERS)
+                      with opener.open(request, timeout=30) as response:
+                          raw = response.read()
+                          last_request_at = time.monotonic()
+                          status, size = response.status, len(raw)
+                          content_type = response.headers.get("Content-Type", "")
+                          charset = response.headers.get_content_charset() or "utf-8"
+                          body = raw.decode(charset, "replace")
+                          final_url = response.geturl()
+                  except urllib.error.HTTPError as error:
+                      raw = error.read()
+                      last_request_at = time.monotonic()
+                      status, size = error.code, len(raw)
+                      content_type = error.headers.get("Content-Type", "")
+                      body = raw.decode("utf-8", "replace")
+                  except (urllib.error.URLError, TimeoutError, OSError) as error:
+                      last_request_at = time.monotonic()
+                      last_reason = f"{type(error).__name__}: {error}"
+                  if minimum_bytes != MIN_DETAIL_BYTES and status == 200 and size < minimum_bytes:
+                      reason = f"extremely small HTML ({size} bytes)"
+                  else:
+                      reason = transient_reason(status, body, size, content_type)
+                  if status == 200 and reason is None:
+                      return body, final_url
+                  if reason is None:
+                      raise RuntimeError(f"permanent HTTP {status}")
+                  last_reason = reason
+                  if attempt < 3:
+                      wait = RETRY_WAITS[attempt]
+                      print(f"RETRY: {url} after {wait}s ({reason})")
+                      time.sleep(wait)
+              raise RuntimeError(last_reason)
+
+
+          def labelled_fields(page):
+              result = {}
+              for index, cell in enumerate(page.cells[:-1]):
+                  if cell["tag"] not in {"th", "dt"}:
+                      continue
+                  next_cell = page.cells[index + 1]
+                  expected = "td" if cell["tag"] == "th" else "dd"
+                  if next_cell["tag"] == expected:
+                      result.setdefault(re.sub(r"[：:]$", "", cell["text"]).strip(), next_cell["text"])
+              return result
+
+
+          def field(fields, *labels):
+              for label, value in fields.items():
+                  if any(re.fullmatch(pattern, label) for pattern in labels):
+                      return value
+              return None
+
+
+          def number(value):
+              match = re.search(r"\d[\d,]*(?:\.\d+)?", value or "")
+              return float(match.group().replace(",", "")) if match else None
+
+
+          def yen_price(value):
+              amount = number(value)
+              if amount is None:
+                  return None
+              return int(amount * 10_000) if "万" in (value or "") else int(amount)
+
+
+          def construction(value):
+              match = re.search(r"(\d{4})\s*年(?:\s*(\d{1,2})\s*月)?", value or "")
+              return f"{int(match.group(1)):04d}-{int(match.group(2) or 1):02d}" if match else None
+
+
+          def age_years(value, now):
+              if not value:
+                  return None
+              year, month = map(int, value.split("-"))
+              return now.year - year - ((now.month, 1) < (month, 1))
+
+
+          def walk_minutes(transport):
+              if not transport:
+                  return None
+              routes = re.split(r"[\n｜|。]", transport)
+              walks = []
+              for route in routes:
+                  if "バス" in route:
+                      continue
+                  walks.extend(int(value) for value in re.findall(r"徒歩\s*(\d+)\s*分", route))
+              return min(walks) if walks else None
+
+
+          def normalize_address(value):
+              value = compact(value).translate(str.maketrans("０１２３４５６７８９－―−", "0123456789---"))
+              return re.sub(r"[\s　,、丁目番地の号-]", "", value)
+
+
+          def digest(values):
+              raw = "|".join("" if value is None else str(value) for value in values)
+              return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+
+
+          def parse_property(requested_url, body, final_url, now):
+              page = parse_page(body)
+              fields = labelled_fields(page)
+              text = page.text
+              def labelled_or_text(labels, pattern):
+                  value = field(fields, *labels)
+                  if value:
+                      return value
+                  match = re.search(pattern, text, re.I)
+                  return compact(match.group(1)) if match else None
+
+              price_text = labelled_or_text((r"価格", r"販売価格"), r"(?:価格|販売価格)\s*[：:]?\s*([\d,.]+\s*万円)")
+              land_text = labelled_or_text((r"土地面積", r"敷地面積"), r"(?:土地面積|敷地面積)\s*[：:]?\s*([\d,.]+\s*(?:m²|㎡))")
+              building_text = labelled_or_text((r"建物面積", r"建物専有面積"), r"(?:建物面積|建物専有面積)\s*[：:]?\s*([\d,.]+\s*(?:m²|㎡))")
+              built_text = labelled_or_text((r"築年月", r"建築年月", r"完成時期"), r"(?:築年月|建築年月|完成時期)\s*[：:]?\s*((?:19|20)\d{2}\s*年(?:\s*\d{1,2}\s*月)?)")
+              address = labelled_or_text((r"所在地", r"住所"), r"(?:所在地|住所)\s*[：:]?\s*(東京都[^｜|]{2,100})")
+              floor_plan = labelled_or_text((r"間取り",), r"間取り\s*[：:]?\s*([1-9]\s*[SLDKR＋+]+)")
+              transport = labelled_or_text((r"交通", r"最寄り?駅", r"アクセス"), r"(?:交通|アクセス)\s*[：:]?\s*(.{1,160}?(?:徒歩\s*\d+\s*分|バス\s*\d+\s*分))")
+              land_right = labelled_or_text((r"土地権利", r"権利形態"), r"(?:土地権利|権利形態)\s*[：:]?\s*([^｜|]{1,30})")
+              kind = labelled_or_text((r"物件種別", r"種別"), r"(中古一戸建て|中古戸建て|新築一戸建て|新築戸建て)")
+              if kind is None and re.search(r"中古一戸建て|中古戸建て", page.page_title):
+                  kind = "中古一戸建て"
+              normalized_url = normalized_detail_url(final_url, requested_url) or requested_url
+              built = construction(built_text)
+              prop = {
+                  "url": normalized_url,
+                  "title": page.page_title[:200],
+                  "address": compact(address),
+                  "land_area": number(land_text),
+                  "building_area": number(building_text),
+                  "construction_date": built,
+                  "floor_plan": compact(floor_plan),
+                  "walk_minutes": walk_minutes(transport),
+                  "land_right": compact(land_right),
+                  "price": yen_price(price_text),
+                  "property_type": compact(kind),
+              }
+              required = ("address", "land_area", "building_area", "construction_date",
+                          "floor_plan", "walk_minutes", "land_right", "price", "property_type")
+              missing = [key for key in required if prop.get(key) in (None, "")]
+              if missing:
+                  raise RuntimeError("incomplete parse: " + ", ".join(missing))
+              address_key = normalize_address(prop["address"])
+              prop["fingerprint"] = digest((address_key, prop["price"], prop["land_area"],
+                                             prop["building_area"], built, prop["floor_plan"]))
+              prop["structure_fingerprint"] = digest((address_key, prop["land_area"],
+                                                       prop["building_area"], built, prop["floor_plan"]))
+              age = age_years(built, now)
+              city_ok = any(city in prop["address"] for city in AREA_URLS) and "八王子市" not in prop["address"]
+              prop["age_years"] = age
+              prop["matches"] = all((
+                  prop["price"] <= 70_000_000,
+                  prop["building_area"] >= 70,
+                  age is not None and 0 <= age <= 25,
+                  prop["walk_minutes"] <= 15,
+                  prop["land_right"] == "所有権",
+                  prop["property_type"] in {"中古一戸建て", "中古戸建て"},
+                  city_ok,
+              ))
+              return prop
+
+
+          def load_state(path=STATE_FILE):
+              try:
+                  with open(path, encoding="utf-8") as file:
+                      state = json.load(file)
+              except FileNotFoundError:
+                  state = {}
+              if not isinstance(state, dict) or not isinstance(state.get("properties", {}), dict):
+                  raise RuntimeError("Yahoo state has an invalid structure")
+              meta = state.setdefault("_meta", {})
+              meta.setdefault("price_cursor", 0)
+              meta.setdefault("baseline_initialized", False)
+              meta.setdefault("notified_fingerprints", {})
+              state.setdefault("properties", {})
+              return state
+
+
+          def save_state(state):
+              with open(STATE_FILE + ".tmp", "w", encoding="utf-8") as file:
+                  json.dump(state, file, ensure_ascii=False, indent=2, sort_keys=True)
+                  file.write("\n")
+              os.replace(STATE_FILE + ".tmp", STATE_FILE)
+
+
+          def state_entry(prop, now, previous=None):
+              entry = dict(previous or {})
+              entry.update({key: prop[key] for key in (
+                  "price", "title", "address", "land_area", "building_area",
+                  "construction_date", "floor_plan", "walk_minutes", "land_right", "fingerprint",
+              )})
+              entry["first_seen"] = entry.get("first_seen") or now.isoformat()
+              entry["last_seen"] = now.isoformat()
+              return entry
+
+
+          def notify(prop, old_price=None):
+              if not NTFY_TOPIC:
+                  print("::warning::NTFY_TOPIC is not configured; notification will be retried")
+                  return False
+              if old_price is None:
+                  title = "🏠 Yahoo!不動産 新着中古戸建"
+                  message = (f"{prop['title']}\n価格: {prop['price']:,}円\n所在地: {prop['address']}\n"
+                             f"建物面積: {prop['building_area']:g}㎡\n築年数: {prop['age_years']}年\n"
+                             f"徒歩: {prop['walk_minutes']}分\n土地権利: {prop['land_right']}\n{prop['url']}")
+              else:
+                  title = "📉 Yahoo!不動産 中古戸建 値下げ"
+                  message = (f"旧価格: {old_price:,}円\n新価格: {prop['price']:,}円\n"
+                             f"値下げ額: {old_price - prop['price']:,}円\n所在地: {prop['address']}\n"
+                             f"建物面積: {prop['building_area']:g}㎡\n築年数: {prop['age_years']}年\n"
+                             f"徒歩: {prop['walk_minutes']}分\n土地権利: {prop['land_right']}\n{prop['url']}")
+              request = urllib.request.Request(
+                  "https://ntfy.sh/" + urllib.parse.quote(NTFY_TOPIC, safe=""),
+                  data=message.encode("utf-8"), method="POST",
+                  headers={"Title": title.encode("utf-8").decode("latin-1"),
+                           "Click": prop["url"], "Tags": "house"},
+              )
+              try:
+                  with urllib.request.urlopen(request, timeout=15) as response:
+                      return 200 <= response.status < 300
+              except (urllib.error.URLError, TimeoutError, OSError) as error:
+                  print(f"::warning::NTFY notification failed; state was not advanced: {error}")
+                  return False
+
+
+          counters = {key: 0 for key in (
+              "list_pages", "current_urls", "new_urls", "new_checked", "new_notified",
+              "new_excluded", "duplicate", "price_checked", "price_drop", "price_drop_notified",
+              "deferred",
+          )}
+          deferred = []
+
+
+          def defer(url, now):
+              try:
+                  body, final_url = fetch(url, MIN_DETAIL_BYTES, 2.5)
+                  return parse_property(url, body, final_url, now)
+              except RuntimeError as error:
+                  counters["deferred"] += 1
+                  deferred.append(url)
+                  print("DETAIL DEFERRED")
+                  print(f"URL: {url}")
+                  print(f"REASON: {error}")
+                  return None
+
+
+          print("PAGINATION MODE: FIRST PAGE ONLY")
+          now = datetime.now(timezone.utc)
+          state = load_state()
+          known = state["properties"]
+          current_urls = []
+          for area, url in AREA_URLS.items():
+              try:
+                  body, final_url = fetch(url, MIN_LIST_BYTES, 1.0)
+                  urls = property_urls(parse_page(body), final_url)
+                  counters["list_pages"] += 1
+                  print(f"LIST PAGE: {area}: {len(urls)} URLs: {url}")
+                  current_urls.extend(item for item in urls if item not in current_urls)
+              except RuntimeError as error:
+                  print(f"::warning::LIST DEFERRED: {area}: {url}: {error}")
+
+          counters["current_urls"] = len(current_urls)
+          new_urls = [url for url in current_urls if url not in known]
+          counters["new_urls"] = len(new_urls)
+
+          if RESET_BASELINE:
+              # Preserve an existing Yahoo state and enrich only successfully parsed URLs.
+              for url in current_urls:
+                  prop = defer(url, now)
+                  if prop is not None:
+                      if url in new_urls:
+                          counters["new_checked"] += 1
+                      known[prop["url"]] = state_entry(prop, now, known.get(url))
+              state["_meta"]["baseline_initialized"] = True
+          else:
+              recent = state["_meta"]["notified_fingerprints"]
+              cutoff = now - timedelta(days=7)
+              recent = {key: value for key, value in recent.items()
+                        if datetime.fromisoformat(value.replace("Z", "+00:00")) >= cutoff}
+              state["_meta"]["notified_fingerprints"] = recent
+              notified_this_run = set()
+              for url in new_urls:
+                  prop = defer(url, now)
+                  if prop is None:
+                      continue
+                  counters["new_checked"] += 1
+                  if not prop["matches"]:
+                      counters["new_excluded"] += 1
+                      known[prop["url"]] = state_entry(prop, now)
+                      continue
+                  fp = prop["fingerprint"]
+                  if fp in notified_this_run or fp in recent:
+                      counters["duplicate"] += 1
+                      print("DUPLICATE LISTING SUPPRESSED")
+                      print(f"URL: {prop['url']}")
+                      known[prop["url"]] = state_entry(prop, now)
+                  elif notify(prop):
+                      counters["new_notified"] += 1
+                      notified_this_run.add(fp)
+                      recent[fp] = now.isoformat()
+                      known[prop["url"]] = state_entry(prop, now)
+
+              known_current = [url for url in current_urls if url in known and url not in new_urls]
+              cursor = int(state["_meta"].get("price_cursor", 0)) % max(1, len(known_current))
+              rotated = known_current[cursor:] + known_current[:cursor]
+              price_urls = rotated[:PRICE_CHECK_BATCH_SIZE]
+              price_drop_fingerprints = set()
+              for url in price_urls:
+                  prop = defer(url, now)
+                  if prop is None:
+                      continue
+                  counters["price_checked"] += 1
+                  entry = known[url]
+                  old_price = entry.get("price")
+                  if old_price is not None and prop["price"] < old_price:
+                      counters["price_drop"] += 1
+                      structure_fp = prop["structure_fingerprint"] + f":{prop['price']}"
+                      if prop["matches"] and structure_fp in price_drop_fingerprints:
+                          counters["duplicate"] += 1
+                          print("DUPLICATE LISTING SUPPRESSED")
+                          print(f"URL: {prop['url']}")
+                          known[url] = state_entry(prop, now, entry)
+                      elif prop["matches"] and notify(prop, old_price):
+                          counters["price_drop_notified"] += 1
+                          price_drop_fingerprints.add(structure_fp)
+                          known[url] = state_entry(prop, now, entry)
+                      elif not prop["matches"]:
+                          # A valid current price is retained even when the listing does not qualify.
+                          known[url] = state_entry(prop, now, entry)
+                      # Notification failure deliberately preserves old price and last_seen.
+                  else:
+                      known[url] = state_entry(prop, now, entry)
+              state["_meta"]["price_cursor"] = (
+                  (cursor + len(price_urls)) % max(1, len(known_current))
+              )
+
+          state["_meta"]["updated_at"] = now.isoformat()
+          save_state(state)
+          print("PAGINATION MODE: FIRST PAGE ONLY")
+          print(f"LIST PAGE COUNT: {counters['list_pages']}")
+          print(f"CURRENT URL COUNT: {counters['current_urls']}")
+          print(f"NEW URL COUNT: {counters['new_urls']}")
+          print(f"NEW CHECKED COUNT: {counters['new_checked']}")
+          print(f"NEW NOTIFIED COUNT: {counters['new_notified']}")
+          print(f"NEW EXCLUDED COUNT: {counters['new_excluded']}")
+          print(f"DUPLICATE SUPPRESSED COUNT: {counters['duplicate']}")
+          print(f"PRICE CHECKED COUNT: {counters['price_checked']}")
+          print(f"PRICE DROP COUNT: {counters['price_drop']}")
+          print(f"PRICE DROP NOTIFIED COUNT: {counters['price_drop_notified']}")
+          print(f"DETAIL DEFERRED COUNT: {counters['deferred']}")
+          print(f"KNOWN URL COUNT: {len(known)}")
+          PY
+
+      - name: Commit Yahoo monitor state
+        run: |
+          if [ -z "$(git status --porcelain -- known_yahoo_state.json)" ]; then
+            echo "No Yahoo state changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          cp known_yahoo_state.json "$RUNNER_TEMP/known_yahoo_run_state.json"
+
+          for attempt in 1 2 3; do
+            git rebase --abort 2>/dev/null || true
+            git fetch origin main
+            git reset --hard origin/main
+
+            python - <<'PY'
+          import json
+          import os
+          from datetime import datetime, timezone
+
+
+          STATE_FILE = "known_yahoo_state.json"
+          RUN_FILE = os.path.join(os.environ["RUNNER_TEMP"], "known_yahoo_run_state.json")
+
+
+          def load(path):
+              try:
+                  with open(path, encoding="utf-8") as file:
+                      value = json.load(file)
+              except FileNotFoundError:
+                  value = {}
+              if not isinstance(value, dict) or not isinstance(value.get("properties", {}), dict):
+                  raise RuntimeError(f"Invalid Yahoo state: {path}")
+              value.setdefault("_meta", {})
+              value.setdefault("properties", {})
+              return value
+
+
+          def parsed_time(value):
+              try:
+                  return datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+              except (TypeError, ValueError):
+                  return datetime.min.replace(tzinfo=timezone.utc)
+
+
+          remote, run = load(STATE_FILE), load(RUN_FILE)
+          merged = {**remote, **run, "_meta": {**remote["_meta"], **run["_meta"]}}
+          merged_properties = {}
+          for url in remote["properties"].keys() | run["properties"].keys():
+              old = remote["properties"].get(url, {})
+              current = run["properties"].get(url, {})
+              entry = {**old, **current}
+              first = [value for value in (old.get("first_seen"), current.get("first_seen")) if value]
+              last = [value for value in (old.get("last_seen"), current.get("last_seen")) if value]
+              if first:
+                  entry["first_seen"] = min(first)
+              if last:
+                  entry["last_seen"] = max(last)
+              # A successfully parsed value from this run wins. Deferred URLs never
+              # enter the run state, so their remote price remains untouched.
+              if "price" in current:
+                  entry["price"] = current["price"]
+              merged_properties[url] = entry
+          merged["properties"] = merged_properties
+
+          notifications = {**remote["_meta"].get("notified_fingerprints", {}),
+                           **run["_meta"].get("notified_fingerprints", {})}
+          merged["_meta"]["notified_fingerprints"] = notifications
+          remote_time = parsed_time(remote["_meta"].get("updated_at"))
+          run_time = parsed_time(run["_meta"].get("updated_at"))
+          newer = run["_meta"] if run_time >= remote_time else remote["_meta"]
+          merged["_meta"]["updated_at"] = newer.get("updated_at")
+          merged["_meta"]["price_cursor"] = newer.get("price_cursor", 0)
+          merged["_meta"]["baseline_initialized"] = bool(
+              remote["_meta"].get("baseline_initialized") or run["_meta"].get("baseline_initialized")
+          )
+          with open(STATE_FILE + ".tmp", "w", encoding="utf-8") as file:
+              json.dump(merged, file, ensure_ascii=False, indent=2, sort_keys=True)
+              file.write("\n")
+          os.replace(STATE_FILE + ".tmp", STATE_FILE)
+          PY
+
+            if git diff --quiet -- known_yahoo_state.json; then
+              echo "Yahoo state already persisted by another run"
+              exit 0
+            fi
+            git add known_yahoo_state.json
+            git commit -m "Update Yahoo monitor state"
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "Push attempt ${attempt} rejected; re-fetching and re-merging Yahoo state" >&2
+            sleep $((attempt * 2))
+          done
+          echo "Failed to persist Yahoo monitor state after three attempts" >&2
+          exit 1
