@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "baseline_cursor": 460,
+    "baseline_cursor": 480,
     "baseline_in_progress": true,
     "baseline_initialized": false,
     "baseline_reset_at": null,
@@ -589,11 +589,14 @@
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025380003/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024397790/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023790351/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025024159/"
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024117788/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025233891/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023678357/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025053218/"
     ],
     "notified_fingerprints": {},
     "price_cursor": 0,
-    "updated_at": "2026-09-14T18:32:41.064210+00:00"
+    "updated_at": "2026-09-14T18:51:37.503745+00:00"
   },
   "properties": {
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0021198071/": {
@@ -1100,6 +1103,20 @@
       "title": "中野区上鷺宮5丁目（株式会社エステート白馬 中野店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 10
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024446071/": {
+      "address": "東京都三鷹市井の頭2丁目 [地図を確認]",
+      "building_area": 117.01,
+      "construction_date": "1954-01",
+      "fingerprint": "2cd817bca3c22433d5b12d226a02e318a68aab1c47e013517bb6ef06476585aa",
+      "first_seen": "2026-09-14T18:51:37.503745+00:00",
+      "floor_plan": "6SDK",
+      "land_area": 363.47,
+      "land_right": "形態 借地権のみ/旧法賃借権 借地 期間 新規契約期間 20",
+      "last_seen": "2026-09-14T18:51:37.503745+00:00",
+      "price": 59800000,
+      "title": "三鷹市井の頭2丁目（タカマツハウス不動産株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 7
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024462976/": {
       "address": "東京都豊島区長崎4丁目 [地図を確認]",
       "building_area": 40.48,
@@ -1492,6 +1509,20 @@
       "title": "練馬区貫井5丁目（ME不動産城北株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 12
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024749206/": {
+      "address": "東京都三鷹市上連雀6丁目 [地図を確認]",
+      "building_area": 88.75,
+      "construction_date": "2010-05",
+      "fingerprint": "9c02bcf89899362c443d8bf1805a10aa95eacd5eb4cd68840d31dc7e810d22bb",
+      "first_seen": "2026-09-14T18:51:37.503745+00:00",
+      "floor_plan": "2LDK",
+      "land_area": 56.25,
+      "land_right": "形態 所有権のみ 駐車場・車庫 無 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T18:51:37.503745+00:00",
+      "price": 48900000,
+      "title": "三鷹市上連雀6丁目（殖産ベスト株式会社 お問い合わせ窓口） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 20
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024757189/": {
       "address": "東京都練馬区春日町1丁目 [地図を確認]",
       "building_area": 110.53,
@@ -1505,6 +1536,20 @@
       "price": 71990000,
       "title": "練馬区春日町1丁目（不動産無料相談センター（株）クオリアホーム） - 中古一戸建て｜Yahoo!不動産閉じる前へ次へ初期費用について閉じる",
       "walk_minutes": 7
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024776198/": {
+      "address": "東京都三鷹市上連雀6丁目 [地図を確認]",
+      "building_area": 88.75,
+      "construction_date": "2010-05",
+      "fingerprint": "9c02bcf89899362c443d8bf1805a10aa95eacd5eb4cd68840d31dc7e810d22bb",
+      "first_seen": "2026-09-14T18:51:37.503745+00:00",
+      "floor_plan": "2LDK",
+      "land_area": 56.25,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-14T18:51:37.503745+00:00",
+      "price": 48900000,
+      "title": "三鷹市上連雀6丁目（株式会社東宝ハウス練馬） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 20
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024776807/": {
       "address": "東京都豊島区高松2丁目 [地図を確認]",
@@ -1757,6 +1802,20 @@
       "price": 74990000,
       "title": "杉並区荻窪1丁目（ベストセレクト 杉並支社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 15
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024931417/": {
+      "address": "東京都三鷹市牟礼4丁目 [地図を確認]",
+      "building_area": 90.72,
+      "construction_date": "1984-04",
+      "fingerprint": "e7adad716883f7319f27747af615b13492f8a8a64caed5ecb6fbba9a09227b06",
+      "first_seen": "2026-09-14T18:51:37.503745+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 110.24,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-14T18:51:37.503745+00:00",
+      "price": 69800000,
+      "title": "三鷹市牟礼4丁目（株式会社東宝ハウス国分寺） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 10
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024931943/": {
       "address": "東京都立川市柴崎町2丁目 [地図を確認]",
@@ -2934,6 +2993,20 @@
       "title": "豊島区池袋本町1丁目（株式会社大和・アクタス 高円寺本社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 2
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025128812/": {
+      "address": "東京都西東京市北町2丁目 [地図を確認]",
+      "building_area": 80.14,
+      "construction_date": "2004-01",
+      "fingerprint": "7e6fffc9f01ca665122ecd2e3a6fda366c4d839867720d72d4d4ec2398f04031",
+      "first_seen": "2026-09-14T18:51:37.503745+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 101.39,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-14T18:51:37.503745+00:00",
+      "price": 50990000,
+      "title": "西東京市北町2丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 18
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025129989/": {
       "address": "東京都中野区本町2丁目 [地図を確認]",
       "building_area": 109.86,
@@ -3452,6 +3525,20 @@
       "title": "練馬区春日町6丁目（株式会社東宝ハウス東京） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 7
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025200752/": {
+      "address": "東京都三鷹市上連雀6丁目 [地図を確認]",
+      "building_area": 88.75,
+      "construction_date": "2010-05",
+      "fingerprint": "9c02bcf89899362c443d8bf1805a10aa95eacd5eb4cd68840d31dc7e810d22bb",
+      "first_seen": "2026-09-14T18:51:37.503745+00:00",
+      "floor_plan": "2LDK",
+      "land_area": 56.25,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-14T18:51:37.503745+00:00",
+      "price": 48900000,
+      "title": "三鷹市上連雀6丁目（株式会社東宝ハウス東京） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 20
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025206466/": {
       "address": "東京都武蔵野市吉祥寺東町1丁目 [地図を確認]",
       "building_area": 125.45,
@@ -3549,6 +3636,20 @@
       "price": 10000,
       "title": "豊島区池袋3丁目（株式会社東宝ハウス練馬） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 8
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025221099/": {
+      "address": "東京都三鷹市井口4丁目 [地図を確認]",
+      "building_area": 119.24,
+      "construction_date": "1994-11",
+      "fingerprint": "ee0e40cd2cfe2f02da31ec7800f234a842ae12f60fe1469ab100efead2df49dd",
+      "first_seen": "2026-09-14T18:51:37.503745+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 185.62,
+      "land_right": "形態 所有権のみ 駐車場・車庫 駐車場料金:0円 各項目の詳",
+      "last_seen": "2026-09-14T18:51:37.503745+00:00",
+      "price": 69800000,
+      "title": "三鷹市井口4丁目（株式会社東宝ハウス練馬） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 14
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025221228/": {
       "address": "東京都豊島区上池袋1丁目 [地図を確認]",
@@ -4880,6 +4981,20 @@
       "title": "練馬区中村北1丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 10
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025349854/": {
+      "address": "東京都三鷹市深大寺2丁目 [地図を確認]",
+      "building_area": 119.86,
+      "construction_date": "2003-05",
+      "fingerprint": "de183e58811aeb4d39ab5f2fc188b5d6e556d2f08ecb0cda7ae0ead99a50fea6",
+      "first_seen": "2026-09-14T18:51:37.503745+00:00",
+      "floor_plan": "4LDK 間取り図が欲しい無料",
+      "land_area": 100.52,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（1台） 各項目の詳細に関",
+      "last_seen": "2026-09-14T18:51:37.503745+00:00",
+      "price": 54800000,
+      "title": "三鷹市深大寺2丁目（オープンハウス 吉祥寺営業センター） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 25
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025352937/": {
       "address": "東京都中野区東中野2丁目 [地図を確認]",
       "building_area": 82.18,
@@ -5860,6 +5975,20 @@
       "title": "杉並区荻窪5丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 6
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025435929/": {
+      "address": "東京都三鷹市北野1丁目 [地図を確認]",
+      "building_area": 59.8,
+      "construction_date": "2025-02",
+      "fingerprint": "75bb134b4a309ee48ecc1626cfdd2d11c018de65d19c4051e43a7eaf35be09f8",
+      "first_seen": "2026-09-14T18:51:37.503745+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 76.32,
+      "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T18:51:37.503745+00:00",
+      "price": 52800000,
+      "title": "三鷹市北野1丁目（コマツホーム） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 26
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025436632/": {
       "address": "東京都練馬区東大泉7丁目 [地図を確認]",
       "building_area": 111.85,
@@ -5873,6 +6002,20 @@
       "price": 71990000,
       "title": "練馬区東大泉7丁目（ベストセレクト 赤羽支社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 17
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025436777/": {
+      "address": "東京都三鷹市上連雀2丁目 [地図を確認]",
+      "building_area": 113.69,
+      "construction_date": "1980-01",
+      "fingerprint": "471ccc29dd944e6f28f38afd580882b73949034a0a68a0ab234c9dcfecfe1ce7",
+      "first_seen": "2026-09-14T18:51:37.503745+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 196.09,
+      "land_right": "形態 所有権のみ 駐車場・車庫 無 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T18:51:37.503745+00:00",
+      "price": 10000,
+      "title": "三鷹市上連雀2丁目（ARROW LINK株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 9
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025436779/": {
       "address": "東京都中野区沼袋1丁目 [地図を確認]",
@@ -5901,6 +6044,20 @@
       "price": 54800000,
       "title": "中野区大和町2丁目（東京リアルティ株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 8
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025438022/": {
+      "address": "東京都三鷹市野崎3丁目 [地図を確認]",
+      "building_area": 98.97,
+      "construction_date": "1971-01",
+      "fingerprint": "7600d18073e0ade11972bd5d381028e997cc9329215eabc1f061bb2c47cefba6",
+      "first_seen": "2026-09-14T18:51:37.503745+00:00",
+      "floor_plan": "4SLDK",
+      "land_area": 94.86,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-14T18:51:37.503745+00:00",
+      "price": 36800000,
+      "title": "三鷹市野崎3丁目（株式会社東宝ハウス国分寺） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 24
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025442334/": {
       "address": "東京都練馬区東大泉7丁目 [地図を確認]",
@@ -5971,6 +6128,20 @@
       "price": 88200000,
       "title": "豊島区北大塚3丁目（東京リアルティ株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 5
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025451225/": {
+      "address": "東京都三鷹市下連雀4丁目 [地図を確認]",
+      "building_area": 160.43,
+      "construction_date": "1999-09",
+      "fingerprint": "2b3fbe300c6857be9d394a1e5dacd46856df66de16fce4c7936d4bb7652c648f",
+      "first_seen": "2026-09-14T18:51:37.503745+00:00",
+      "floor_plan": "5SLDK",
+      "land_area": 166.84,
+      "land_right": "形態 所有権のみ 施工会社 三井木材工業株式会社 駐車場・車",
+      "last_seen": "2026-09-14T18:51:37.503745+00:00",
+      "price": 20000,
+      "title": "三鷹市下連雀4丁目（株式会社ランドネット 渋谷支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 13
     }
   }
 }
