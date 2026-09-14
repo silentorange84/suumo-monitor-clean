@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "baseline_cursor": 260,
+    "baseline_cursor": 280,
     "baseline_in_progress": true,
     "baseline_initialized": false,
     "baseline_reset_at": null,
@@ -588,14 +588,11 @@
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025292895/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025380003/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024397790/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023790351/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023678357/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025259372/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025293228/"
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023678357/"
     ],
     "notified_fingerprints": {},
     "price_cursor": 0,
-    "updated_at": "2026-09-14T15:21:42.002039+00:00"
+    "updated_at": "2026-09-14T15:39:52.804569+00:00"
   },
   "properties": {
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0022854395/": {
@@ -906,6 +903,104 @@
       "title": "杉並区桃井1丁目（株式会社東宝ハウス練馬） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 12
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024359277/": {
+      "address": "東京都練馬区春日町1丁目 [地図を確認]",
+      "building_area": 110.53,
+      "construction_date": "2001-02",
+      "fingerprint": "0e4520f4f31caaecf84527ef37575af00780133657900503809f27da4a3cfb5e",
+      "first_seen": "2026-09-14T15:39:52.804569+00:00",
+      "floor_plan": "4SLDK（S＝サービスルーム（納戸））",
+      "land_area": 81.48,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円 駐車場",
+      "last_seen": "2026-09-14T15:39:52.804569+00:00",
+      "price": 71990000,
+      "title": "練馬区春日町1丁目（アドキャスト 池袋支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 7
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024364007/": {
+      "address": "東京都練馬区春日町1丁目 [地図を確認]",
+      "building_area": 110.53,
+      "construction_date": "2001-02",
+      "fingerprint": "f3d5450a7dd7ade47ae4617ba9dbad88a6aa73c2b20e529e182e951828a48a51",
+      "first_seen": "2026-09-14T15:39:52.804569+00:00",
+      "floor_plan": "4SLDK",
+      "land_area": 81.48,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-14T15:39:52.804569+00:00",
+      "price": 71990000,
+      "title": "練馬区春日町1丁目（株式会社東宝ハウス練馬） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 7
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024365521/": {
+      "address": "東京都練馬区春日町1丁目 [地図を確認]",
+      "building_area": 110.53,
+      "construction_date": "2001-02",
+      "fingerprint": "f3d5450a7dd7ade47ae4617ba9dbad88a6aa73c2b20e529e182e951828a48a51",
+      "first_seen": "2026-09-14T15:39:52.804569+00:00",
+      "floor_plan": "4SLDK",
+      "land_area": 81.48,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T15:39:52.804569+00:00",
+      "price": 71990000,
+      "title": "練馬区春日町1丁目（株式会社エステート白馬 中野店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 7
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024366981/": {
+      "address": "東京都練馬区春日町1丁目 [地図を確認]",
+      "building_area": 110.53,
+      "construction_date": "2001-02",
+      "fingerprint": "f3d5450a7dd7ade47ae4617ba9dbad88a6aa73c2b20e529e182e951828a48a51",
+      "first_seen": "2026-09-14T15:39:52.804569+00:00",
+      "floor_plan": "4SLDK",
+      "land_area": 81.48,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
+      "last_seen": "2026-09-14T15:39:52.804569+00:00",
+      "price": 71990000,
+      "title": "練馬区春日町1丁目（ベストセレクト 赤羽支社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 7
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024384851/": {
+      "address": "東京都練馬区春日町1丁目 [地図を確認]",
+      "building_area": 110.53,
+      "construction_date": "2001-02",
+      "fingerprint": "f9e46675c68f2afa542a339d274fed573af1c96a7905e86ded44edaf0c27bfc2",
+      "first_seen": "2026-09-14T15:39:52.804569+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 81.48,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T15:39:52.804569+00:00",
+      "price": 71990000,
+      "title": "練馬区春日町1丁目（住宅情報館 花小金井店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 7
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024386596/": {
+      "address": "東京都練馬区春日町1丁目 [地図を確認]",
+      "building_area": 110.53,
+      "construction_date": "2001-02",
+      "fingerprint": "9c513ff10c4988e0a924bfe2b2bbc7b78b9546adcd295d05fba9755c465c8b05",
+      "first_seen": "2026-09-14T15:39:52.804569+00:00",
+      "floor_plan": "4LDK＋S",
+      "land_area": 81.48,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T15:39:52.804569+00:00",
+      "price": 71990000,
+      "title": "練馬区春日町1丁目（ME不動産城北株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 7
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024386683/": {
+      "address": "東京都練馬区春日町1丁目 [地図を確認]",
+      "building_area": 110.53,
+      "construction_date": "2001-02",
+      "fingerprint": "f3d5450a7dd7ade47ae4617ba9dbad88a6aa73c2b20e529e182e951828a48a51",
+      "first_seen": "2026-09-14T15:39:52.804569+00:00",
+      "floor_plan": "4SLDK",
+      "land_area": 81.48,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-14T15:39:52.804569+00:00",
+      "price": 71990000,
+      "title": "練馬区春日町1丁目（株式会社東宝ハウス城東） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 7
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024407444/": {
       "address": "東京都杉並区南荻窪2丁目 [地図を確認]",
       "building_area": 100.84,
@@ -948,6 +1043,20 @@
       "title": "豊島区長崎4丁目（アドキャスト 池袋支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 4
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024464214/": {
+      "address": "東京都練馬区春日町1丁目 [地図を確認]",
+      "building_area": 110.53,
+      "construction_date": "2001-02",
+      "fingerprint": "f3d5450a7dd7ade47ae4617ba9dbad88a6aa73c2b20e529e182e951828a48a51",
+      "first_seen": "2026-09-14T15:39:52.804569+00:00",
+      "floor_plan": "4SLDK",
+      "land_area": 81.48,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T15:39:52.804569+00:00",
+      "price": 71990000,
+      "title": "練馬区春日町1丁目（藤和ハウス 大泉学園店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 7
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024489216/": {
       "address": "東京都杉並区桃井1丁目 [地図を確認]",
       "building_area": 92.74,
@@ -961,6 +1070,20 @@
       "price": 74990000,
       "title": "杉並区桃井1丁目（藤和ハウス 荻窪店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 12
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024519289/": {
+      "address": "東京都練馬区春日町1丁目 [地図を確認]",
+      "building_area": 110.53,
+      "construction_date": "2001-02",
+      "fingerprint": "ec9e26d1236e1ade4ad525e92b31404caad8acf8600a4f97b88155f2a18b02c5",
+      "first_seen": "2026-09-14T15:39:52.804569+00:00",
+      "floor_plan": "4SLDK ■2階:LDK13.5畳・洋室6畳■1階:洋室7.5畳・納戸5.5畳■3階:洋室6畳・洋室6畳",
+      "land_area": 81.48,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T15:39:52.804569+00:00",
+      "price": 71990000,
+      "title": "練馬区春日町1丁目（株式会社ワイズホーム） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 7
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024521894/": {
       "address": "東京都豊島区高松2丁目 [地図を確認]",
@@ -976,6 +1099,20 @@
       "title": "豊島区高松2丁目（東京リアルティ株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 9
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024543694/": {
+      "address": "東京都練馬区春日町1丁目 [地図を確認]",
+      "building_area": 110.53,
+      "construction_date": "2001-02",
+      "fingerprint": "f3d5450a7dd7ade47ae4617ba9dbad88a6aa73c2b20e529e182e951828a48a51",
+      "first_seen": "2026-09-14T15:39:52.804569+00:00",
+      "floor_plan": "4SLDK",
+      "land_area": 81.48,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T15:39:52.804569+00:00",
+      "price": 71990000,
+      "title": "練馬区春日町1丁目（株式会社マイタウンSLM事業部） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 7
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024552936/": {
       "address": "東京都杉並区高井戸東2丁目 [地図を確認]",
       "building_area": 181.47,
@@ -990,6 +1127,20 @@
       "title": "杉並区高井戸東2丁目（殖産ベスト株式会社 お問い合わせ窓口） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 11
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024562986/": {
+      "address": "東京都練馬区春日町1丁目 [地図を確認]",
+      "building_area": 110.53,
+      "construction_date": "2001-02",
+      "fingerprint": "43fb360d9023011e8e320e085b9944f65b205593866ad4aee96ea72f9e1d8832",
+      "first_seen": "2026-09-14T15:39:52.804569+00:00",
+      "floor_plan": "5LDK以上",
+      "land_area": 81.48,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-14T15:39:52.804569+00:00",
+      "price": 71990000,
+      "title": "練馬区春日町1丁目（エルブリッジ株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 7
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024605652/": {
       "address": "東京都杉並区桃井1丁目 [地図を確認]",
       "building_area": 92.74,
@@ -1003,6 +1154,20 @@
       "price": 74990000,
       "title": "杉並区桃井1丁目（アドキャスト 西荻窪支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 12
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024645593/": {
+      "address": "東京都練馬区春日町1丁目 [地図を確認]",
+      "building_area": 110.53,
+      "construction_date": "2001-02",
+      "fingerprint": "f3d5450a7dd7ade47ae4617ba9dbad88a6aa73c2b20e529e182e951828a48a51",
+      "first_seen": "2026-09-14T15:39:52.804569+00:00",
+      "floor_plan": "4SLDK",
+      "land_area": 81.48,
+      "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T15:39:52.804569+00:00",
+      "price": 71990000,
+      "title": "練馬区春日町1丁目（株式会社 日建不動産） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 7
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024670803/": {
       "address": "東京都杉並区南荻窪2丁目 [地図を確認]",
@@ -1088,6 +1253,20 @@
       "title": "豊島区高松2丁目（株式会社ウィル 茗荷谷営業所） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 9
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024793875/": {
+      "address": "東京都練馬区春日町1丁目 [地図を確認]",
+      "building_area": 110.53,
+      "construction_date": "2001-02",
+      "fingerprint": "9c513ff10c4988e0a924bfe2b2bbc7b78b9546adcd295d05fba9755c465c8b05",
+      "first_seen": "2026-09-14T15:39:52.804569+00:00",
+      "floor_plan": "4LDK＋S",
+      "land_area": 81.48,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T15:39:52.804569+00:00",
+      "price": 71990000,
+      "title": "練馬区春日町1丁目（ME不動産西東京株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 7
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024796156/": {
       "address": "東京都杉並区荻窪1丁目 [地図を確認]",
       "building_area": 70.23,
@@ -1172,6 +1351,20 @@
       "title": "杉並区荻窪1丁目（東京リアルティ株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 16
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024872868/": {
+      "address": "東京都練馬区春日町1丁目 [地図を確認]",
+      "building_area": 110.53,
+      "construction_date": "2001-02",
+      "fingerprint": "f3d5450a7dd7ade47ae4617ba9dbad88a6aa73c2b20e529e182e951828a48a51",
+      "first_seen": "2026-09-14T15:39:52.804569+00:00",
+      "floor_plan": "4SLDK",
+      "land_area": 81.48,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（カースペース） 各項目の",
+      "last_seen": "2026-09-14T15:39:52.804569+00:00",
+      "price": 71990000,
+      "title": "練馬区春日町1丁目（株式会社住協 大泉支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 7
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024873509/": {
       "address": "東京都練馬区春日町6丁目 [地図を確認]",
       "building_area": 154.63,
@@ -1213,6 +1406,20 @@
       "price": 28000000,
       "title": "豊島区高松2丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 9
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024918830/": {
+      "address": "東京都練馬区春日町6丁目 [地図を確認]",
+      "building_area": 154.63,
+      "construction_date": "2020-11",
+      "fingerprint": "c284ed7c5c188457e67ca997f5cdfc3db8a47b8e1f25386b013362b6c52006da",
+      "first_seen": "2026-09-14T15:39:52.804569+00:00",
+      "floor_plan": "2SLDK（S＝サービスルーム（納戸））",
+      "land_area": 154.86,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円 駐車場",
+      "last_seen": "2026-09-14T15:39:52.804569+00:00",
+      "price": 10000,
+      "title": "練馬区春日町6丁目（アドキャスト 池袋支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 7
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024928402/": {
       "address": "東京都杉並区荻窪1丁目 [地図を確認]",
@@ -1339,6 +1546,20 @@
       "price": 69800000,
       "title": "豊島区長崎6丁目（株式会社ウィル 茗荷谷営業所） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 9
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024972522/": {
+      "address": "東京都練馬区春日町1丁目 [地図を確認]",
+      "building_area": 110.53,
+      "construction_date": "2001-07",
+      "fingerprint": "4a5b0ed68b8118d8f9d26d7d5e149358038dbf607df4698ca640f280924f49ca",
+      "first_seen": "2026-09-14T15:39:52.804569+00:00",
+      "floor_plan": "4SLDK",
+      "land_area": 81.48,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
+      "last_seen": "2026-09-14T15:39:52.804569+00:00",
+      "price": 71990000,
+      "title": "練馬区春日町1丁目（アジアンリアルティ株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 7
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024974634/": {
       "address": "東京都練馬区春日町6丁目 [地図を確認]",
@@ -1774,6 +1995,20 @@
       "title": "杉並区南荻窪2丁目（健ハウジング） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 15
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025109877/": {
+      "address": "東京都練馬区春日町1丁目 [地図を確認]",
+      "building_area": 110.53,
+      "construction_date": "2001-02",
+      "fingerprint": "aa1fa7050dd29ccf7b04dc1fc3d7ef80a9dcc21b17d71592384156cb00d43852",
+      "first_seen": "2026-09-14T15:39:52.804569+00:00",
+      "floor_plan": "5LDK",
+      "land_area": 81.48,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T15:39:52.804569+00:00",
+      "price": 71990000,
+      "title": "練馬区春日町1丁目（東京リアルティ株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 6
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025110118/": {
       "address": "東京都豊島区目白2丁目 [地図を確認]",
       "building_area": 127.52,
@@ -2026,6 +2261,20 @@
       "title": "中野区本町2丁目（株式会社エステート白馬 中野店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 6
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025131213/": {
+      "address": "東京都練馬区春日町1丁目 [地図を確認]",
+      "building_area": 110.53,
+      "construction_date": "2001-02",
+      "fingerprint": "aa1fa7050dd29ccf7b04dc1fc3d7ef80a9dcc21b17d71592384156cb00d43852",
+      "first_seen": "2026-09-14T15:39:52.804569+00:00",
+      "floor_plan": "5LDK",
+      "land_area": 81.48,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
+      "last_seen": "2026-09-14T15:39:52.804569+00:00",
+      "price": 71990000,
+      "title": "練馬区春日町1丁目（株式会社大和・アクタス 高円寺本社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 7
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025132840/": {
       "address": "東京都杉並区和泉1丁目 [地図を確認]",
       "building_area": 119.44,
@@ -2234,6 +2483,20 @@
       "last_seen": "2026-09-14T12:51:44.699416+00:00",
       "price": 96900000,
       "title": "杉並区成田東5丁目（殖産ベスト株式会社 お問い合わせ窓口） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 7
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025172871/": {
+      "address": "東京都練馬区春日町6丁目 [地図を確認]",
+      "building_area": 154.63,
+      "construction_date": "2020-11",
+      "fingerprint": "aee3511fa05de63e8c8d170d3b888e788b57054dc9889ca5941ecd1e123b0711",
+      "first_seen": "2026-09-14T15:39:52.804569+00:00",
+      "floor_plan": "3SLDK",
+      "land_area": 154.86,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
+      "last_seen": "2026-09-14T15:39:52.804569+00:00",
+      "price": 10000,
+      "title": "練馬区春日町6丁目（ベストセレクト 赤羽支社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 7
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025181505/": {
@@ -2487,6 +2750,20 @@
       "price": 10000,
       "title": "杉並区井草5丁目（株式会社エステート白馬 中野店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 8
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025240198/": {
+      "address": "東京都練馬区春日町6丁目 [地図を確認]",
+      "building_area": 154.63,
+      "construction_date": "2020-11",
+      "fingerprint": "562861cbb9f9c515e81438e980de65951e4c056b507586cfb58c015fa5c9c156",
+      "first_seen": "2026-09-14T15:39:52.804569+00:00",
+      "floor_plan": "5LDK",
+      "land_area": 154.86,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
+      "last_seen": "2026-09-14T15:39:52.804569+00:00",
+      "price": 10000,
+      "title": "練馬区春日町6丁目（株式会社大和・アクタス 高円寺本社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 7
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025247787/": {
       "address": "東京都豊島区長崎6丁目 [地図を確認]",
