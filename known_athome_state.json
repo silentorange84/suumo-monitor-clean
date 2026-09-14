@@ -1,7 +1,7 @@
 {
   "baseline_in_progress": false,
-  "page_cursor": 4,
-  "price_cursor": 32,
+  "page_cursor": 7,
+  "price_cursor": 40,
   "properties": {
     "https://www.athome.co.jp/kodate/1012848820/": {
       "first_seen": "2026-09-11T12:23:14.106524+00:00",
@@ -1099,7 +1099,7 @@
     },
     "https://www.athome.co.jp/kodate/1150810431/": {
       "first_seen": "2026-09-11T02:44:39.300032+00:00",
-      "last_seen": "2026-09-13T18:46:34.942814+00:00",
+      "last_seen": "2026-09-14T03:35:39.163512+00:00",
       "price": 5980.0,
       "price_history": [
         {
@@ -2980,9 +2980,16 @@
     },
     "https://www.athome.co.jp/kodate/6991905447/": {
       "first_seen": "2026-09-11T02:44:39.300032+00:00",
-      "last_seen": "2026-09-11T02:44:39.300032+00:00",
-      "price": null,
-      "price_history": []
+      "last_seen": "2026-09-14T03:35:39.163512+00:00",
+      "price": 4980.0,
+      "price_history": [
+        {
+          "at": "2026-09-14T03:35:39.163512+00:00",
+          "price": 4980.0
+        }
+      ],
+      "title": "【アットホーム】練馬区 北町１丁目（東武練馬駅） 3階建 ２ＬＤＫ[6991905447]練馬区の一戸建て（提供元：(株)大和開発）｜一軒家・家の購入",
+      "type": "中古一戸建て"
     },
     "https://www.athome.co.jp/kodate/6991925242/": {
       "first_seen": "2026-09-11T02:44:39.300032+00:00",
@@ -3209,5 +3216,5 @@
       "type": "新築一戸建て"
     }
   },
-  "updated_at": "2026-09-14T03:21:56.631047+00:00"
+  "updated_at": "2026-09-14T03:35:39.163512+00:00"
 }
