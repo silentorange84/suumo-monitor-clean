@@ -63,6 +63,7 @@ jobs:
               "西東京市": f"{ORIGIN}/used/house/search/03/13/13229/",
           }
           PRICE_CHECK_BATCH_SIZE = 20
+          BASELINE_BATCH_SIZE = 20
           RETRYABLE = {403, 408, 425, 429, 500, 502, 503, 504}
           RETRY_WAITS = (2, 5, 10)
           MIN_LIST_BYTES = 8_000
@@ -195,11 +196,12 @@ jobs:
               return None
 
 
-          def fetch(url, minimum_bytes, interval):
+          def fetch(url, minimum_bytes, interval, attempts=4):
               global last_request_at
               last_reason = "unknown response"
-              # One initial request plus at most three retries (2s, 5s, 10s).
-              for attempt in range(4):
+              # Callers choose the attempt cap; normal monitoring keeps the
+              # original four attempts while baseline details use two.
+              for attempt in range(attempts):
                   delay = interval - (time.monotonic() - last_request_at)
                   if delay > 0:
                       time.sleep(delay)
@@ -232,7 +234,7 @@ jobs:
                   if reason is None:
                       raise RuntimeError(f"permanent HTTP {status}")
                   last_reason = reason
-                  if attempt < 3:
+                  if attempt < attempts - 1:
                       wait = RETRY_WAITS[attempt]
                       print(f"RETRY: {url} after {wait}s ({reason})")
                       time.sleep(wait)
@@ -377,6 +379,9 @@ jobs:
               meta = state.setdefault("_meta", {})
               meta.setdefault("price_cursor", 0)
               meta.setdefault("baseline_initialized", False)
+              meta.setdefault("baseline_in_progress", not meta["baseline_initialized"])
+              meta.setdefault("baseline_cursor", 0)
+              meta.setdefault("baseline_urls", [])
               meta.setdefault("notified_fingerprints", {})
               state.setdefault("properties", {})
               return state
@@ -437,11 +442,14 @@ jobs:
           deferred = []
 
 
-          def defer(url, now):
+          def defer(url, now, baseline=False):
               try:
-                  body, final_url = fetch(url, MIN_DETAIL_BYTES, 2.5)
+                  # Baseline runs favor checkpointing over lengthy retries.  A
+                  # deferred URL remains outside state and is retried next pass.
+                  attempts = 2 if baseline else 4
+                  body, final_url = fetch(url, MIN_DETAIL_BYTES, 2.5, attempts)
                   return parse_property(url, body, final_url, now)
-              except RuntimeError as error:
+              except (RuntimeError, TypeError, ValueError) as error:
                   counters["deferred"] += 1
                   deferred.append(url)
                   print("DETAIL DEFERRED")
@@ -453,8 +461,24 @@ jobs:
           print("PAGINATION MODE: FIRST PAGE ONLY")
           now = datetime.now(timezone.utc)
           state = load_state()
+          if RESET_BASELINE:
+              # A reset is an explicit new generation: do not merge old Yahoo
+              # properties into the baseline being rebuilt.
+              state = {
+                  "_meta": {
+                      "price_cursor": 0,
+                      "baseline_initialized": False,
+                      "baseline_in_progress": True,
+                      "baseline_cursor": 0,
+                      "baseline_urls": [],
+                      "baseline_reset_at": now.isoformat(),
+                      "notified_fingerprints": {},
+                  },
+                  "properties": {},
+              }
           known = state["properties"]
           current_urls = []
+          list_complete = True
           for area, url in AREA_URLS.items():
               try:
                   body, final_url = fetch(url, MIN_LIST_BYTES, 1.0)
@@ -463,21 +487,59 @@ jobs:
                   print(f"LIST PAGE: {area}: {len(urls)} URLs: {url}")
                   current_urls.extend(item for item in urls if item not in current_urls)
               except RuntimeError as error:
+                  list_complete = False
                   print(f"::warning::LIST DEFERRED: {area}: {url}: {error}")
 
           counters["current_urls"] = len(current_urls)
           new_urls = [url for url in current_urls if url not in known]
           counters["new_urls"] = len(new_urls)
 
-          if RESET_BASELINE:
-              # Preserve an existing Yahoo state and enrich only successfully parsed URLs.
+          meta = state["_meta"]
+          if meta["baseline_in_progress"] or not meta["baseline_initialized"]:
+              meta["baseline_in_progress"] = True
+              meta["baseline_initialized"] = False
+              targets = meta["baseline_urls"]
               for url in current_urls:
-                  prop = defer(url, now)
+                  if url not in targets:
+                      targets.append(url)
+              if list_complete:
+                  # An unparsed listing that disappeared from a complete list
+                  # scan is no longer part of the baseline.  Keep successfully
+                  # recorded historical entries, but do not defer a vanished URL forever.
+                  targets[:] = [url for url in targets if url in known or url in current_urls]
+
+              cursor = max(0, min(int(meta.get("baseline_cursor", 0)), len(targets)))
+              candidates = []
+              while cursor < len(targets) and len(candidates) < BASELINE_BATCH_SIZE:
+                  url = targets[cursor]
+                  index = cursor
+                  cursor += 1
+                  if url not in known:
+                      candidates.append((index, url))
+              processed = 0
+              for index, url in candidates:
+                  prop = defer(url, now, baseline=True)
                   if prop is not None:
-                      if url in new_urls:
-                          counters["new_checked"] += 1
-                      known[prop["url"]] = state_entry(prop, now, known.get(url))
-              state["_meta"]["baseline_initialized"] = True
+                      known[prop["url"]] = state_entry(prop, now, known.get(prop["url"]))
+                      processed += 1
+
+              # At the end of a pass, wrap only when deferred URLs remain.  The
+              # next schedule skips saved URLs and retries just those failures.
+              if cursor >= len(targets) and list_complete:
+                  unresolved = [url for url in targets if url not in known]
+                  if unresolved:
+                      cursor = 0
+                  else:
+                      meta["baseline_initialized"] = True
+                      meta["baseline_in_progress"] = False
+              meta["baseline_cursor"] = cursor
+              remaining = sum(url not in known for url in targets)
+              print("BASELINE IN PROGRESS: " + str(meta["baseline_in_progress"]).lower())
+              print(f"BASELINE CURSOR: {meta['baseline_cursor']}")
+              print(f"BASELINE BATCH SIZE: {BASELINE_BATCH_SIZE}")
+              print(f"BASELINE PROCESSED THIS RUN: {processed}")
+              print(f"BASELINE REMAINING: {remaining}")
+              print("BASELINE COMPLETE: " + str(meta["baseline_initialized"]).lower())
           else:
               recent = state["_meta"]["notified_fingerprints"]
               cutoff = now - timedelta(days=7)
@@ -603,6 +665,14 @@ jobs:
 
 
           remote, run = load(STATE_FILE), load(RUN_FILE)
+          remote_reset = parsed_time(remote["_meta"].get("baseline_reset_at"))
+          run_reset = parsed_time(run["_meta"].get("baseline_reset_at"))
+          # Never resurrect pre-reset entries while rebasing onto a concurrently
+          # updated main branch.  Only properties from the newest reset generation merge.
+          if run_reset > remote_reset:
+              remote["properties"] = {}
+          elif remote_reset > run_reset:
+              run["properties"] = {}
           merged = {**remote, **run, "_meta": {**remote["_meta"], **run["_meta"]}}
           merged_properties = {}
           for url in remote["properties"].keys() | run["properties"].keys():
@@ -630,9 +700,12 @@ jobs:
           newer = run["_meta"] if run_time >= remote_time else remote["_meta"]
           merged["_meta"]["updated_at"] = newer.get("updated_at")
           merged["_meta"]["price_cursor"] = newer.get("price_cursor", 0)
-          merged["_meta"]["baseline_initialized"] = bool(
-              remote["_meta"].get("baseline_initialized") or run["_meta"].get("baseline_initialized")
-          )
+          for field, default in (
+              ("baseline_initialized", False), ("baseline_in_progress", True),
+              ("baseline_cursor", 0), ("baseline_urls", []),
+              ("baseline_reset_at", None),
+          ):
+              merged["_meta"][field] = newer.get(field, default)
           with open(STATE_FILE + ".tmp", "w", encoding="utf-8") as file:
               json.dump(merged, file, ensure_ascii=False, indent=2, sort_keys=True)
               file.write("\n")
