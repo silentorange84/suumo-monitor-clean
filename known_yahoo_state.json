@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "baseline_cursor": 540,
+    "baseline_cursor": 560,
     "baseline_in_progress": true,
     "baseline_initialized": false,
     "baseline_reset_at": null,
@@ -588,17 +588,14 @@
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025292895/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025380003/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024397790/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025418652/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025096254/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025080473/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025259372/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023678357/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025097338/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024633231/"
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025096184/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025194576/"
     ],
     "notified_fingerprints": {},
     "price_cursor": 0,
-    "updated_at": "2026-09-14T19:44:13.277149+00:00"
+    "updated_at": "2026-09-14T20:00:45.936732+00:00"
   },
   "properties": {
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0021198071/": {
@@ -698,6 +695,20 @@
       "price": 42000000,
       "title": "武蔵野市吉祥寺北町3丁目（オープンハウス 吉祥寺営業センター） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 21
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023782464/": {
+      "address": "東京都西東京市北町3丁目 [地図を確認]",
+      "building_area": 74.52,
+      "construction_date": "1976-12",
+      "fingerprint": "c507979009bd464e157ea044770a64b091682185f17d6e5cf99c3fca383b218f",
+      "first_seen": "2026-09-14T20:00:45.936732+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 82.64,
+      "land_right": "形態 所有権のみ 駐車場・車庫 駐車場料金:0円 各項目の詳",
+      "last_seen": "2026-09-14T20:00:45.936732+00:00",
+      "price": 19800000,
+      "title": "西東京市北町3丁目（株式会社東宝ハウス練馬） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 22
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023854039/": {
       "address": "東京都中野区東中野2丁目 [地図を確認]",
@@ -3415,6 +3426,20 @@
       "title": "豊島区北大塚3丁目（株式会社東宝ハウス練馬） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 5
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025141968/": {
+      "address": "東京都西東京市田無町4丁目 [地図を確認]",
+      "building_area": 68.73,
+      "construction_date": "1989-09",
+      "fingerprint": "f043dee6e85951c95880e16d1802590578784230ddc541feae6774efcc42bea4",
+      "first_seen": "2026-09-14T20:00:45.936732+00:00",
+      "floor_plan": "2LDK",
+      "land_area": 131.33,
+      "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T20:00:45.936732+00:00",
+      "price": 29800000,
+      "title": "西東京市田無町4丁目（藤和ハウス 田無店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 6
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025143674/": {
       "address": "東京都杉並区成田東5丁目 [地図を確認]",
       "building_area": 73.9,
@@ -3666,6 +3691,20 @@
       "price": 41800000,
       "title": "西東京市保谷町1丁目（藤和ハウス 田無店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 8
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025170133/": {
+      "address": "東京都西東京市住吉町1丁目 [地図を確認]",
+      "building_area": 79.9,
+      "construction_date": "2018-12",
+      "fingerprint": "3b8c12aff21eae8ed362f02cacf4e57163310bfdee62ec431ca874a522e3d620",
+      "first_seen": "2026-09-14T20:00:45.936732+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 97.21,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T20:00:45.936732+00:00",
+      "price": 48800000,
+      "title": "西東京市住吉町1丁目（藤和ハウス 田無店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 20
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025172674/": {
       "address": "東京都杉並区成田東5丁目 [地図を確認]",
@@ -3960,6 +3999,20 @@
       "price": 20000,
       "title": "武蔵野市吉祥寺東町1丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 9
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025213770/": {
+      "address": "東京都西東京市北町4丁目 [地図を確認]",
+      "building_area": 107.46,
+      "construction_date": "2020-11",
+      "fingerprint": "7419bcd852fb397072c66726cc10cf4a639ddd0659aabef8517c2c30f9429664",
+      "first_seen": "2026-09-14T20:00:45.936732+00:00",
+      "floor_plan": "5LDK",
+      "land_area": 111.43,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
+      "last_seen": "2026-09-14T20:00:45.936732+00:00",
+      "price": 66800000,
+      "title": "西東京市北町4丁目（アジアンリアルティ株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 20
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025221092/": {
       "address": "東京都豊島区池袋3丁目 [地図を確認]",
@@ -4367,6 +4420,34 @@
       "title": "西東京市中町2丁目（株式会社エステート白馬 国分寺店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 13
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025272342/": {
+      "address": "東京都西東京市芝久保町5丁目 [地図を確認]",
+      "building_area": 80.11,
+      "construction_date": "2005-05",
+      "fingerprint": "6812143de2df69d35a9d2bf3e89737a7b73d0c2dee86bbdb2594bfee0d494740",
+      "first_seen": "2026-09-14T20:00:45.936732+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 100.12,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（並列） 各項目の詳細に関",
+      "last_seen": "2026-09-14T20:00:45.936732+00:00",
+      "price": 44990000,
+      "title": "西東京市芝久保町5丁目（株式会社エステート白馬 国分寺店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 18
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025272362/": {
+      "address": "東京都西東京市芝久保町5丁目 [地図を確認]",
+      "building_area": 80.11,
+      "construction_date": "2005-05",
+      "fingerprint": "6812143de2df69d35a9d2bf3e89737a7b73d0c2dee86bbdb2594bfee0d494740",
+      "first_seen": "2026-09-14T20:00:45.936732+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 100.12,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T20:00:45.936732+00:00",
+      "price": 44990000,
+      "title": "西東京市芝久保町5丁目（株式会社エステート白馬 所沢店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 18
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025272364/": {
       "address": "東京都西東京市中町2丁目 [地図を確認]",
       "building_area": 93.15,
@@ -4506,6 +4587,20 @@
       "price": 27800000,
       "title": "練馬区大泉学園町5丁目（株式会社東宝ハウス城東） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 28
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025280805/": {
+      "address": "東京都西東京市芝久保町5丁目 [地図を確認]",
+      "building_area": 80.11,
+      "construction_date": "2005-05",
+      "fingerprint": "6812143de2df69d35a9d2bf3e89737a7b73d0c2dee86bbdb2594bfee0d494740",
+      "first_seen": "2026-09-14T20:00:45.936732+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 100.12,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 住宅履歴情報 未保有 耐",
+      "last_seen": "2026-09-14T20:00:45.936732+00:00",
+      "price": 44990000,
+      "title": "西東京市芝久保町5丁目（センチュリー21ネクストドア 花小金井店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 18
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025281237/": {
       "address": "東京都西東京市中町2丁目 [地図を確認]",
@@ -4870,6 +4965,20 @@
       "price": 59800000,
       "title": "練馬区富士見台3丁目（アドキャスト 池袋支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 8
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025311928/": {
+      "address": "東京都西東京市芝久保町5丁目 [地図を確認]",
+      "building_area": 80.11,
+      "construction_date": "2005-05",
+      "fingerprint": "6812143de2df69d35a9d2bf3e89737a7b73d0c2dee86bbdb2594bfee0d494740",
+      "first_seen": "2026-09-14T20:00:45.936732+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 100.12,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-14T20:00:45.936732+00:00",
+      "price": 44990000,
+      "title": "西東京市芝久保町5丁目（株式会社東宝ハウス練馬） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 18
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025313639/": {
       "address": "東京都杉並区桃井4丁目 [地図を確認]",
@@ -5347,6 +5456,20 @@
       "title": "杉並区高井戸西1丁目（タカマツハウス不動産株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 7
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025341441/": {
+      "address": "東京都西東京市中町5丁目 [地図を確認]",
+      "building_area": 150.05,
+      "construction_date": "1993-09",
+      "fingerprint": "afc9328da8dc66a005d59ad0c1b726abc1e9e5af38a0d336ad0f8a54ad6c126b",
+      "first_seen": "2026-09-14T20:00:45.936732+00:00",
+      "floor_plan": "6LDK（LDK）",
+      "land_area": 119.52,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-14T20:00:45.936732+00:00",
+      "price": 47800000,
+      "title": "西東京市中町5丁目（株式会社東宝ハウス国分寺） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 16
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025341614/": {
       "address": "東京都豊島区上池袋1丁目 [地図を確認]",
       "building_area": 113.3,
@@ -5500,6 +5623,20 @@
       "price": 46990000,
       "title": "練馬区西大泉4丁目（不動産無料相談センター（株）クオリアホーム） - 中古一戸建て｜Yahoo!不動産閉じる前へ次へ初期費用について閉じる",
       "walk_minutes": 25
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025357757/": {
+      "address": "東京都西東京市芝久保町5丁目 [地図を確認]",
+      "building_area": 80.11,
+      "construction_date": "2005-05",
+      "fingerprint": "6812143de2df69d35a9d2bf3e89737a7b73d0c2dee86bbdb2594bfee0d494740",
+      "first_seen": "2026-09-14T20:00:45.936732+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 100.12,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 おすすめポイント ○少し",
+      "last_seen": "2026-09-14T20:00:45.936732+00:00",
+      "price": 44990000,
+      "title": "西東京市芝久保町5丁目（不動産無料相談センター（株）クオリアホーム） - 中古一戸建て｜Yahoo!不動産閉じる前へ次へ初期費用について閉じる",
+      "walk_minutes": 18
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025358774/": {
       "address": "東京都豊島区上池袋1丁目 [地図を確認]",
@@ -6523,6 +6660,20 @@
       "title": "杉並区井草2丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 4
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025428378/": {
+      "address": "東京都西東京市富士町5丁目 [地図を確認]",
+      "building_area": 92.33,
+      "construction_date": "1998-03",
+      "fingerprint": "81fd7b7414711fe4194c33a4b358d3df12d394b92f91696640872979d575cba7",
+      "first_seen": "2026-09-14T20:00:45.936732+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 102.01,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-14T20:00:45.936732+00:00",
+      "price": 56800000,
+      "title": "西東京市富士町5丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 22
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025428460/": {
       "address": "東京都中野区大和町3丁目 [地図を確認]",
       "building_area": 42.14,
@@ -6718,6 +6869,20 @@
       "price": 64800000,
       "title": "立川市上砂町5丁目（西武開発 立川店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 6
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025448460/": {
+      "address": "東京都西東京市芝久保町1丁目 [地図を確認]",
+      "building_area": 60.0,
+      "construction_date": "2008-01",
+      "fingerprint": "5f48127aecc549628dc78b0ef9e66a5418659ea1e7bf58b902de7afa1f6a2a2b",
+      "first_seen": "2026-09-14T20:00:45.936732+00:00",
+      "floor_plan": "2LDK",
+      "land_area": 77.19,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T20:00:45.936732+00:00",
+      "price": 39800000,
+      "title": "西東京市芝久保町1丁目（昭和建物株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 15
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025449612/": {
       "address": "東京都豊島区北大塚3丁目 [地図を確認]",
