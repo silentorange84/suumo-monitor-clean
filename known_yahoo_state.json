@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "baseline_cursor": 400,
+    "baseline_cursor": 420,
     "baseline_in_progress": true,
     "baseline_initialized": false,
     "baseline_reset_at": null,
@@ -589,13 +589,14 @@
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025380003/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024397790/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025080473/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023678357/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025386194/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025024159/"
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023790351/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025096254/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024965819/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025293228/"
     ],
     "notified_fingerprints": {},
     "price_cursor": 0,
-    "updated_at": "2026-09-14T17:34:30.608875+00:00"
+    "updated_at": "2026-09-14T17:53:21.750184+00:00"
   },
   "properties": {
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0021198071/": {
@@ -1144,6 +1145,20 @@
       "title": "練馬区春日町1丁目（株式会社ワイズホーム） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 7
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024520467/": {
+      "address": "東京都武蔵野市吉祥寺東町1丁目 [地図を確認]",
+      "building_area": 125.45,
+      "construction_date": "2023-10",
+      "fingerprint": "bd704d9b28cc24d31f20776beec7c2d3858d8218811a25ac5a6fe3aad2e8132b",
+      "first_seen": "2026-09-14T17:53:21.750184+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 162.97,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料） 各項目の",
+      "last_seen": "2026-09-14T17:53:21.750184+00:00",
+      "price": 20000,
+      "title": "武蔵野市吉祥寺東町1丁目（殖産ベスト株式会社 お問い合わせ窓口） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 8
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024521894/": {
       "address": "東京都豊島区高松2丁目 [地図を確認]",
       "building_area": 71.19,
@@ -1158,6 +1173,20 @@
       "title": "豊島区高松2丁目（東京リアルティ株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 9
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024534054/": {
+      "address": "東京都武蔵野市吉祥寺東町1丁目 [地図を確認]",
+      "building_area": 125.45,
+      "construction_date": "2023-10",
+      "fingerprint": "db6e9c85dc6e24d4b87180feafce9ea70bd35c487c8baffeb688ef850c5b133b",
+      "first_seen": "2026-09-14T17:53:21.750184+00:00",
+      "floor_plan": "3LDK（セカンドリビング）",
+      "land_area": 162.97,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-14T17:53:21.750184+00:00",
+      "price": 20000,
+      "title": "武蔵野市吉祥寺東町1丁目（アドキャスト 西荻窪支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 8
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024543694/": {
       "address": "東京都練馬区春日町1丁目 [地図を確認]",
       "building_area": 110.53,
@@ -1171,6 +1200,20 @@
       "price": 71990000,
       "title": "練馬区春日町1丁目（株式会社マイタウンSLM事業部） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 7
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024549443/": {
+      "address": "東京都武蔵野市吉祥寺東町1丁目 [地図を確認]",
+      "building_area": 125.45,
+      "construction_date": "2023-10",
+      "fingerprint": "1bad862ba11604a93a7d3d1e40ab82a9456da0b92567ba86d0c3d7f45edb4e07",
+      "first_seen": "2026-09-14T17:53:21.750184+00:00",
+      "floor_plan": "3SLDK",
+      "land_area": 162.97,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-14T17:53:21.750184+00:00",
+      "price": 20000,
+      "title": "武蔵野市吉祥寺東町1丁目（株式会社東宝ハウス国分寺） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 8
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024552936/": {
       "address": "東京都杉並区高井戸東2丁目 [地図を確認]",
@@ -1213,6 +1256,20 @@
       "price": 97000000,
       "title": "練馬区錦1丁目（株式会社東宝ハウス練馬） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 10
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024602545/": {
+      "address": "東京都武蔵野市吉祥寺東町1丁目 [地図を確認]",
+      "building_area": 125.45,
+      "construction_date": "2023-10",
+      "fingerprint": "32b49057c398c4a082ef931f7a11110eb67960a2fa30666565056bbd254a6ac1",
+      "first_seen": "2026-09-14T17:53:21.750184+00:00",
+      "floor_plan": "3LDK＋WIC、セカンドリビング、小屋裏収納",
+      "land_area": 162.97,
+      "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T17:53:21.750184+00:00",
+      "price": 20000,
+      "title": "武蔵野市吉祥寺東町1丁目（藤和ハウス 三鷹店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 8
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024605652/": {
       "address": "東京都杉並区桃井1丁目 [地図を確認]",
@@ -1605,6 +1662,20 @@
       "price": 74990000,
       "title": "杉並区荻窪1丁目（ベストセレクト 杉並支社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 15
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024931943/": {
+      "address": "東京都立川市柴崎町2丁目 [地図を確認]",
+      "building_area": 126.07,
+      "construction_date": "2007-10",
+      "fingerprint": "789bc222912dab01abe2cec4943cbe5756b8636fca12bd741c09b9a1954e0c6c",
+      "first_seen": "2026-09-14T17:53:21.750184+00:00",
+      "floor_plan": "2LDK",
+      "land_area": 145.96,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T17:53:21.750184+00:00",
+      "price": 84500000,
+      "title": "立川市柴崎町2丁目（西武開発 立川店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 4
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024943406/": {
       "address": "東京都中野区中野1丁目 [地図を確認]",
@@ -2894,6 +2965,20 @@
       "title": "中野区野方5丁目（殖産ベスト株式会社 お問い合わせ窓口） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 6
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025148508/": {
+      "address": "東京都武蔵野市吉祥寺北町3丁目 [地図を確認]",
+      "building_area": 104.44,
+      "construction_date": "2014-08",
+      "fingerprint": "23ae8e59d7da3ddda2166838b3066fbfa702d685ad0766bf92ca4473bb4c957e",
+      "first_seen": "2026-09-14T17:53:21.750184+00:00",
+      "floor_plan": "3SLDK",
+      "land_area": 105.62,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-14T17:53:21.750184+00:00",
+      "price": 10000,
+      "title": "武蔵野市吉祥寺北町3丁目（株式会社東宝ハウス国分寺） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 21
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025149085/": {
       "address": "東京都練馬区小竹町1丁目 [地図を確認]",
       "building_area": 105.42,
@@ -3188,6 +3273,20 @@
       "title": "練馬区春日町6丁目（株式会社東宝ハウス東京） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 7
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025206466/": {
+      "address": "東京都武蔵野市吉祥寺東町1丁目 [地図を確認]",
+      "building_area": 125.45,
+      "construction_date": "2023-10",
+      "fingerprint": "1bad862ba11604a93a7d3d1e40ab82a9456da0b92567ba86d0c3d7f45edb4e07",
+      "first_seen": "2026-09-14T17:53:21.750184+00:00",
+      "floor_plan": "3SLDK",
+      "land_area": 162.97,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T17:53:21.750184+00:00",
+      "price": 20000,
+      "title": "武蔵野市吉祥寺東町1丁目（健ハウジング） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 8
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025206632/": {
       "address": "東京都中野区江原町2丁目 [地図を確認]",
       "building_area": 100.82,
@@ -3243,6 +3342,20 @@
       "price": 24800000,
       "title": "練馬区春日町4丁目（株式会社東宝ハウス練馬） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 8
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025213413/": {
+      "address": "東京都武蔵野市吉祥寺東町1丁目 [地図を確認]",
+      "building_area": 125.45,
+      "construction_date": "2023-10",
+      "fingerprint": "bd704d9b28cc24d31f20776beec7c2d3858d8218811a25ac5a6fe3aad2e8132b",
+      "first_seen": "2026-09-14T17:53:21.750184+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 162.97,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円 駐車場",
+      "last_seen": "2026-09-14T17:53:21.750184+00:00",
+      "price": 20000,
+      "title": "武蔵野市吉祥寺東町1丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 9
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025221092/": {
       "address": "東京都豊島区池袋3丁目 [地図を確認]",
@@ -4364,6 +4477,20 @@
       "title": "杉並区高井戸西1丁目（殖産ベスト株式会社 お問い合わせ窓口） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 7
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025336367/": {
+      "address": "東京都立川市一番町1丁目 [地図を確認]",
+      "building_area": 89.43,
+      "construction_date": "2003-04",
+      "fingerprint": "589c9da4e8c3ce7ef5842a693a1718cb5bbdd30f732744808e2fc7576f12de76",
+      "first_seen": "2026-09-14T17:53:21.750184+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 115.0,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T17:53:21.750184+00:00",
+      "price": 32990000,
+      "title": "立川市一番町1丁目（西武開発 立川店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 19
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025339101/": {
       "address": "東京都杉並区成田東1丁目 [地図を確認]",
       "building_area": 94.4,
@@ -5232,6 +5359,20 @@
       "title": "練馬区東大泉7丁目（藤和ハウス インターネットお問い合わせセンター） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 17
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025418605/": {
+      "address": "東京都立川市一番町2丁目 [地図を確認]",
+      "building_area": 102.83,
+      "construction_date": "2012-12",
+      "fingerprint": "14a62bcdb264578a705ed3608720e800bafb132b2e499bc017e326cc60f1d7ef",
+      "first_seen": "2026-09-14T17:53:21.750184+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 119.0,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
+      "last_seen": "2026-09-14T17:53:21.750184+00:00",
+      "price": 51900000,
+      "title": "立川市一番町2丁目（株式会社クリップ/クリップハウジング 八王子支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 13
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025420077/": {
       "address": "東京都杉並区桃井1丁目 [地図を確認]",
       "building_area": 92.74,
@@ -5258,6 +5399,20 @@
       "last_seen": "2026-09-14T14:23:23.872138+00:00",
       "price": 81900000,
       "title": "豊島区池袋本町2丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 8
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025420244/": {
+      "address": "東京都武蔵野市吉祥寺東町1丁目 [地図を確認]",
+      "building_area": 125.45,
+      "construction_date": "2023-10",
+      "fingerprint": "bd704d9b28cc24d31f20776beec7c2d3858d8218811a25ac5a6fe3aad2e8132b",
+      "first_seen": "2026-09-14T17:53:21.750184+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 162.97,
+      "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T17:53:21.750184+00:00",
+      "price": 20000,
+      "title": "武蔵野市吉祥寺東町1丁目（株式会社WALLMATE不動産 浜田山支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 8
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025420248/": {
@@ -5553,6 +5708,20 @@
       "price": 67800000,
       "title": "豊島区長崎6丁目（株式会社大和・アクタス 高円寺本社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 9
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025447223/": {
+      "address": "東京都立川市上砂町5丁目 [地図を確認]",
+      "building_area": 86.56,
+      "construction_date": "2025-12",
+      "fingerprint": "0503791f24d940d14af05a701adc64da40687ad5f1cc4b618cf3ff77c5a6e281",
+      "first_seen": "2026-09-14T17:53:21.750184+00:00",
+      "floor_plan": "2LDK",
+      "land_area": 102.09,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T17:53:21.750184+00:00",
+      "price": 64800000,
+      "title": "立川市上砂町5丁目（西武開発 立川店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 6
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025449612/": {
       "address": "東京都豊島区北大塚3丁目 [地図を確認]",
