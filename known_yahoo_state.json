@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "baseline_cursor": 40,
+    "baseline_cursor": 60,
     "baseline_in_progress": true,
     "baseline_initialized": false,
     "baseline_reset_at": null,
@@ -51,7 +51,6 @@
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025352937/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023854039/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025084200/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023790351/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025414416/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023628855/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024413423/",
@@ -589,13 +588,13 @@
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025292895/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025380003/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024397790/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024849596/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023678357/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025053218/"
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025096254/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025259372/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025293228/"
     ],
     "notified_fingerprints": {},
     "price_cursor": 0,
-    "updated_at": "2026-09-14T11:46:57.931537+00:00"
+    "updated_at": "2026-09-14T12:01:03.248542+00:00"
   },
   "properties": {
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023565966/": {
@@ -611,6 +610,34 @@
       "price": 10000,
       "title": "中野区東中野1丁目（株式会社ウィル 中野営業所） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 6
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023628855/": {
+      "address": "東京都中野区本町6丁目 [地図を確認]",
+      "building_area": 88.29,
+      "construction_date": "2003-03",
+      "fingerprint": "9d177f2abb58098f38099b0995cec993c4e3fdf4faf118d768ccb3ad6e81f3fe",
+      "first_seen": "2026-09-14T12:01:03.248542+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 70.22,
+      "land_right": "形態 所有権のみ 施工会社 株式会社三栄建築設計 駐車場・車",
+      "last_seen": "2026-09-14T12:01:03.248542+00:00",
+      "price": 86800000,
+      "title": "中野区本町6丁目（株式会社エステート白馬 中野店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 7
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023854039/": {
+      "address": "東京都中野区東中野2丁目 [地図を確認]",
+      "building_area": 82.18,
+      "construction_date": "2001-03",
+      "fingerprint": "86a20d13d22f48ebd50c70edb1d1a8a664f1f302b8a0aed7be87d100f0e347e8",
+      "first_seen": "2026-09-14T12:01:03.248542+00:00",
+      "floor_plan": "4K",
+      "land_area": 79.41,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料） 各項目の",
+      "last_seen": "2026-09-14T12:01:03.248542+00:00",
+      "price": 10000,
+      "title": "中野区東中野2丁目（殖産ベスト株式会社 お問い合わせ窓口） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 3
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023857997/": {
       "address": "東京都中野区東中野2丁目 [地図を確認]",
@@ -640,6 +667,62 @@
       "title": "中野区東中野2丁目（株式会社ウィル 中野営業所） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 3
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024135808/": {
+      "address": "東京都中野区東中野2丁目 [地図を確認]",
+      "building_area": 82.18,
+      "construction_date": "2001-03",
+      "fingerprint": "86a20d13d22f48ebd50c70edb1d1a8a664f1f302b8a0aed7be87d100f0e347e8",
+      "first_seen": "2026-09-14T12:01:03.248542+00:00",
+      "floor_plan": "4K",
+      "land_area": 79.41,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:01:03.248542+00:00",
+      "price": 10000,
+      "title": "中野区東中野2丁目（株式会社エステート白馬 中野店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 3
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024237863/": {
+      "address": "東京都中野区東中野2丁目 [地図を確認]",
+      "building_area": 82.18,
+      "construction_date": "2001-03",
+      "fingerprint": "86a20d13d22f48ebd50c70edb1d1a8a664f1f302b8a0aed7be87d100f0e347e8",
+      "first_seen": "2026-09-14T12:01:03.248542+00:00",
+      "floor_plan": "4K",
+      "land_area": 79.41,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-14T12:01:03.248542+00:00",
+      "price": 10000,
+      "title": "中野区東中野2丁目（株式会社東宝ハウス練馬） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 3
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024413423/": {
+      "address": "東京都中野区上鷺宮5丁目 [地図を確認]",
+      "building_area": 135.99,
+      "construction_date": "1984-09",
+      "fingerprint": "7c9f634c22199f396c41d14067dd98db279d38b84bc0639c1bb576c5487243cd",
+      "first_seen": "2026-09-14T12:01:03.248542+00:00",
+      "floor_plan": "4SLDK 間取り図が欲しい無料",
+      "land_area": 159.09,
+      "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:01:03.248542+00:00",
+      "price": 82000000,
+      "title": "中野区上鷺宮5丁目（株式会社エステート白馬 中野店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 10
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024671743/": {
+      "address": "東京都中野区野方1丁目 [地図を確認]",
+      "building_area": 59.45,
+      "construction_date": "1969-11",
+      "fingerprint": "2b8e9aa3828a42c757dcb2a36a910e5e1f258b7be1f1fe2177dfcbedb493dea0",
+      "first_seen": "2026-09-14T12:01:03.248542+00:00",
+      "floor_plan": "3SK",
+      "land_area": 44.88,
+      "land_right": "形態 所有権のみ 駐車場・車庫 無 おすすめポイント 島田大",
+      "last_seen": "2026-09-14T12:01:03.248542+00:00",
+      "price": 29800000,
+      "title": "中野区野方1丁目（リヴウェル株式会社 新宿営業所） - 中古一戸建て｜Yahoo!不動産閉じる前へ次へ初期費用について閉じる",
+      "walk_minutes": 14
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024839272/": {
       "address": "東京都中野区野方2丁目 [地図を確認]",
       "building_area": 96.05,
@@ -667,6 +750,62 @@
       "price": 79800000,
       "title": "中野区上鷺宮1丁目（ピタットハウス中野店 スターツピタットハウス） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 12
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025059744/": {
+      "address": "東京都中野区野方1丁目 [地図を確認]",
+      "building_area": 59.45,
+      "construction_date": "1969-11",
+      "fingerprint": "5eb7723dfb6683547b2df18c494d64bb855df4d62741791b243abedbc8c8ae80",
+      "first_seen": "2026-09-14T12:01:03.248542+00:00",
+      "floor_plan": "3SDK 間取り図が欲しい無料",
+      "land_area": 44.88,
+      "land_right": "形態 所有権のみ 駐車場・車庫 無 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:01:03.248542+00:00",
+      "price": 29800000,
+      "title": "中野区野方1丁目（株式会社家どっと足立） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 15
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025084200/": {
+      "address": "東京都中野区上高田2丁目 [地図を確認]",
+      "building_area": 167.85,
+      "construction_date": "1990-04",
+      "fingerprint": "f9fea98b8460fac933a20251f1fe3672dae0c89b659294d8a5bfaf5315bf4c47",
+      "first_seen": "2026-09-14T12:01:03.248542+00:00",
+      "floor_plan": "ワンルーム",
+      "land_area": 167.85,
+      "land_right": "形態 所有権のみ 駐車場・車庫 - 投資用売買区分 一棟売",
+      "last_seen": "2026-09-14T12:01:03.248542+00:00",
+      "price": 40000,
+      "title": "中野区上高田2丁目（タカマツハウス不動産株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 9
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025096207/": {
+      "address": "東京都中野区東中野1丁目 [地図を確認]",
+      "building_area": 70.31,
+      "construction_date": "1990-01",
+      "fingerprint": "e5c08af028e8d824c9844c28160d6f45409bcd81d4061c6cb35f79eb62820927",
+      "first_seen": "2026-09-14T12:01:03.248542+00:00",
+      "floor_plan": "3DK",
+      "land_area": 55.49,
+      "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:01:03.248542+00:00",
+      "price": 82800000,
+      "title": "中野区東中野1丁目（アドキャスト 高円寺支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 5
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025096248/": {
+      "address": "東京都中野区東中野2丁目 [地図を確認]",
+      "building_area": 82.18,
+      "construction_date": "2001-03",
+      "fingerprint": "86a20d13d22f48ebd50c70edb1d1a8a664f1f302b8a0aed7be87d100f0e347e8",
+      "first_seen": "2026-09-14T12:01:03.248542+00:00",
+      "floor_plan": "4K",
+      "land_area": 79.41,
+      "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:01:03.248542+00:00",
+      "price": 10000,
+      "title": "中野区東中野2丁目（アドキャスト 高円寺支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 3
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025120045/": {
       "address": "東京都中野区本町2丁目 [地図を確認]",
@@ -808,6 +947,20 @@
       "title": "中野区野方5丁目（株式会社東宝ハウス品川） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 6
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025186052/": {
+      "address": "東京都中野区弥生町4丁目 [地図を確認]",
+      "building_area": 155.32,
+      "construction_date": "2012-09",
+      "fingerprint": "0bd4385e80ddf425b2c0c2ac192b452c38cb1f1a8d7521349b81e027d29075fb",
+      "first_seen": "2026-09-14T12:01:03.248542+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 130.58,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:01:03.248542+00:00",
+      "price": 10000,
+      "title": "中野区弥生町4丁目（ハウジング・ジャパン株式会社 本社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 8
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025196062/": {
       "address": "東京都中野区上鷺宮5丁目 [地図を確認]",
       "building_area": 44.55,
@@ -835,6 +988,20 @@
       "price": 87800000,
       "title": "中野区野方5丁目（MEDIATE株式会社） - 中古一戸建て｜Yahoo!不動産閉じる前へ次へ初期費用について閉じる",
       "walk_minutes": 5
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025206632/": {
+      "address": "東京都中野区江原町2丁目 [地図を確認]",
+      "building_area": 100.82,
+      "construction_date": "2014-08",
+      "fingerprint": "bdf9e247daef1ade908db51956a90460933b1c9fc5682c3b65ef18f7f43091ef",
+      "first_seen": "2026-09-14T12:01:03.248542+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 47.82,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:01:03.248542+00:00",
+      "price": 79800000,
+      "title": "中野区江原町2丁目（株式会社エステート白馬 中野店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 7
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025209479/": {
       "address": "東京都中野区野方5丁目 [地図を確認]",
@@ -990,6 +1157,20 @@
       "title": "中野区上鷺宮1丁目（MEDIATE株式会社） - 中古一戸建て｜Yahoo!不動産閉じる前へ次へ初期費用について閉じる",
       "walk_minutes": 11
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025287817/": {
+      "address": "東京都中野区上鷺宮1丁目 [地図を確認]",
+      "building_area": 70.06,
+      "construction_date": "2019-05",
+      "fingerprint": "2a6478d1efe1f426ea60ce0bf63cdd307e2edb0f2dcbaf10c11bdaec2191550b",
+      "first_seen": "2026-09-14T12:01:03.248542+00:00",
+      "floor_plan": "3LDK 間取り図が欲しい無料",
+      "land_area": 87.98,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（2台 車種による） 各項",
+      "last_seen": "2026-09-14T12:01:03.248542+00:00",
+      "price": 79800000,
+      "title": "中野区上鷺宮1丁目（オープンハウス 中野営業センター） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 12
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025292538/": {
       "address": "東京都中野区上鷺宮1丁目 [地図を確認]",
       "building_area": 70.06,
@@ -1046,6 +1227,20 @@
       "title": "中野区本町2丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 6
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025327095/": {
+      "address": "東京都中野区中野1丁目 [地図を確認]",
+      "building_area": 82.92,
+      "construction_date": "1999-04",
+      "fingerprint": "4134a2ebe3b413979ca03a0bdfdaee6509f9a2054f2ecc9332d9d03b4f8fdfbf",
+      "first_seen": "2026-09-14T12:01:03.248542+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 58.31,
+      "land_right": "形態 所有権のみ 駐車場・車庫 無 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:01:03.248542+00:00",
+      "price": 89900000,
+      "title": "中野区中野1丁目（ARROW LINK株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 12
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025327727/": {
       "address": "東京都中野区上鷺宮1丁目 [地図を確認]",
       "building_area": 70.06,
@@ -1059,6 +1254,20 @@
       "price": 77800000,
       "title": "中野区上鷺宮1丁目（株式会社東宝ハウス城東） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 12
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025352937/": {
+      "address": "東京都中野区東中野2丁目 [地図を確認]",
+      "building_area": 82.18,
+      "construction_date": "2001-03",
+      "fingerprint": "86a20d13d22f48ebd50c70edb1d1a8a664f1f302b8a0aed7be87d100f0e347e8",
+      "first_seen": "2026-09-14T12:01:03.248542+00:00",
+      "floor_plan": "4K",
+      "land_area": 79.41,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:01:03.248542+00:00",
+      "price": 10000,
+      "title": "中野区東中野2丁目（健ハウジング） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 3
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025359626/": {
       "address": "東京都中野区上鷺宮1丁目 [地図を確認]",
@@ -1102,6 +1311,20 @@
       "title": "中野区上鷺宮1丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 12
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025363038/": {
+      "address": "東京都中野区大和町2丁目 [地図を確認]",
+      "building_area": 58.76,
+      "construction_date": "1983-02",
+      "fingerprint": "56969df45bdfa5eaad9b4994b8749eb03601b8dd1c4f9af60f4c490e325fc2c4",
+      "first_seen": "2026-09-14T12:01:03.248542+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 58.99,
+      "land_right": "形態 所有権のみ 駐車場・車庫 無 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:01:03.248542+00:00",
+      "price": 54800000,
+      "title": "中野区大和町2丁目（殖産ベスト株式会社 お問い合わせ窓口） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 8
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025363214/": {
       "address": "東京都中野区上鷺宮1丁目 [地図を確認]",
       "building_area": 70.06,
@@ -1144,6 +1367,34 @@
       "title": "中野区上高田5丁目（株式会社東宝ハウス練馬） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 7
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025398289/": {
+      "address": "東京都中野区野方1丁目 [地図を確認]",
+      "building_area": 59.45,
+      "construction_date": "1969-11",
+      "fingerprint": "2b8e9aa3828a42c757dcb2a36a910e5e1f258b7be1f1fe2177dfcbedb493dea0",
+      "first_seen": "2026-09-14T12:01:03.248542+00:00",
+      "floor_plan": "3SK",
+      "land_area": 44.88,
+      "land_right": "形態 所有権のみ 駐車場・車庫 無 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:01:03.248542+00:00",
+      "price": 29800000,
+      "title": "中野区野方1丁目（殖産ベスト株式会社 お問い合わせ窓口） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 14
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025414416/": {
+      "address": "東京都中野区弥生町4丁目 [地図を確認]",
+      "building_area": 96.03,
+      "construction_date": "2026-04",
+      "fingerprint": "abc6e6c233917aded4cc096677232106e589206946fb5b6f017db79fe1ebbce5",
+      "first_seen": "2026-09-14T12:01:03.248542+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 70.69,
+      "land_right": "形態 借地権のみ/普通賃借権 借地 期間 新規期間:30年、",
+      "last_seen": "2026-09-14T12:01:03.248542+00:00",
+      "price": 73800000,
+      "title": "中野区弥生町4丁目（ベストセレクト 杉並支社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 7
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025427463/": {
       "address": "東京都中野区上高田5丁目 [地図を確認]",
       "building_area": 117.32,
@@ -1157,6 +1408,34 @@
       "price": 45800000,
       "title": "中野区上高田5丁目（東京リアルティ株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 7
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025428460/": {
+      "address": "東京都中野区大和町3丁目 [地図を確認]",
+      "building_area": 42.14,
+      "construction_date": "1975-09",
+      "fingerprint": "d2120fb8a38577811674b0246edee09cbce655e3934a70e0606dac85020f7433",
+      "first_seen": "2026-09-14T12:01:03.248542+00:00",
+      "floor_plan": "2DK",
+      "land_area": 36.55,
+      "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:01:03.248542+00:00",
+      "price": 41800000,
+      "title": "中野区大和町3丁目（株式会社WALLMATE不動産 浜田山支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 15
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025436779/": {
+      "address": "東京都中野区沼袋1丁目 [地図を確認]",
+      "building_area": 66.62,
+      "construction_date": "1978-02",
+      "fingerprint": "2f231c098d4e64cbe96c21111ee0d579350d37e2967099e97e23cba4934042df",
+      "first_seen": "2026-09-14T12:01:03.248542+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 37.52,
+      "land_right": "形態 所有権のみ 駐車場・車庫 無 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:01:03.248542+00:00",
+      "price": 39800000,
+      "title": "中野区沼袋1丁目（ARROW LINK株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 3
     }
   }
 }
