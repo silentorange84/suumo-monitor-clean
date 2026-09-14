@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "baseline_cursor": 394,
+    "baseline_cursor": 438,
     "baseline_in_progress": true,
     "baseline_initialized": false,
     "baseline_reset_at": null,
@@ -597,13 +597,11 @@
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025293228/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025096254/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025233891/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025194576/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023678357/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025333471/"
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025194576/"
     ],
     "notified_fingerprints": {},
     "price_cursor": 0,
-    "updated_at": "2026-09-14T23:08:18.994171+00:00"
+    "updated_at": "2026-09-14T23:24:24.452081+00:00"
   },
   "properties": {
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0021198071/": {
