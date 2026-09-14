@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "baseline_cursor": 590,
+    "baseline_cursor": 0,
     "baseline_in_progress": true,
     "baseline_initialized": false,
     "baseline_reset_at": null,
@@ -595,13 +595,13 @@
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025453058/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025453059/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025293228/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023678357/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024973695/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025333471/"
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025333471/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025096254/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025233891/"
     ],
     "notified_fingerprints": {},
     "price_cursor": 0,
-    "updated_at": "2026-09-14T22:20:51.852977+00:00"
+    "updated_at": "2026-09-14T22:37:49.635100+00:00"
   },
   "properties": {
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0021198071/": {
@@ -2886,6 +2886,20 @@
       "title": "中野区東中野2丁目（アドキャスト 高円寺支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 3
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025096254/": {
+      "address": "東京都中野区東中野1丁目 [地図を確認]",
+      "building_area": 95.82,
+      "construction_date": "2000-01",
+      "fingerprint": "b4c58c28c7fd858b8b6f2e1286b758fd8ecbd0186cd56aef46f57552ce728aa6",
+      "first_seen": "2026-09-14T22:37:49.635100+00:00",
+      "floor_plan": "3SDK",
+      "land_area": 64.86,
+      "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T22:37:49.635100+00:00",
+      "price": 10000,
+      "title": "中野区東中野1丁目（アドキャスト 高円寺支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 5
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025098649/": {
       "address": "東京都中野区松が丘2丁目 [地図を確認]",
       "building_area": 308.1,
@@ -4313,6 +4327,20 @@
       "price": 67800000,
       "title": "豊島区長崎6丁目（株式会社東宝ハウス王子） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 9
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025233891/": {
+      "address": "東京都豊島区南大塚2丁目 [地図を確認]",
+      "building_area": 103.68,
+      "construction_date": "2005-02",
+      "fingerprint": "4890598da853815a5d1f1da52d6d4a8cd5008bb78bc3ce3e335406e87215944e",
+      "first_seen": "2026-09-14T22:37:49.635100+00:00",
+      "floor_plan": "3SLDK",
+      "land_area": 68.67,
+      "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T22:37:49.635100+00:00",
+      "price": 10000,
+      "title": "豊島区南大塚2丁目（アドキャスト 駒込支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 5
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025234000/": {
       "address": "東京都豊島区南長崎2丁目 [地図を確認]",
