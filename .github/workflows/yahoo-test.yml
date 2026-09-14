@@ -50,10 +50,24 @@ jobs:
               "Accept-Language": "ja-JP,ja;q=0.9,en;q=0.5",
               "Cache-Control": "no-cache",
           }
-          BLOCK_MARKERS = re.compile(
-              r"captcha|access denied|forbidden|robot|bot detection|"
-              r"javascript.{0,30}(?:required|有効)|不正なアクセス|アクセスが集中",
+          CLEAR_CHALLENGE_MARKERS = re.compile(
+              r"captcha|cloudflare ray id|cf-chl-|challenge-platform|"
+              r"access denied|\bforbidden\b|request blocked|temporarily blocked|"
+              r"bot detection|verify (?:that )?you are human|不正なアクセス|アクセスが集中|"
+              r"アクセス(?:が)?拒否されました",
               re.I | re.S,
+          )
+          JAVASCRIPT_DISABLED_NOTICE = re.compile(
+              r"JavaScriptが無効.{0,100}(?:すべての機能|ご利用いただけません|JavaScriptを有効)",
+              re.I | re.S,
+          )
+          YAHOO_USED_HOUSE_TITLE = re.compile(
+              r"中古一戸建て.*Yahoo!不動産|Yahoo!不動産.*中古一戸建て", re.I | re.S
+          )
+          USED_HOUSE_STRUCTURE = re.compile(
+              r'''(?:href=["'][^"']*/used/house/(?:detail/)?[A-Za-z0-9_-]{6,}|'''
+              r'''(?:class|data-[\w-]+)=["'][^"']*(?:property|bukken|search-result|listing)[^"']*["'])''',
+              re.I,
           )
           opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor())
           last_request_at = 0.0
@@ -187,7 +201,9 @@ jobs:
               final = {"requested_url": url, "purpose": purpose, "status": None,
                        "final_url": url, "response_bytes": 0, "content_type": "",
                        "sha256": None, "title": None, "attempts": 0,
-                       "access_restriction_candidates": [], "text": ""}
+                       "access_restriction_candidates": [],
+                       "javascript_disabled_notice": False,
+                       "normal_page_evidence": [], "text": ""}
               for attempt in range(4):
                   delay = minimum_interval - (time.monotonic() - last_request_at)
                   if delay > 0:
@@ -220,17 +236,30 @@ jobs:
                       final["access_restriction_candidates"] = [f"network_error: {exc}"]
 
                   reasons = []
-                  if final["status"] in RETRYABLE or final["status"] is None:
+                  retryable_status = (final["status"] in RETRYABLE or
+                                      final["status"] is not None and
+                                      500 <= final["status"] <= 599)
+                  if retryable_status or final["status"] is None:
                       reasons.append(f"retryable_status:{final['status']}")
                   if 0 < final["response_bytes"] < MIN_NORMAL_BYTES:
                       reasons.append(f"small_html:{final['response_bytes']}_bytes")
-                  markers = sorted(set(m.group(0)[:80] for m in BLOCK_MARKERS.finditer(final["text"])))
+                  markers = sorted(set(m.group(0)[:80]
+                                       for m in CLEAR_CHALLENGE_MARKERS.finditer(final["text"])))
                   if markers:
                       reasons.append("challenge_markers:" + ",".join(markers[:5]))
                   if "html" not in final["content_type"].lower():
                       reasons.append("non_html_content_type")
+                  final["javascript_disabled_notice"] = bool(
+                      JAVASCRIPT_DISABLED_NOTICE.search(final["text"])
+                  )
+                  normal_evidence = []
+                  if final["title"] and YAHOO_USED_HOUSE_TITLE.search(final["title"]):
+                      normal_evidence.append("yahoo_used_house_title")
+                  if USED_HOUSE_STRUCTURE.search(final["text"]):
+                      normal_evidence.append("used_house_listing_structure")
+                  final["normal_page_evidence"] = normal_evidence
                   final["access_restriction_candidates"] = reasons
-                  retry = (final["status"] in RETRYABLE or final["status"] is None or
+                  retry = (retryable_status or final["status"] is None or
                            any(x.startswith(("small_html", "challenge_markers")) for x in reasons))
                   if not retry or attempt == 3:
                       break
@@ -245,6 +274,8 @@ jobs:
           def usable(response):
               return (response["status"] == 200 and
                       response["response_bytes"] >= MIN_NORMAL_BYTES and
+                      bool(response["normal_page_evidence"]) and
+                      "html" in response["content_type"].lower() and
                       not any(x.startswith("challenge_markers")
                               for x in response["access_restriction_candidates"]))
 
@@ -621,7 +652,8 @@ jobs:
           report["access_restriction_candidates"] = sorted(set(restrictions))
           report["production_workflow_cautions"] = [
               "Do not deploy until city identifiers and pagination are supported by captured live evidence.",
-              "Treat transient statuses, small HTML, challenge markers, and JavaScript-only pages as incomplete, never as empty results.",
+              "Treat transient statuses, small HTML, explicit challenge markers, and pages without Yahoo used-house title/listing evidence as incomplete, never as empty results.",
+              "Record the standard JavaScript-disabled notice diagnostically; never treat that notice alone as an access restriction.",
               "Use labelled table/dl fields; never infer land ownership from deposits or guarantees elsewhere in full text.",
               "Reject a route containing bus/bus-stop wording from the walk-only <=15 minute condition.",
               "Verify ID/URL stability and agency-duplicate behavior across multiple dates before enabling new/price-drop alerts.",
