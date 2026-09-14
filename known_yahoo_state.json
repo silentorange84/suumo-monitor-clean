@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "baseline_cursor": 524,
+    "baseline_cursor": 590,
     "baseline_in_progress": true,
     "baseline_initialized": false,
     "baseline_reset_at": null,
@@ -591,18 +591,17 @@
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025418652/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024633231/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025455166/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025096254/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025427725/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025453058/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025453059/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025386194/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025024159/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025053218/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025293228/"
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025293228/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023678357/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024973695/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025333471/"
     ],
     "notified_fingerprints": {},
     "price_cursor": 0,
-    "updated_at": "2026-09-14T22:00:56.250196+00:00"
+    "updated_at": "2026-09-14T22:20:51.852977+00:00"
   },
   "properties": {
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0021198071/": {
@@ -6905,6 +6904,20 @@
       "title": "中野区上高田5丁目（東京リアルティ株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 7
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025427725/": {
+      "address": "東京都中野区野方2丁目 [地図を確認]",
+      "building_area": 83.35,
+      "construction_date": "2002-02",
+      "fingerprint": "509a7edf4d643aa0fefc4ecd5c00a6a54ca1541c867910e5e77639e35a837269",
+      "first_seen": "2026-09-14T22:20:51.852977+00:00",
+      "floor_plan": "4LDK（バルコニー二か所）",
+      "land_area": 62.62,
+      "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T22:20:51.852977+00:00",
+      "price": 72800000,
+      "title": "中野区野方2丁目（アドキャスト 高円寺支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 12
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025428364/": {
       "address": "東京都練馬区谷原5丁目 [地図を確認]",
       "building_area": 103.77,
@@ -7198,6 +7211,48 @@
       "price": 20000,
       "title": "三鷹市下連雀4丁目（株式会社ランドネット 渋谷支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 13
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025453058/": {
+      "address": "東京都杉並区南荻窪2丁目 [地図を確認]",
+      "building_area": 100.84,
+      "construction_date": "1998-09",
+      "fingerprint": "7089b3c23525de2c4c3b2715d0a18835d0f24522d105a7deccfac64ebb333bde",
+      "first_seen": "2026-09-14T22:20:51.852977+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 103.2,
+      "land_right": "形態 借地権のみ/旧法賃借権 借地 期間 契約満了日:204",
+      "last_seen": "2026-09-14T22:20:51.852977+00:00",
+      "price": 65990000,
+      "title": "杉並区南荻窪2丁目（株式会社グッドリアルター 第一営業部） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 15
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025453059/": {
+      "address": "東京都杉並区桃井1丁目 [地図を確認]",
+      "building_area": 92.74,
+      "construction_date": "2005-01",
+      "fingerprint": "51aa49a75778bbdae37c6d74d374a4ed76343cfd91fc805fcdb3f5a34de68459",
+      "first_seen": "2026-09-14T22:20:51.852977+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 101.98,
+      "land_right": "形態 借地権のみ/普通賃借権 借地 期間 契約満了日:204",
+      "last_seen": "2026-09-14T22:20:51.852977+00:00",
+      "price": 74990000,
+      "title": "杉並区桃井1丁目（株式会社グッドリアルター 第一営業部） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 12
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025455166/": {
+      "address": "東京都中野区東中野2丁目 [地図を確認]",
+      "building_area": 82.18,
+      "construction_date": "2001-03",
+      "fingerprint": "9ed163c00e37214d077aa1a66e2076954cd01d2b9faa57ec5d79fde9ca233f24",
+      "first_seen": "2026-09-14T22:20:51.852977+00:00",
+      "floor_plan": "4SK 間取り図が欲しい無料",
+      "land_area": 79.41,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
+      "last_seen": "2026-09-14T22:20:51.852977+00:00",
+      "price": 10000,
+      "title": "中野区東中野2丁目（ハウスドゥ 西新宿駅北 東鳳企画株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 3
     }
   }
 }
