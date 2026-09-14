@@ -1,0 +1,661 @@
+name: Yahoo Real Estate Investigation Test
+
+on:
+  # 調査専用: 定期実行、通知、状態保存は行わない。
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  investigate-yahoo-real-estate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Investigate live list and detail page structures
+        run: |
+          python - <<'PY'
+          import datetime
+          import hashlib
+          import html
+          import json
+          import re
+          import sys
+          import time
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+          from html.parser import HTMLParser
+
+
+          START_URL = "https://realestate.yahoo.co.jp/used/house/"
+          TOKYO_URL = "https://realestate.yahoo.co.jp/used/house/03/13/"
+          ORIGIN = "https://realestate.yahoo.co.jp"
+          TARGET_AREAS = [
+              "中野区", "杉並区", "豊島区", "練馬区",
+              "立川市", "武蔵野市", "三鷹市", "西東京市",
+          ]
+          RETRYABLE = {403, 408, 425, 429, 500, 502, 503, 504}
+          RETRY_WAITS = [2, 5, 10]
+          MIN_NORMAL_BYTES = 8_000
+          MAX_PAGES = 3
+          MAX_DETAILS = 6
+          HEADERS = {
+              "User-Agent": (
+                  "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+                  "(KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
+              ),
+              "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+              "Accept-Language": "ja-JP,ja;q=0.9,en;q=0.5",
+              "Cache-Control": "no-cache",
+          }
+          BLOCK_MARKERS = re.compile(
+              r"captcha|access denied|forbidden|robot|bot detection|"
+              r"javascript.{0,30}(?:required|有効)|不正なアクセス|アクセスが集中",
+              re.I | re.S,
+          )
+          opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor())
+          last_request_at = 0.0
+
+
+          def compact(value):
+              return re.sub(r"\s+", " ", html.unescape(value or "")).strip()
+
+
+          class PageParser(HTMLParser):
+              """Collect links, labelled table/dl values, forms, and embedded metadata."""
+
+              def __init__(self):
+                  super().__init__(convert_charrefs=True)
+                  self.title_parts = []
+                  self.in_title = False
+                  self.links = []
+                  self.current_link = None
+                  self.cells = []
+                  self.current_cell = None
+                  self.forms = []
+                  self.current_form = None
+                  self.current_select = None
+                  self.current_option = None
+                  self.scripts = []
+                  self.current_script = None
+                  self.meta = []
+                  self.visible = []
+
+              def handle_starttag(self, tag, attrs):
+                  tag = tag.lower()
+                  values = dict(attrs)
+                  if tag == "title":
+                      self.in_title = True
+                  elif tag == "a":
+                      item = {"href": values.get("href", ""),
+                              "rel": values.get("rel", ""),
+                              "class": values.get("class", ""),
+                              "data": {k: v or "" for k, v in attrs if k.startswith("data-")},
+                              "text_parts": []}
+                      self.links.append(item)
+                      self.current_link = item
+                  elif tag in {"th", "td", "dt", "dd"}:
+                      self.current_cell = {"tag": tag, "text_parts": []}
+                      self.cells.append(self.current_cell)
+                  elif tag == "form":
+                      self.current_form = {"action": values.get("action", ""),
+                                           "method": values.get("method", "get").lower(),
+                                           "controls": [], "options": []}
+                      self.forms.append(self.current_form)
+                  elif tag in {"input", "button"} and self.current_form is not None:
+                      self.current_form["controls"].append({
+                          "tag": tag, "name": values.get("name", ""),
+                          "value": values.get("value", ""),
+                          "type": values.get("type", ""),
+                      })
+                  elif tag == "select" and self.current_form is not None:
+                      self.current_select = values.get("name", "")
+                  elif tag == "option" and self.current_select is not None:
+                      self.current_option = {"name": self.current_select,
+                                             "value": values.get("value", ""),
+                                             "text_parts": []}
+                      self.current_form["options"].append(self.current_option)
+                  elif tag == "script":
+                      self.current_script = {"type": values.get("type", ""), "parts": []}
+                      self.scripts.append(self.current_script)
+                  elif tag == "meta":
+                      self.meta.append({"name": values.get("name", values.get("property", "")),
+                                        "content": values.get("content", "")})
+
+              def handle_data(self, data):
+                  if self.in_title:
+                      self.title_parts.append(data)
+                  if self.current_link is not None:
+                      self.current_link["text_parts"].append(data)
+                  if self.current_cell is not None:
+                      self.current_cell["text_parts"].append(data)
+                  if self.current_option is not None:
+                      self.current_option["text_parts"].append(data)
+                  if self.current_script is not None:
+                      self.current_script["parts"].append(data)
+                  if self.current_script is None:
+                      self.visible.append(data)
+
+              def handle_endtag(self, tag):
+                  tag = tag.lower()
+                  if tag == "title":
+                      self.in_title = False
+                  elif tag == "a":
+                      self.current_link = None
+                  elif tag in {"th", "td", "dt", "dd"}:
+                      self.current_cell = None
+                  elif tag == "form":
+                      self.current_form = None
+                      self.current_select = None
+                  elif tag == "select":
+                      self.current_select = None
+                  elif tag == "option":
+                      self.current_option = None
+                  elif tag == "script":
+                      self.current_script = None
+
+              def finish(self):
+                  self.title = compact("".join(self.title_parts))
+                  self.text = compact(" ".join(self.visible))
+                  for link in self.links:
+                      link["text"] = compact("".join(link.pop("text_parts")))
+                  for cell in self.cells:
+                      cell["text"] = compact("".join(cell.pop("text_parts")))
+                  for form in self.forms:
+                      for option in form["options"]:
+                          option["text"] = compact("".join(option.pop("text_parts")))
+                  for script in self.scripts:
+                      script["text"] = "".join(script.pop("parts"))
+                  return self
+
+
+          def parse_page(text):
+              parser = PageParser()
+              try:
+                  parser.feed(text)
+                  parser.close()
+              except Exception as exc:
+                  print(f"HTML parser warning: {exc}")
+              return parser.finish()
+
+
+          def fetch(url, purpose, minimum_interval=1.0):
+              """Fetch gently; retry transient HTTP/network/challenge responses three times."""
+              global last_request_at
+              final = {"requested_url": url, "purpose": purpose, "status": None,
+                       "final_url": url, "response_bytes": 0, "content_type": "",
+                       "sha256": None, "title": None, "attempts": 0,
+                       "access_restriction_candidates": [], "text": ""}
+              for attempt in range(4):
+                  delay = minimum_interval - (time.monotonic() - last_request_at)
+                  if delay > 0:
+                      time.sleep(delay)
+                  final["attempts"] = attempt + 1
+                  try:
+                      request = urllib.request.Request(url, headers=HEADERS)
+                      with opener.open(request, timeout=30) as response:
+                          raw = response.read()
+                          last_request_at = time.monotonic()
+                          content_type = response.headers.get("Content-Type", "")
+                          charset = response.headers.get_content_charset() or "utf-8"
+                          text = raw.decode(charset, errors="replace")
+                          title_match = re.search(r"<title[^>]*>(.*?)</title>", text, re.I | re.S)
+                          final.update(status=response.status, final_url=response.geturl(),
+                                       response_bytes=len(raw), content_type=content_type,
+                                       sha256=hashlib.sha256(raw).hexdigest(),
+                                       title=compact(title_match.group(1)) if title_match else None,
+                                       text=text)
+                  except urllib.error.HTTPError as exc:
+                      raw = exc.read()
+                      last_request_at = time.monotonic()
+                      final.update(status=exc.code, final_url=exc.geturl(),
+                                   response_bytes=len(raw),
+                                   content_type=exc.headers.get("Content-Type", ""),
+                                   sha256=hashlib.sha256(raw).hexdigest(),
+                                   text=raw.decode("utf-8", errors="replace"))
+                  except (urllib.error.URLError, TimeoutError, OSError) as exc:
+                      last_request_at = time.monotonic()
+                      final["access_restriction_candidates"] = [f"network_error: {exc}"]
+
+                  reasons = []
+                  if final["status"] in RETRYABLE or final["status"] is None:
+                      reasons.append(f"retryable_status:{final['status']}")
+                  if 0 < final["response_bytes"] < MIN_NORMAL_BYTES:
+                      reasons.append(f"small_html:{final['response_bytes']}_bytes")
+                  markers = sorted(set(m.group(0)[:80] for m in BLOCK_MARKERS.finditer(final["text"])))
+                  if markers:
+                      reasons.append("challenge_markers:" + ",".join(markers[:5]))
+                  if "html" not in final["content_type"].lower():
+                      reasons.append("non_html_content_type")
+                  final["access_restriction_candidates"] = reasons
+                  retry = (final["status"] in RETRYABLE or final["status"] is None or
+                           any(x.startswith(("small_html", "challenge_markers")) for x in reasons))
+                  if not retry or attempt == 3:
+                      break
+                  wait = RETRY_WAITS[attempt]
+                  print(f"retry {purpose}: attempt={attempt + 1} wait={wait}s reasons={reasons}")
+                  time.sleep(wait)
+              print(json.dumps({k: v for k, v in final.items() if k != "text"},
+                               ensure_ascii=False, sort_keys=True))
+              return final
+
+
+          def usable(response):
+              return (response["status"] == 200 and
+                      response["response_bytes"] >= MIN_NORMAL_BYTES and
+                      not any(x.startswith("challenge_markers")
+                              for x in response["access_restriction_candidates"]))
+
+
+          def normalized_url(href, base):
+              if not href or href.startswith(("javascript:", "mailto:", "tel:")):
+                  return None
+              url = urllib.parse.urljoin(base, html.unescape(href))
+              parts = urllib.parse.urlsplit(url)
+              if parts.scheme not in {"http", "https"} or parts.netloc != "realestate.yahoo.co.jp":
+                  return None
+              # Fragments and recognized campaign/tracking parameters are not identity-bearing.
+              query = urllib.parse.parse_qsl(parts.query, keep_blank_values=True)
+              query = [(k, v) for k, v in query
+                       if not re.match(r"^(?:utm_.+|sc|fr|from|ref|source)$", k, re.I)]
+              path = re.sub(r"/{2,}", "/", parts.path)
+              return urllib.parse.urlunsplit(("https", parts.netloc, path,
+                                              urllib.parse.urlencode(query), ""))
+
+
+          def property_urls(parser, base):
+              """Stay in /used/house/ and exclude observed navigation/search/category URLs."""
+              candidates = []
+              for link in parser.links:
+                  url = normalized_url(link["href"], base)
+                  if not url:
+                      continue
+                  parts = urllib.parse.urlsplit(url)
+                  path = parts.path
+                  if not path.startswith("/used/house/"):
+                      continue
+                  remainder = path[len("/used/house/"):].strip("/")
+                  navigation = (not remainder or
+                                re.fullmatch(r"(?:0?3/)?(?:13/?)?", remainder) or
+                                re.search(r"(?:^|/)(?:search|list|map|area|station)(?:/|$)", path))
+                  identity_signal = (re.search(r"(?:detail|property|[0-9]{6,})(?:/|$)", path, re.I) or
+                                     re.search(r"(?:property|bukken|detail|物件)",
+                                               link["class"] + " " + json.dumps(link["data"], ensure_ascii=False), re.I))
+                  if not navigation and identity_signal:
+                      candidates.append(url)
+              return list(dict.fromkeys(candidates))
+
+
+          def labelled_fields(parser):
+              fields = {}
+              cells = parser.cells
+              for index, cell in enumerate(cells[:-1]):
+                  if cell["tag"] not in {"th", "dt"}:
+                      continue
+                  following = cells[index + 1]
+                  expected = "td" if cell["tag"] == "th" else "dd"
+                  if following["tag"] == expected and cell["text"]:
+                      fields.setdefault(cell["text"], following["text"])
+              return fields
+
+
+          def find_label(fields, patterns):
+              for label, value in fields.items():
+                  if any(re.fullmatch(pattern, label) for pattern in patterns):
+                      return {"label": label, "value": value, "source": "table_or_dl"}
+              return None
+
+
+          def discover_area_urls(parser, base):
+              found = {area: [] for area in TARGET_AREAS}
+              evidence = []
+              for link in parser.links:
+                  url = normalized_url(link["href"], base)
+                  if not url or not urllib.parse.urlsplit(url).path.startswith("/used/house/"):
+                      continue
+                  for area in TARGET_AREAS:
+                      if area in link["text"]:
+                          found[area].append(url)
+                          evidence.append({"area": area, "source": "anchor", "text": link["text"], "url": url})
+              # Only construct a query from a real GET form and an option whose displayed text names the area.
+              for form in parser.forms:
+                  if form["method"] != "get":
+                      continue
+                  defaults = [(c["name"], c["value"]) for c in form["controls"]
+                              if c["name"] and c["type"] in {"hidden", ""}]
+                  action = urllib.parse.urljoin(base, form["action"] or base)
+                  for option in form["options"]:
+                      for area in TARGET_AREAS:
+                          if area in option["text"] and option["name"] and option["value"]:
+                              query = defaults + [(option["name"], option["value"])]
+                              url = normalized_url(action + "?" + urllib.parse.urlencode(query), base)
+                              if url:
+                                  found[area].append(url)
+                                  evidence.append({"area": area, "source": "form_option",
+                                                   "parameter": option["name"],
+                                                   "value": option["value"], "url": url})
+              return {area: list(dict.fromkeys(urls)) for area, urls in found.items()}, evidence
+
+
+          def pagination_evidence(parser, base):
+              evidence, candidates = [], []
+              names = r"(?:page|p|start|offset|cursor|next)"
+              for link in parser.links:
+                  url = normalized_url(link["href"], base)
+                  rel = link["rel"] if isinstance(link["rel"], str) else " ".join(link["rel"])
+                  text = link["text"]
+                  attrs = json.dumps(link["data"], ensure_ascii=False)
+                  parts = urllib.parse.urlsplit(url) if url else None
+                  query_names = [k for k, unused in urllib.parse.parse_qsl(parts.query)] if parts else []
+                  path_signal = bool(parts and re.search(r"/(?:page|p)/?\d+", parts.path, re.I))
+                  signal = ("next" in rel.lower() or re.search(r"次(?:へ|の)|^[>›»]+$", text) or
+                            any(re.fullmatch(names, key, re.I) for key in query_names) or
+                            re.search(names, attrs, re.I) or path_signal)
+                  if url and signal:
+                      kind = ("rel=next" if "next" in rel.lower() else
+                              "query_parameter" if any(re.fullmatch(names, k, re.I) for k in query_names) else
+                              "path" if path_signal else "text_or_data_attribute")
+                      evidence.append({"source": "anchor", "kind": kind, "text": text,
+                                       "rel": rel, "url": url, "data": link["data"]})
+                      candidates.append(url)
+              for form in parser.forms:
+                  controls = form["controls"] + form["options"]
+                  matched = [x for x in controls if re.fullmatch(names, x.get("name", ""), re.I)]
+                  if matched:
+                      evidence.append({"source": "form", "action": form["action"],
+                                       "method": form["method"], "controls": matched[:10]})
+              for script in parser.scripts:
+                  matches = sorted(set(re.findall(r"\b(?:page|start|offset|cursor|next)\b",
+                                                  script["text"], re.I)))
+                  if matches:
+                      evidence.append({"source": "javascript_or_json", "type": script["type"],
+                                       "tokens": matches, "snippet_sha256":
+                                       hashlib.sha256(script["text"].encode()).hexdigest()})
+              return evidence, list(dict.fromkeys(candidates))
+
+
+          def count_display(text):
+              patterns = [r"(?:全|該当)?\s*([0-9,]+)\s*件", r"検索結果\s*[:：]?\s*([0-9,]+)"]
+              for pattern in patterns:
+                  match = re.search(pattern, text)
+                  if match:
+                      return {"text": match.group(0), "count": int(match.group(1).replace(",", ""))}
+              return None
+
+
+          def detail_result(url, response):
+              result = {"property_url": url, "fetch": {k: v for k, v in response.items() if k != "text"},
+                        "parse_status": "incomplete", "fields": {}, "property_id_candidates": []}
+              if not usable(response):
+                  result["reason"] = "response looked blocked, transient, small, or non-HTML"
+                  return result
+              parser = parse_page(response["text"])
+              fields = labelled_fields(parser)
+              mappings = {
+                  "location": [r"所在地", r"住所"],
+                  "price": [r"価格", r"販売価格"],
+                  "building_area": [r"建物面積", r"建物専有面積"],
+                  "construction_date": [r"築年月", r"建築年月", r"完成時期"],
+                  "transport": [r"交通", r"最寄り?駅", r"アクセス"],
+                  "land_right": [r"土地権利", r"権利形態"],
+                  "property_type": [r"物件種別", r"種別"],
+                  "published_or_updated": [r"情報公開日", r"掲載開始日", r"更新日", r"情報更新日"],
+                  "property_id": [r"物件番号", r"管理番号", r"問い合わせ番号"],
+              }
+              for key, patterns in mappings.items():
+                  result["fields"][key] = find_label(fields, patterns)
+              title = next((m["content"] for m in parser.meta
+                            if m["name"].lower() in {"og:title", "twitter:title"}), None)
+              result["fields"]["title"] = {"value": compact(title or parser.title),
+                                                   "source": "meta_or_title"}
+              transport = result["fields"].get("transport")
+              transport_text = transport["value"] if transport else ""
+              bus_used = bool(re.search(r"バス|バス停", transport_text))
+              walks = [int(x) for x in re.findall(r"徒歩\s*([0-9]+)\s*分", transport_text)]
+              result["fields"]["nearest_station"] = transport
+              result["fields"]["bus_used"] = {"value": bus_used, "source": "transport_label_only"}
+              result["fields"]["walk_minutes"] = {
+                  "value": None if bus_used or not walks else min(walks),
+                  "source": "transport_label_only",
+                  "reason": "bus route is never treated as walk-only" if bus_used else None,
+              }
+              built = result["fields"].get("construction_date")
+              age = None
+              if built:
+                  match = re.search(r"(19|20)(\d{2})\D{0,3}(1[0-2]|0?[1-9])?", built["value"])
+                  if match:
+                      year, month = int(match.group(1) + match.group(2)), int(match.group(3) or 1)
+                      today = datetime.date.today()
+                      age = today.year - year - ((today.month, today.day) < (month, 1))
+              result["fields"]["building_age_years"] = {
+                  "value": age, "source": "calculated_from_structured_construction_date"
+              }
+              if result["fields"].get("property_id"):
+                  result["property_id_candidates"].append({
+                      "value": result["fields"]["property_id"]["value"],
+                      "source": result["fields"]["property_id"]["label"],
+                  })
+              path_tokens = re.findall(r"[A-Za-z0-9_-]{6,}", urllib.parse.urlsplit(url).path)
+              if path_tokens:
+                  result["property_id_candidates"].append({"value": path_tokens[-1], "source": "URL path token"})
+              for script in parser.scripts:
+                  if script["type"].lower() != "application/ld+json":
+                      continue
+                  try:
+                      data = json.loads(script["text"])
+                  except (ValueError, TypeError):
+                      continue
+                  stack = data if isinstance(data, list) else [data]
+                  for item in stack:
+                      if isinstance(item, dict):
+                          for key in ("productID", "sku", "identifier"):
+                              if item.get(key):
+                                  result["property_id_candidates"].append(
+                                      {"value": str(item[key]), "source": f"JSON-LD {key}"})
+              result["parse_status"] = "parsed"
+              return result
+
+
+          report = {
+              "investigation_started_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+              "site": "Yahoo!不動産 中古一戸建て",
+              "search_url": TOKYO_URL,
+              "target_areas": TARGET_AREAS,
+              "request_policy": {"maximum_retries": 3, "retry_wait_seconds": RETRY_WAITS,
+                                 "maximum_pages": MAX_PAGES, "maximum_details": MAX_DETAILS,
+                                 "detail_interval_seconds": 3},
+              "discovery": {}, "area_searches": [], "pagination": {}, "details": [],
+              "access_restriction_candidates": [],
+          }
+
+          root_response = fetch(START_URL, "used-house entry")
+          tokyo_response = fetch(TOKYO_URL, "Tokyo list/discovery")
+          report["discovery"]["entry_fetch"] = {k: v for k, v in root_response.items() if k != "text"}
+          report["discovery"]["tokyo_fetch"] = {k: v for k, v in tokyo_response.items() if k != "text"}
+          discovery_parser = parse_page(tokyo_response["text"] if usable(tokyo_response) else
+                                        root_response["text"])
+          area_urls, area_evidence = discover_area_urls(discovery_parser,
+                                                        tokyo_response["final_url"])
+          report["discovery"]["area_url_evidence"] = area_evidence
+          report["discovery"]["area_urls"] = area_urls
+          report["discovery"]["city_code_or_parameter_evidence"] = [
+              item for item in area_evidence if item["source"] == "form_option" or
+              re.search(r"\d{5,}", item["url"])
+          ]
+
+          all_property_urls = []
+          first_success = None
+          for area in TARGET_AREAS:
+              item = {"area": area, "status": "incomplete", "reason": None,
+                      "discovered_search_urls": area_urls[area], "pages": []}
+              if not area_urls[area]:
+                  item["reason"] = "No area URL was evidenced by a live anchor or GET form option"
+                  report["area_searches"].append(item)
+                  continue
+              response = fetch(area_urls[area][0], f"list {area}")
+              parser = parse_page(response["text"]) if usable(response) else None
+              urls = property_urls(parser, response["final_url"]) if parser else []
+              page = {k: v for k, v in response.items() if k != "text"}
+              page.update(page_title=parser.title if parser else response["title"],
+                          property_count_display=count_display(parser.text) if parser else None,
+                          extracted_property_url_count=len(urls),
+                          deduplicated_property_url_count=len(set(urls)),
+                          property_url_samples=urls[:10])
+              item["pages"].append(page)
+              if usable(response):
+                  item["status"] = "fetched"
+                  item["reason"] = None if urls else "Fetched, but no confidently classified detail URL"
+              all_property_urls.extend(urls)
+              if urls and first_success is None:
+                  first_success = (area, response, parser, urls)
+              report["area_searches"].append(item)
+
+          # Follow only pagination URLs actually observed in the first productive result.
+          if first_success:
+              area, response, parser, page_one_urls = first_success
+              evidence, next_candidates = pagination_evidence(parser, response["final_url"])
+              probes = [{"page": 1, "url": response["final_url"],
+                         "property_url_count": len(page_one_urls),
+                         "sha256": response["sha256"]}]
+              previous_urls = set(page_one_urls)
+              current_candidates = next_candidates
+              for page_number in range(2, MAX_PAGES + 1):
+                  next_url = next((u for u in current_candidates
+                                   if u != probes[-1]["url"]), None)
+                  if not next_url:
+                      break
+                  next_response = fetch(next_url, f"pagination page {page_number}")
+                  next_parser = parse_page(next_response["text"]) if usable(next_response) else None
+                  urls = property_urls(next_parser, next_response["final_url"]) if next_parser else []
+                  probes.append({"page": page_number, "url": next_response["final_url"],
+                                 "status": next_response["status"], "sha256": next_response["sha256"],
+                                 "property_url_count": len(urls),
+                                 "different_from_previous": set(urls) != previous_urls,
+                                 "new_urls_vs_previous": len(set(urls) - previous_urls)})
+                  all_property_urls.extend(urls)
+                  previous_urls = set(urls)
+                  if not next_parser:
+                      break
+                  more_evidence, current_candidates = pagination_evidence(next_parser,
+                                                                          next_response["final_url"])
+                  evidence.extend(more_evidence)
+              report["pagination"] = {"status": "evidence_found" if evidence else "incomplete",
+                                      "area": area, "evidence": evidence[:100], "page_probes": probes,
+                                      "reason": None if evidence else
+                                      "No page/p/start/offset/cursor/next, rel=next, form, data, JS, Ajax/XHR, or path evidence found"}
+          else:
+              report["pagination"] = {"status": "incomplete", "evidence": [], "page_probes": [],
+                                      "reason": "No property-bearing list was available for pagination investigation"}
+
+          unique_urls = list(dict.fromkeys(all_property_urls))
+          report["extracted_property_url_count"] = len(all_property_urls)
+          report["deduplicated_property_url_count"] = len(unique_urls)
+          report["property_url_samples"] = unique_urls[:20]
+          report["property_url_normalization"] = (
+              "Resolve relative URLs against final URL; require realestate.yahoo.co.jp/used/house/; "
+              "remove fragments and only known tracking parameters; retain unknown identity-bearing query parameters."
+          )
+
+          for index, url in enumerate(unique_urls[:MAX_DETAILS]):
+              response = fetch(url, f"detail {index + 1}", minimum_interval=3.0)
+              report["details"].append(detail_result(url, response))
+
+          parsed_details = [d for d in report["details"] if d["parse_status"] == "parsed"]
+          keys = ["price", "building_area", "construction_date", "transport", "location"]
+          report["fields_available_on_list"] = {}
+          if first_success:
+              list_fields = labelled_fields(first_success[2])
+              for key, patterns in {
+                  "price": [r"価格", r"販売価格"], "building_area": [r"建物面積"],
+                  "construction_date": [r"築年月", r"建築年月"],
+                  "transport": [r"交通", r"最寄り?駅", r"アクセス"], "location": [r"所在地", r"住所"],
+              }.items():
+                  hit = find_label(list_fields, patterns)
+                  report["fields_available_on_list"][key] = {
+                      "available": bool(hit), "evidence": hit,
+                      "note": "Only labelled table/dl evidence is accepted; card-text inference is intentionally omitted."
+                  }
+          else:
+              report["fields_available_on_list"] = {key: {"available": None, "status": "incomplete"}
+                                                    for key in keys}
+          report["detail_page_required_fields"] = [
+              key for key, value in report["fields_available_on_list"].items()
+              if value.get("available") is not True
+          ]
+          report["property_id_candidates"] = [
+              {"property_url": d["property_url"], "candidates": d["property_id_candidates"]}
+              for d in parsed_details
+          ]
+          report["same_property_multiple_companies"] = {
+              "status": "incomplete",
+              "reason": "A maximum-six-detail structural probe cannot establish cross-company deduplication without evidenced duplicate listings."
+          }
+          report["sort_order_investigation"] = {
+              "status": "evidence_found" if re.search(r"新着順|更新順", discovery_parser.text) else "incomplete",
+              "visible_labels": sorted(set(re.findall(r"(?:新着|更新)[^\s]{0,4}順", discovery_parser.text))),
+              "reason": "No sort URL is invented; inspect live form/link evidence in discovery."
+          }
+          dated = [d for d in parsed_details if d["fields"].get("published_or_updated")]
+          stable_ids = [d for d in parsed_details if d["property_id_candidates"]]
+          report["new_listing_monitoring_feasibility"] = {
+              "status": "possible" if stable_ids else "incomplete",
+              "stable_id_or_url_evidence": len(stable_ids),
+              "publication_or_update_date_evidence": len(dated),
+              "note": "Canonical normalized URL can be a fallback key; persistence behavior needs repeated-run verification."
+          }
+          report["price_drop_monitoring_feasibility"] = {
+              "status": "possible_with_repeat_verification" if stable_ids and any(
+                  d["fields"].get("price") for d in parsed_details) else "incomplete",
+              "note": "Confirm in later runs that the same ID/URL persists when the structured price changes."
+          }
+          restrictions = []
+          for response in (root_response, tokyo_response):
+              restrictions.extend(response["access_restriction_candidates"])
+          for search in report["area_searches"]:
+              for page in search["pages"]:
+                  restrictions.extend(page["access_restriction_candidates"])
+          for detail in report["details"]:
+              restrictions.extend(detail["fetch"]["access_restriction_candidates"])
+          report["access_restriction_candidates"] = sorted(set(restrictions))
+          report["production_workflow_cautions"] = [
+              "Do not deploy until city identifiers and pagination are supported by captured live evidence.",
+              "Treat transient statuses, small HTML, challenge markers, and JavaScript-only pages as incomplete, never as empty results.",
+              "Use labelled table/dl fields; never infer land ownership from deposits or guarantees elsewhere in full text.",
+              "Reject a route containing bus/bus-stop wording from the walk-only <=15 minute condition.",
+              "Verify ID/URL stability and agency-duplicate behavior across multiple dates before enabling new/price-drop alerts.",
+              "Apply final conditions only after parsing: <=70 million yen, building >=70m2, age <=25 years, walk-only <=15 minutes, ownership, used house.",
+          ]
+          checks = {
+              "list_page_fetched": usable(tokyo_response) or any(
+                  p["status"] == 200 for s in report["area_searches"] for p in s["pages"]),
+              "at_least_one_target_area_has_property_urls": bool(first_success),
+              "at_least_one_detail_url": bool(unique_urls),
+              "at_least_one_detail_parsed": bool(parsed_details),
+              "required_field_availability_decided": bool(parsed_details) and all(
+                  key in parsed_details[0]["fields"]
+                  for key in ("price", "building_area", "construction_date", "walk_minutes", "land_right")),
+              "pagination_evidence_obtained": bool(report["pagination"].get("evidence")),
+          }
+          report["success_checks"] = checks
+          report["overall_status"] = "complete" if all(checks.values()) else "incomplete"
+          report["incomplete_reasons"] = [name for name, passed in checks.items() if not passed]
+          report["investigation_finished_utc"] = datetime.datetime.now(datetime.timezone.utc).isoformat()
+          with open("yahoo-investigation.json", "w", encoding="utf-8") as output:
+              json.dump(report, output, ensure_ascii=False, indent=2)
+              output.write("\n")
+          print(json.dumps({"overall_status": report["overall_status"], "success_checks": checks,
+                            "artifact": "yahoo-investigation.json"}, ensure_ascii=False, indent=2))
+          if not all(checks.values()):
+              sys.exit("Investigation incomplete; see the always-uploaded JSON artifact for evidence and reasons")
+          PY
+
+      - name: Upload investigation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: yahoo-real-estate-investigation
+          path: yahoo-investigation.json
+          if-no-files-found: warn
+          retention-days: 7
