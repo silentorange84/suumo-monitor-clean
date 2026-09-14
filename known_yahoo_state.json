@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "baseline_cursor": 320,
+    "baseline_cursor": 340,
     "baseline_in_progress": true,
     "baseline_initialized": false,
     "baseline_reset_at": null,
@@ -589,12 +589,15 @@
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025380003/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024397790/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023790351/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025386194/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025194576/"
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025096254/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024965819/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025418652/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025097338/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025293228/"
     ],
     "notified_fingerprints": {},
     "price_cursor": 0,
-    "updated_at": "2026-09-14T16:19:50.368375+00:00"
+    "updated_at": "2026-09-14T16:36:45.017974+00:00"
   },
   "properties": {
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0022854395/": {
@@ -1073,6 +1076,20 @@
       "title": "杉並区桃井1丁目（藤和ハウス 荻窪店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 12
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024496066/": {
+      "address": "東京都練馬区西大泉4丁目 [地図を確認]",
+      "building_area": 83.63,
+      "construction_date": "2011-10",
+      "fingerprint": "9507ae03e4abe424085478036487ada2da05a0f78333d693ae974e822c24d2be",
+      "first_seen": "2026-09-14T16:36:45.017974+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 87.61,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
+      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "price": 46990000,
+      "title": "練馬区西大泉4丁目（株式会社家どっと足立） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 25
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024519289/": {
       "address": "東京都練馬区春日町1丁目 [地図を確認]",
       "building_area": 110.53,
@@ -1338,6 +1355,20 @@
       "price": 74990000,
       "title": "杉並区荻窪1丁目（株式会社エステート白馬 中野店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 17
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024812623/": {
+      "address": "東京都練馬区田柄5丁目 [地図を確認]",
+      "building_area": 42.12,
+      "construction_date": "2019-01",
+      "fingerprint": "65d9dd1a47e91b624620aca71ac6744f3f678e233b789de85279ac9a0e08d7f4",
+      "first_seen": "2026-09-14T16:36:45.017974+00:00",
+      "floor_plan": "2DK",
+      "land_area": 43.88,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "price": 40800000,
+      "title": "練馬区田柄5丁目（株式会社東宝ハウス城東） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 10
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024814050/": {
       "address": "東京都杉並区荻窪1丁目 [地図を確認]",
@@ -1619,6 +1650,20 @@
       "title": "豊島区上池袋1丁目（グローバルインク株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 6
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024954616/": {
+      "address": "東京都練馬区田柄5丁目 [地図を確認]",
+      "building_area": 42.12,
+      "construction_date": "2019-01",
+      "fingerprint": "fc25803aaeabe1516577e773425aba9f5856b3736511a221c567449dc57c496f",
+      "first_seen": "2026-09-14T16:36:45.017974+00:00",
+      "floor_plan": "2DK＋小屋裏収納",
+      "land_area": 43.88,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "price": 40800000,
+      "title": "練馬区田柄5丁目（藤和ハウス 大泉学園店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 9
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024965765/": {
       "address": "東京都豊島区長崎6丁目 [地図を確認]",
       "building_area": 64.59,
@@ -1703,6 +1748,20 @@
       "title": "豊島区長崎6丁目（アドキャスト 池袋支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 9
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025005578/": {
+      "address": "東京都練馬区西大泉4丁目 [地図を確認]",
+      "building_area": 83.63,
+      "construction_date": "2011-10",
+      "fingerprint": "9507ae03e4abe424085478036487ada2da05a0f78333d693ae974e822c24d2be",
+      "first_seen": "2026-09-14T16:36:45.017974+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 87.61,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "price": 46990000,
+      "title": "練馬区西大泉4丁目（株式会社エステート白馬 中野店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 29
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025006009/": {
       "address": "東京都杉並区成田東5丁目 [地図を確認]",
       "building_area": 73.9,
@@ -1716,6 +1775,20 @@
       "price": 96900000,
       "title": "杉並区成田東5丁目（株式会社ワイズホーム） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 7
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025006883/": {
+      "address": "東京都練馬区西大泉4丁目 [地図を確認]",
+      "building_area": 83.63,
+      "construction_date": "2011-10",
+      "fingerprint": "9507ae03e4abe424085478036487ada2da05a0f78333d693ae974e822c24d2be",
+      "first_seen": "2026-09-14T16:36:45.017974+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 87.61,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
+      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "price": 46990000,
+      "title": "練馬区西大泉4丁目（ベストセレクト 赤羽支社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 25
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025007465/": {
       "address": "東京都豊島区上池袋1丁目 [地図を確認]",
@@ -1926,6 +1999,20 @@
       "price": 10000,
       "title": "豊島区上池袋3丁目（株式会社東宝ハウス品川） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 7
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025079246/": {
+      "address": "東京都練馬区西大泉4丁目 [地図を確認]",
+      "building_area": 83.63,
+      "construction_date": "2011-10",
+      "fingerprint": "9507ae03e4abe424085478036487ada2da05a0f78333d693ae974e822c24d2be",
+      "first_seen": "2026-09-14T16:36:45.017974+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 87.61,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
+      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "price": 46990000,
+      "title": "練馬区西大泉4丁目（アジアンリアルティ株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 25
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025081379/": {
       "address": "東京都杉並区浜田山1丁目 [地図を確認]",
@@ -2178,6 +2265,20 @@
       "price": 74990000,
       "title": "杉並区桃井1丁目（株式会社東宝ハウス調布） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 12
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025110758/": {
+      "address": "東京都練馬区田柄5丁目 [地図を確認]",
+      "building_area": 42.12,
+      "construction_date": "2019-01",
+      "fingerprint": "da1909c770575084008449d0648364b8cb7fe6b94672ce5324f5b9e492beec87",
+      "first_seen": "2026-09-14T16:36:45.017974+00:00",
+      "floor_plan": "2DK（小屋裏収納）",
+      "land_area": 43.88,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "price": 40800000,
+      "title": "練馬区田柄5丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 10
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025112817/": {
       "address": "東京都杉並区成田東5丁目 [地図を確認]",
@@ -3271,6 +3372,20 @@
       "title": "中野区上鷺宮1丁目（ベストセレクト 杉並支社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 12
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025283483/": {
+      "address": "東京都練馬区西大泉4丁目 [地図を確認]",
+      "building_area": 83.63,
+      "construction_date": "2011-10",
+      "fingerprint": "9507ae03e4abe424085478036487ada2da05a0f78333d693ae974e822c24d2be",
+      "first_seen": "2026-09-14T16:36:45.017974+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 87.61,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 カースペー",
+      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "price": 46990000,
+      "title": "練馬区西大泉4丁目（株式会社住協 大泉支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 32
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025284614/": {
       "address": "東京都中野区上鷺宮1丁目 [地図を確認]",
       "building_area": 70.06,
@@ -3943,6 +4058,20 @@
       "title": "中野区東中野2丁目（健ハウジング） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 3
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025357750/": {
+      "address": "東京都練馬区西大泉4丁目 [地図を確認]",
+      "building_area": 83.63,
+      "construction_date": "2011-10",
+      "fingerprint": "9507ae03e4abe424085478036487ada2da05a0f78333d693ae974e822c24d2be",
+      "first_seen": "2026-09-14T16:36:45.017974+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 87.61,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 おすすめポイント ○少し",
+      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "price": 46990000,
+      "title": "練馬区西大泉4丁目（不動産無料相談センター（株）クオリアホーム） - 中古一戸建て｜Yahoo!不動産閉じる前へ次へ初期費用について閉じる",
+      "walk_minutes": 25
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025358774/": {
       "address": "東京都豊島区上池袋1丁目 [地図を確認]",
       "building_area": 113.3,
@@ -4111,6 +4240,20 @@
       "title": "練馬区中村北1丁目（ARROW LINK株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 10
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025366833/": {
+      "address": "東京都練馬区田柄5丁目 [地図を確認]",
+      "building_area": 42.12,
+      "construction_date": "2019-01",
+      "fingerprint": "f23b0f8cca1df0fcf041e81fc1ede27684681218c7edc11b7e5fb23ba1d3ac18",
+      "first_seen": "2026-09-14T16:36:45.017974+00:00",
+      "floor_plan": "2SDK",
+      "land_area": 43.88,
+      "land_right": "形態 所有権のみ 駐車場・車庫 無 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "price": 40800000,
+      "title": "練馬区田柄5丁目（ARROW LINK株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 10
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025372290/": {
       "address": "東京都杉並区高井戸西1丁目 [地図を確認]",
       "building_area": 68.26,
@@ -4152,6 +4295,20 @@
       "price": 89800000,
       "title": "杉並区堀ノ内2丁目（株式会社大和・アクタス 高円寺本社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 13
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025376197/": {
+      "address": "東京都練馬区田柄5丁目 [地図を確認]",
+      "building_area": 42.12,
+      "construction_date": "2019-01",
+      "fingerprint": "65d9dd1a47e91b624620aca71ac6744f3f678e233b789de85279ac9a0e08d7f4",
+      "first_seen": "2026-09-14T16:36:45.017974+00:00",
+      "floor_plan": "2DK",
+      "land_area": 43.88,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "price": 40800000,
+      "title": "練馬区田柄5丁目（ME不動産西東京株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 10
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025380742/": {
       "address": "東京都杉並区成田東5丁目 [地図を確認]",
@@ -4279,6 +4436,20 @@
       "title": "豊島区池袋本町1丁目（東京リアルティ株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 7
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025399362/": {
+      "address": "東京都練馬区上石神井南町 [地図を確認]",
+      "building_area": 115.64,
+      "construction_date": "2025-09",
+      "fingerprint": "b850189bbdcf308c07026dd2ac453f1c5b6af6f182719fd85dfc41e211694088",
+      "first_seen": "2026-09-14T16:36:45.017974+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 106.79,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "price": 99990000,
+      "title": "練馬区上石神井南町（ME不動産西東京株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 8
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025399614/": {
       "address": "東京都豊島区長崎6丁目 [地図を確認]",
       "building_area": 64.59,
@@ -4293,6 +4464,20 @@
       "title": "豊島区長崎6丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 9
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025401660/": {
+      "address": "東京都練馬区西大泉4丁目 [地図を確認]",
+      "building_area": 83.63,
+      "construction_date": "2011-10",
+      "fingerprint": "90a5613f27b7cd77684619865ece4877a430c52f7931c705ce92dd88422124fd",
+      "first_seen": "2026-09-14T16:36:45.017974+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 87.61,
+      "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "price": 49990000,
+      "title": "練馬区西大泉4丁目（株式会社フェリアホーム 千駄ヶ谷本店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 32
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025403038/": {
       "address": "東京都豊島区池袋3丁目 [地図を確認]",
       "building_area": 81.54,
@@ -4306,6 +4491,20 @@
       "price": 10000,
       "title": "豊島区池袋3丁目（株式会社大和・アクタス 高円寺本社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 13
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025403859/": {
+      "address": "東京都練馬区上石神井南町 [地図を確認]",
+      "building_area": 115.64,
+      "construction_date": "2025-09",
+      "fingerprint": "b850189bbdcf308c07026dd2ac453f1c5b6af6f182719fd85dfc41e211694088",
+      "first_seen": "2026-09-14T16:36:45.017974+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 106.79,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "price": 99990000,
+      "title": "練馬区上石神井南町（ME不動産城北株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 8
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025404309/": {
       "address": "東京都豊島区長崎4丁目 [地図を確認]",
@@ -4516,6 +4715,20 @@
       "price": 94800000,
       "title": "豊島区池袋本町1丁目（グローバルインク株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 7
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025423446/": {
+      "address": "東京都練馬区東大泉7丁目 [地図を確認]",
+      "building_area": 111.85,
+      "construction_date": "1991-03",
+      "fingerprint": "97a8f0d2a9c6eea2d6dabeebbc5eebde6b6989b39ef621209c335d7e8e4ab897",
+      "first_seen": "2026-09-14T16:36:45.017974+00:00",
+      "floor_plan": "3SLDK",
+      "land_area": 141.16,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "price": 71990000,
+      "title": "練馬区東大泉7丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 17
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025426406/": {
       "address": "東京都杉並区南荻窪2丁目 [地図を確認]",
