@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "baseline_cursor": 360,
+    "baseline_cursor": 380,
     "baseline_in_progress": true,
     "baseline_initialized": false,
     "baseline_reset_at": null,
@@ -589,12 +589,13 @@
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025380003/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024397790/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023790351/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025024159/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025333471/"
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025080473/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023678357/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024973695/"
     ],
     "notified_fingerprints": {},
     "price_cursor": 0,
-    "updated_at": "2026-09-14T16:55:48.852288+00:00"
+    "updated_at": "2026-09-14T17:17:19.211082+00:00"
   },
   "properties": {
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0022854395/": {
@@ -1843,6 +1844,20 @@
       "title": "杉並区宮前2丁目（株式会社東宝ハウス国分寺） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 18
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025021087/": {
+      "address": "東京都立川市曙町1丁目 [地図を確認]",
+      "building_area": 103.48,
+      "construction_date": "1954-01",
+      "fingerprint": "a86d9ba30dc07f703f441b1a2b37a9bf19d97d8758bd5bb653609e49ee68f94b",
+      "first_seen": "2026-09-14T17:17:19.211082+00:00",
+      "floor_plan": "3SLDK",
+      "land_area": 135.9,
+      "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T17:17:19.211082+00:00",
+      "price": 65000000,
+      "title": "立川市曙町1丁目（株式会社東宝ハウス国分寺） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 6
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025024887/": {
       "address": "東京都杉並区西荻南1丁目 [地図を確認]",
       "building_area": 123.04,
@@ -1912,6 +1927,20 @@
       "price": 67800000,
       "title": "豊島区長崎6丁目（株式会社東宝ハウス国分寺） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 9
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025042745/": {
+      "address": "東京都立川市砂川町6丁目 [地図を確認]",
+      "building_area": 82.62,
+      "construction_date": "1989-05",
+      "fingerprint": "1e63dd69283c7d5fbc299e72a0e9ccbb0c13fd6e136fc3a987070b1e955f3a45",
+      "first_seen": "2026-09-14T17:17:19.211082+00:00",
+      "floor_plan": "4DK",
+      "land_area": 77.78,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車可能台数 1台） 住",
+      "last_seen": "2026-09-14T17:17:19.211082+00:00",
+      "price": 16850000,
+      "title": "立川市砂川町6丁目（センチュリー21成ハウジング） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 15
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025043426/": {
       "address": "東京都中野区上鷺宮1丁目 [地図を確認]",
@@ -2627,6 +2656,20 @@
       "title": "杉並区和泉1丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 11
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025134317/": {
+      "address": "東京都立川市若葉町3丁目 [地図を確認]",
+      "building_area": 86.1,
+      "construction_date": "2001-08",
+      "fingerprint": "91ca894664d07be1138344cc29c377d1b38042848bda6b696b50831f35249f4a",
+      "first_seen": "2026-09-14T17:17:19.211082+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 109.0,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（2台可） 各項目の詳細に",
+      "last_seen": "2026-09-14T17:17:19.211082+00:00",
+      "price": 39900000,
+      "title": "立川市若葉町3丁目（株式会社エステート白馬 国分寺店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 25
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025135436/": {
       "address": "東京都豊島区上池袋1丁目 [地図を確認]",
       "building_area": 113.3,
@@ -2780,6 +2823,20 @@
       "price": 10000,
       "title": "練馬区小竹町1丁目（株式会社東宝ハウス城東） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 6
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025149924/": {
+      "address": "東京都立川市若葉町3丁目 [地図を確認]",
+      "building_area": 86.1,
+      "construction_date": "2001-10",
+      "fingerprint": "1ccd25f7e6a0172e114ab67b6fc2375fc7d0f9a0f54ecbcde11adfd7911282ab",
+      "first_seen": "2026-09-14T17:17:19.211082+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 109.0,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 住宅履歴情報 未保有 耐",
+      "last_seen": "2026-09-14T17:17:19.211082+00:00",
+      "price": 39900000,
+      "title": "立川市若葉町3丁目（センチュリー21成ハウジング） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 34
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025151824/": {
       "address": "東京都中野区野方5丁目 [地図を確認]",
@@ -3256,6 +3313,20 @@
       "price": 67800000,
       "title": "豊島区長崎6丁目（東京リアルティ株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 9
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025248145/": {
+      "address": "東京都立川市西砂町3丁目 [地図を確認]",
+      "building_area": 85.7,
+      "construction_date": "2002-10",
+      "fingerprint": "87d106fac8231be75eb448e827e7e8e69af11da2945a8bd2e3584e61be842cb2",
+      "first_seen": "2026-09-14T17:17:19.211082+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 143.13,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-14T17:17:19.211082+00:00",
+      "price": 27800000,
+      "title": "立川市西砂町3丁目（株式会社東宝ハウス国分寺） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 18
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025248151/": {
       "address": "東京都杉並区成田東1丁目 [地図を確認]",
@@ -3859,6 +3930,20 @@
       "title": "杉並区桃井4丁目（株式会社東宝ハウス東京） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 16
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025317354/": {
+      "address": "東京都立川市一番町1丁目 [地図を確認]",
+      "building_area": 89.43,
+      "construction_date": "2003-04",
+      "fingerprint": "589c9da4e8c3ce7ef5842a693a1718cb5bbdd30f732744808e2fc7576f12de76",
+      "first_seen": "2026-09-14T17:17:19.211082+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 115.0,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T17:17:19.211082+00:00",
+      "price": 32990000,
+      "title": "立川市一番町1丁目（藤和ハウス インターネットお問い合わせセンター） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 19
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025319588/": {
       "address": "東京都豊島区池袋3丁目 [地図を確認]",
       "building_area": 81.54,
@@ -3872,6 +3957,20 @@
       "price": 10000,
       "title": "豊島区池袋3丁目（ARROW LINK株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 8
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025319982/": {
+      "address": "東京都立川市一番町1丁目 [地図を確認]",
+      "building_area": 89.43,
+      "construction_date": "2003-04",
+      "fingerprint": "72512f1d2c720ef5c56cf101171268ba53acbfd0daa46dfca1522804ec23f675",
+      "first_seen": "2026-09-14T17:17:19.211082+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 115.0,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T17:17:19.211082+00:00",
+      "price": 31990000,
+      "title": "立川市一番町1丁目（株式会社サンエフホーム） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 19
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025320477/": {
       "address": "東京都練馬区富士見台3丁目 [地図を確認]",
@@ -3929,6 +4028,20 @@
       "title": "杉並区桃井4丁目（株式会社エステート白馬 中野店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 16
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025323127/": {
+      "address": "東京都立川市一番町1丁目 [地図を確認]",
+      "building_area": 89.43,
+      "construction_date": "2003-04",
+      "fingerprint": "589c9da4e8c3ce7ef5842a693a1718cb5bbdd30f732744808e2fc7576f12de76",
+      "first_seen": "2026-09-14T17:17:19.211082+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 115.0,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
+      "last_seen": "2026-09-14T17:17:19.211082+00:00",
+      "price": 32990000,
+      "title": "立川市一番町1丁目（株式会社ハウスバディ） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 19
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025323218/": {
       "address": "東京都杉並区桃井4丁目 [地図を確認]",
       "building_area": 72.05,
@@ -3942,6 +4055,20 @@
       "price": 66800000,
       "title": "杉並区桃井4丁目（株式会社大和・アクタス 高円寺本社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 16
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025324422/": {
+      "address": "東京都立川市一番町1丁目 [地図を確認]",
+      "building_area": 89.43,
+      "construction_date": "2003-04",
+      "fingerprint": "589c9da4e8c3ce7ef5842a693a1718cb5bbdd30f732744808e2fc7576f12de76",
+      "first_seen": "2026-09-14T17:17:19.211082+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 115.0,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-14T17:17:19.211082+00:00",
+      "price": 32990000,
+      "title": "立川市一番町1丁目（株式会社東宝ハウス立川） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 19
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025324628/": {
       "address": "東京都中野区本町2丁目 [地図を確認]",
@@ -3999,6 +4126,20 @@
       "title": "豊島区池袋本町3丁目（株式会社東宝ハウス王子） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 4
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025325596/": {
+      "address": "東京都立川市一番町1丁目 [地図を確認]",
+      "building_area": 89.43,
+      "construction_date": "2003-04",
+      "fingerprint": "589c9da4e8c3ce7ef5842a693a1718cb5bbdd30f732744808e2fc7576f12de76",
+      "first_seen": "2026-09-14T17:17:19.211082+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 115.0,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 住宅履歴情報 未保有 耐",
+      "last_seen": "2026-09-14T17:17:19.211082+00:00",
+      "price": 32990000,
+      "title": "立川市一番町1丁目（センチュリー21成ハウジング） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 19
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025327095/": {
       "address": "東京都中野区中野1丁目 [地図を確認]",
       "building_area": 82.92,
@@ -4040,6 +4181,20 @@
       "price": 20000,
       "title": "杉並区高井戸東2丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 11
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025331637/": {
+      "address": "東京都立川市一番町1丁目 [地図を確認]",
+      "building_area": 89.43,
+      "construction_date": "2003-04",
+      "fingerprint": "589c9da4e8c3ce7ef5842a693a1718cb5bbdd30f732744808e2fc7576f12de76",
+      "first_seen": "2026-09-14T17:17:19.211082+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 115.0,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（2台可 縦列） 各項目の",
+      "last_seen": "2026-09-14T17:17:19.211082+00:00",
+      "price": 32990000,
+      "title": "立川市一番町1丁目（株式会社エステート白馬 国分寺店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 19
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025332414/": {
       "address": "東京都杉並区高井戸西1丁目 [地図を確認]",
@@ -4545,6 +4700,20 @@
       "title": "杉並区堀ノ内2丁目（株式会社東宝ハウス国分寺） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 13
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025386269/": {
+      "address": "東京都立川市砂川町6丁目 [地図を確認]",
+      "building_area": 82.62,
+      "construction_date": "1989-05",
+      "fingerprint": "1e63dd69283c7d5fbc299e72a0e9ccbb0c13fd6e136fc3a987070b1e955f3a45",
+      "first_seen": "2026-09-14T17:17:19.211082+00:00",
+      "floor_plan": "4DK",
+      "land_area": 77.78,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
+      "last_seen": "2026-09-14T17:17:19.211082+00:00",
+      "price": 16850000,
+      "title": "立川市砂川町6丁目（株式会社ハウスバディ） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 15
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025387939/": {
       "address": "東京都豊島区長崎4丁目 [地図を確認]",
       "building_area": 40.48,
@@ -4755,6 +4924,20 @@
       "title": "豊島区池袋本町1丁目（株式会社アセットビルダー） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 7
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025409818/": {
+      "address": "東京都立川市一番町1丁目 [地図を確認]",
+      "building_area": 89.43,
+      "construction_date": "2003-04",
+      "fingerprint": "72512f1d2c720ef5c56cf101171268ba53acbfd0daa46dfca1522804ec23f675",
+      "first_seen": "2026-09-14T17:17:19.211082+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 115.0,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T17:17:19.211082+00:00",
+      "price": 31990000,
+      "title": "立川市一番町1丁目（株式会社ランディックス） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 19
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025410463/": {
       "address": "東京都豊島区池袋本町1丁目 [地図を確認]",
       "building_area": 85.92,
@@ -4782,6 +4965,20 @@
       "price": 94800000,
       "title": "豊島区池袋本町1丁目（アドキャスト 池袋支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 7
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025411095/": {
+      "address": "東京都立川市一番町1丁目 [地図を確認]",
+      "building_area": 89.43,
+      "construction_date": "2003-04",
+      "fingerprint": "81e4f4118ca252d194a3fbc8a1481cd6e9c120edb818c9bc45a1598160c1aa30",
+      "first_seen": "2026-09-14T17:17:19.211082+00:00",
+      "floor_plan": "3LDK 間取り図が欲しい無料",
+      "land_area": 115.0,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-14T17:17:19.211082+00:00",
+      "price": 32990000,
+      "title": "立川市一番町1丁目（株式会社東宝ハウス国分寺） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 19
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025411250/": {
       "address": "東京都豊島区池袋本町1丁目 [地図を確認]",
