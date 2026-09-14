@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "baseline_cursor": 60,
+    "baseline_cursor": 80,
     "baseline_in_progress": true,
     "baseline_initialized": false,
     "baseline_reset_at": null,
@@ -588,13 +588,14 @@
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025292895/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025380003/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024397790/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025096254/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025259372/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025293228/"
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025080473/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025418652/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025233891/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025333471/"
     ],
     "notified_fingerprints": {},
     "price_cursor": 0,
-    "updated_at": "2026-09-14T12:01:03.248542+00:00"
+    "updated_at": "2026-09-14T12:27:02.759876+00:00"
   },
   "properties": {
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023565966/": {
@@ -737,6 +738,20 @@
       "title": "中野区野方2丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 13
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024943406/": {
+      "address": "東京都中野区中野1丁目 [地図を確認]",
+      "building_area": 82.92,
+      "construction_date": "1999-04",
+      "fingerprint": "08bb01f5944b77736bd4a5885bf98fe9f3112f7519f60a71a0b43f187d424fa8",
+      "first_seen": "2026-09-14T12:27:02.759876+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 51.49,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:27:02.759876+00:00",
+      "price": 89900000,
+      "title": "中野区中野1丁目（東京リアルティ株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 12
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025043426/": {
       "address": "東京都中野区上鷺宮1丁目 [地図を確認]",
       "building_area": 70.06,
@@ -765,6 +780,20 @@
       "title": "中野区野方1丁目（株式会社家どっと足立） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 15
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025081379/": {
+      "address": "東京都杉並区浜田山1丁目 [地図を確認]",
+      "building_area": 79.28,
+      "construction_date": "2025-06",
+      "fingerprint": "907a662e025a7ae7e46fb9a6e5d7814a8e41cfa2f360594bd70c7d2a65505657",
+      "first_seen": "2026-09-14T12:27:02.759876+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 100.0,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:27:02.759876+00:00",
+      "price": 10000,
+      "title": "杉並区浜田山1丁目（昭和建物株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 10
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025084200/": {
       "address": "東京都中野区上高田2丁目 [地図を確認]",
       "building_area": 167.85,
@@ -778,6 +807,76 @@
       "price": 40000,
       "title": "中野区上高田2丁目（タカマツハウス不動産株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 9
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025091667/": {
+      "address": "東京都杉並区成田東1丁目 [地図を確認]",
+      "building_area": 94.4,
+      "construction_date": "1999-09",
+      "fingerprint": "a1e8ddfa96df83924d887a85ffaa228fa7567338305ba243e55b289be193ced1",
+      "first_seen": "2026-09-14T12:27:02.759876+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 126.59,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:27:02.759876+00:00",
+      "price": 10000,
+      "title": "杉並区成田東1丁目（東京リアルティ株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 15
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025093575/": {
+      "address": "東京都杉並区成田東1丁目 [地図を確認]",
+      "building_area": 94.4,
+      "construction_date": "1999-09",
+      "fingerprint": "a1e8ddfa96df83924d887a85ffaa228fa7567338305ba243e55b289be193ced1",
+      "first_seen": "2026-09-14T12:27:02.759876+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 126.59,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:27:02.759876+00:00",
+      "price": 10000,
+      "title": "杉並区成田東1丁目（株式会社エステート白馬 中野店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 15
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025093691/": {
+      "address": "東京都杉並区成田東1丁目 [地図を確認]",
+      "building_area": 94.4,
+      "construction_date": "1999-09",
+      "fingerprint": "a1e8ddfa96df83924d887a85ffaa228fa7567338305ba243e55b289be193ced1",
+      "first_seen": "2026-09-14T12:27:02.759876+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 126.59,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:27:02.759876+00:00",
+      "price": 10000,
+      "title": "杉並区成田東1丁目（昭和建物株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 15
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025094548/": {
+      "address": "東京都杉並区成田東1丁目 [地図を確認]",
+      "building_area": 94.4,
+      "construction_date": "1999-09",
+      "fingerprint": "213df295b668436b288458bf5237b5f3d0ad6b6eda2bb44e2d67b93fcb14ce5b",
+      "first_seen": "2026-09-14T12:27:02.759876+00:00",
+      "floor_plan": "3SLDK",
+      "land_area": 126.59,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料） 各項目の",
+      "last_seen": "2026-09-14T12:27:02.759876+00:00",
+      "price": 10000,
+      "title": "杉並区成田東1丁目（殖産ベスト株式会社 お問い合わせ窓口） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 15
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025096028/": {
+      "address": "東京都杉並区成田東1丁目 [地図を確認]",
+      "building_area": 94.4,
+      "construction_date": "1999-09",
+      "fingerprint": "213df295b668436b288458bf5237b5f3d0ad6b6eda2bb44e2d67b93fcb14ce5b",
+      "first_seen": "2026-09-14T12:27:02.759876+00:00",
+      "floor_plan": "3SLDK",
+      "land_area": 126.59,
+      "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:27:02.759876+00:00",
+      "price": 10000,
+      "title": "杉並区成田東1丁目（株式会社WALLMATE不動産 浜田山支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 15
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025096207/": {
       "address": "東京都中野区東中野1丁目 [地図を確認]",
@@ -807,6 +906,90 @@
       "title": "中野区東中野2丁目（アドキャスト 高円寺支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 3
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025098649/": {
+      "address": "東京都中野区松が丘2丁目 [地図を確認]",
+      "building_area": 308.1,
+      "construction_date": "1990-10",
+      "fingerprint": "e21ea8934fcf553272f91653afaf27eb9044eb32a09ae55230c53e7d9bf0ea50",
+      "first_seen": "2026-09-14T12:27:02.759876+00:00",
+      "floor_plan": "7LDK",
+      "land_area": 177.9,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
+      "last_seen": "2026-09-14T12:27:02.759876+00:00",
+      "price": 20000,
+      "title": "中野区松が丘2丁目（株式会社大和・アクタス 高円寺本社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 8
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025098654/": {
+      "address": "東京都杉並区成田東1丁目 [地図を確認]",
+      "building_area": 94.4,
+      "construction_date": "1999-09",
+      "fingerprint": "a1e8ddfa96df83924d887a85ffaa228fa7567338305ba243e55b289be193ced1",
+      "first_seen": "2026-09-14T12:27:02.759876+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 126.59,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
+      "last_seen": "2026-09-14T12:27:02.759876+00:00",
+      "price": 10000,
+      "title": "杉並区成田東1丁目（株式会社大和・アクタス 高円寺本社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 15
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025099362/": {
+      "address": "東京都杉並区成田東1丁目 [地図を確認]",
+      "building_area": 94.4,
+      "construction_date": "1999-09",
+      "fingerprint": "213df295b668436b288458bf5237b5f3d0ad6b6eda2bb44e2d67b93fcb14ce5b",
+      "first_seen": "2026-09-14T12:27:02.759876+00:00",
+      "floor_plan": "3SLDK",
+      "land_area": 126.59,
+      "land_right": "形態 所有権のみ 駐車場・車庫 駐車場料金:0円 各項目の詳",
+      "last_seen": "2026-09-14T12:27:02.759876+00:00",
+      "price": 10000,
+      "title": "杉並区成田東1丁目（株式会社東宝ハウス世田谷） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 15
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025112817/": {
+      "address": "東京都杉並区成田東5丁目 [地図を確認]",
+      "building_area": 73.9,
+      "construction_date": "2009-04",
+      "fingerprint": "0946d2a26d0ba0ce1c1e5d4104b99f69c1546272614c682c5f7e89d31c965eb8",
+      "first_seen": "2026-09-14T12:27:02.759876+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 94.06,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:27:02.759876+00:00",
+      "price": 96900000,
+      "title": "杉並区成田東5丁目（昭和建物株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 7
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025113937/": {
+      "address": "東京都杉並区成田東1丁目 [地図を確認]",
+      "building_area": 94.4,
+      "construction_date": "1999-09",
+      "fingerprint": "213df295b668436b288458bf5237b5f3d0ad6b6eda2bb44e2d67b93fcb14ce5b",
+      "first_seen": "2026-09-14T12:27:02.759876+00:00",
+      "floor_plan": "3SLDK",
+      "land_area": 126.59,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:27:02.759876+00:00",
+      "price": 10000,
+      "title": "杉並区成田東1丁目（グローバルインク株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 15
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025118183/": {
+      "address": "東京都杉並区成田東5丁目 [地図を確認]",
+      "building_area": 73.9,
+      "construction_date": "2009-04",
+      "fingerprint": "0946d2a26d0ba0ce1c1e5d4104b99f69c1546272614c682c5f7e89d31c965eb8",
+      "first_seen": "2026-09-14T12:27:02.759876+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 94.06,
+      "land_right": "形態 所有権のみ 駐車場・車庫 駐車場料金:0円 各項目の詳",
+      "last_seen": "2026-09-14T12:27:02.759876+00:00",
+      "price": 96900000,
+      "title": "杉並区成田東5丁目（株式会社東宝ハウス品川） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 7
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025120045/": {
       "address": "東京都中野区本町2丁目 [地図を確認]",
       "building_area": 109.86,
@@ -820,6 +1003,20 @@
       "price": 10000,
       "title": "中野区本町2丁目（昭和建物株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 6
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025122167/": {
+      "address": "東京都杉並区成田東1丁目 [地図を確認]",
+      "building_area": 94.4,
+      "construction_date": "1999-09",
+      "fingerprint": "26727bfa89487f8c765f2d23eb21c6d1ce62a56395d49ea307235c53859ca842",
+      "first_seen": "2026-09-14T12:27:02.759876+00:00",
+      "floor_plan": "3SLDK（＋S）",
+      "land_area": 126.59,
+      "land_right": "形態 所有権のみ 駐車場・車庫 駐車場料金:0円 各項目の詳",
+      "last_seen": "2026-09-14T12:27:02.759876+00:00",
+      "price": 10000,
+      "title": "杉並区成田東1丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 15
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025129989/": {
       "address": "東京都中野区本町2丁目 [地図を確認]",
@@ -1016,6 +1213,34 @@
       "price": 87800000,
       "title": "中野区野方5丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 6
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025248151/": {
+      "address": "東京都杉並区成田東1丁目 [地図を確認]",
+      "building_area": 94.4,
+      "construction_date": "1999-09",
+      "fingerprint": "a1e8ddfa96df83924d887a85ffaa228fa7567338305ba243e55b289be193ced1",
+      "first_seen": "2026-09-14T12:27:02.759876+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 126.59,
+      "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:27:02.759876+00:00",
+      "price": 10000,
+      "title": "杉並区成田東1丁目（株式会社東宝ハウス国分寺） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 15
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025264547/": {
+      "address": "東京都杉並区成田東1丁目 [地図を確認]",
+      "building_area": 94.4,
+      "construction_date": "1999-09",
+      "fingerprint": "73dda96b555420af9bc30c7af09d87af2c2443ed9c61039dd32c1d8c9492c8ee",
+      "first_seen": "2026-09-14T12:27:02.759876+00:00",
+      "floor_plan": "3LDK＋S",
+      "land_area": 126.59,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:27:02.759876+00:00",
+      "price": 10000,
+      "title": "杉並区成田東1丁目（ME不動産城北株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 15
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025265289/": {
       "address": "東京都中野区中野1丁目 [地図を確認]",
@@ -1255,6 +1480,20 @@
       "title": "中野区上鷺宮1丁目（株式会社東宝ハウス城東） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 12
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025339101/": {
+      "address": "東京都杉並区成田東1丁目 [地図を確認]",
+      "building_area": 94.4,
+      "construction_date": "1999-09",
+      "fingerprint": "064a0b5b29be190f5fb0f848fe9916a3ca95fec5fda1442a83fe9fa40ec0ea37",
+      "first_seen": "2026-09-14T12:27:02.759876+00:00",
+      "floor_plan": "3SLDK＋小屋裏収納",
+      "land_area": 126.59,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:27:02.759876+00:00",
+      "price": 10000,
+      "title": "杉並区成田東1丁目（藤和ハウス 荻窪店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 15
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025352937/": {
       "address": "東京都中野区東中野2丁目 [地図を確認]",
       "building_area": 82.18,
@@ -1381,6 +1620,20 @@
       "title": "中野区野方1丁目（殖産ベスト株式会社 お問い合わせ窓口） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 14
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025414414/": {
+      "address": "東京都杉並区成田東1丁目 [地図を確認]",
+      "building_area": 94.4,
+      "construction_date": "1999-09",
+      "fingerprint": "213df295b668436b288458bf5237b5f3d0ad6b6eda2bb44e2d67b93fcb14ce5b",
+      "first_seen": "2026-09-14T12:27:02.759876+00:00",
+      "floor_plan": "3SLDK",
+      "land_area": 126.59,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 カーポート",
+      "last_seen": "2026-09-14T12:27:02.759876+00:00",
+      "price": 10000,
+      "title": "杉並区成田東1丁目（ベストセレクト 杉並支社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 15
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025414416/": {
       "address": "東京都中野区弥生町4丁目 [地図を確認]",
       "building_area": 96.03,
@@ -1423,6 +1676,20 @@
       "title": "中野区大和町3丁目（株式会社WALLMATE不動産 浜田山支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 15
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025431293/": {
+      "address": "東京都杉並区成田東1丁目 [地図を確認]",
+      "building_area": 94.4,
+      "construction_date": "1999-09",
+      "fingerprint": "73dda96b555420af9bc30c7af09d87af2c2443ed9c61039dd32c1d8c9492c8ee",
+      "first_seen": "2026-09-14T12:27:02.759876+00:00",
+      "floor_plan": "3LDK＋S",
+      "land_area": 126.59,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:27:02.759876+00:00",
+      "price": 10000,
+      "title": "杉並区成田東1丁目（ME不動産西東京株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": 15
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025436779/": {
       "address": "東京都中野区沼袋1丁目 [地図を確認]",
       "building_area": 66.62,
@@ -1436,6 +1703,20 @@
       "price": 39800000,
       "title": "中野区沼袋1丁目（ARROW LINK株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 3
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025437183/": {
+      "address": "東京都中野区大和町2丁目 [地図を確認]",
+      "building_area": 58.76,
+      "construction_date": "1983-02",
+      "fingerprint": "56969df45bdfa5eaad9b4994b8749eb03601b8dd1c4f9af60f4c490e325fc2c4",
+      "first_seen": "2026-09-14T12:27:02.759876+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 58.99,
+      "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
+      "last_seen": "2026-09-14T12:27:02.759876+00:00",
+      "price": 54800000,
+      "title": "中野区大和町2丁目（東京リアルティ株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 8
     }
   }
 }
