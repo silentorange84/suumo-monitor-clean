@@ -602,8 +602,8 @@
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024965819/"
     ],
     "notified_fingerprints": {},
-    "price_cursor": 460,
-    "updated_at": "2026-09-15T10:02:19.750591+00:00"
+    "price_cursor": 480,
+    "updated_at": "2026-09-15T10:22:16.454094+00:00"
   },
   "properties": {
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0021198071/": {
@@ -1287,7 +1287,8 @@
       "floor_plan": "6SDK",
       "land_area": 363.47,
       "land_right": "形態 借地権のみ/旧法賃借権 借地 期間 新規契約期間 20",
-      "last_seen": "2026-09-14T18:51:37.503745+00:00",
+      "last_seen": "2026-09-15T10:22:16.454094+00:00",
+      "parse_status": "complete",
       "price": 59800000,
       "title": "三鷹市井の頭2丁目（タカマツハウス不動産株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 7
@@ -1494,7 +1495,8 @@
       "floor_plan": "4LDK",
       "land_area": 100.52,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T18:32:41.064210+00:00",
+      "last_seen": "2026-09-15T10:22:16.454094+00:00",
+      "parse_status": "complete",
       "price": 54800000,
       "title": "三鷹市深大寺2丁目（株式会社東宝ハウス国分寺） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 25
@@ -1567,7 +1569,8 @@
       "floor_plan": "4LDK",
       "land_area": 100.52,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T18:32:41.064210+00:00",
+      "last_seen": "2026-09-15T10:22:16.454094+00:00",
+      "parse_status": "complete",
       "price": 54800000,
       "title": "三鷹市深大寺2丁目（株式会社東宝ハウス練馬） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 25
@@ -1790,7 +1793,8 @@
       "floor_plan": "2LDK",
       "land_area": 56.25,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T18:51:37.503745+00:00",
+      "last_seen": "2026-09-15T10:22:16.454094+00:00",
+      "parse_status": "complete",
       "price": 48900000,
       "title": "三鷹市上連雀6丁目（株式会社東宝ハウス練馬） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 20
@@ -1819,7 +1823,8 @@
       "floor_plan": "2LDK（K）",
       "land_area": 56.25,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T18:32:41.064210+00:00",
+      "last_seen": "2026-09-15T10:22:16.454094+00:00",
+      "parse_status": "complete",
       "price": 48900000,
       "title": "三鷹市上連雀6丁目（株式会社東宝ハウス国分寺） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 20
@@ -2312,7 +2317,8 @@
       "floor_plan": "4LDK",
       "land_area": 110.24,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T18:51:37.503745+00:00",
+      "last_seen": "2026-09-15T10:22:16.454094+00:00",
+      "parse_status": "complete",
       "price": 69800000,
       "title": "三鷹市牟礼4丁目（株式会社東宝ハウス国分寺） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 10
@@ -3326,8 +3332,8 @@
       "floor_plan": "2LDK（K）",
       "land_area": 56.25,
       "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
-      "last_seen": "2026-09-15T01:46:51.502155+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T10:22:16.454094+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 48900000,
       "title": "三鷹市上連雀6丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -3820,8 +3826,8 @@
       "floor_plan": "5LDK",
       "land_area": 287.62,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-15T01:46:51.502155+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T10:22:16.454094+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 72800000,
       "title": "三鷹市大沢4丁目（ME不動産西東京株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -3984,8 +3990,8 @@
       "floor_plan": "14LDK",
       "land_area": 401.26,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-15T01:46:51.502155+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T10:22:16.454094+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 10000,
       "title": "三鷹市深大寺2丁目（ME不動産西東京株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -4388,8 +4394,8 @@
       "floor_plan": "4LDK",
       "land_area": 108.47,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（3台 並列） 各項目の詳",
-      "last_seen": "2026-09-15T01:46:51.502155+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T10:22:16.454094+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 58000000,
       "title": "三鷹市大沢5丁目（株式会社エステート白馬 国分寺店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -5380,7 +5386,8 @@
       "floor_plan": "2LDK",
       "land_area": 56.25,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T18:51:37.503745+00:00",
+      "last_seen": "2026-09-15T10:22:16.454094+00:00",
+      "parse_status": "complete",
       "price": 48900000,
       "title": "三鷹市上連雀6丁目（株式会社東宝ハウス東京） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 20
@@ -5645,7 +5652,8 @@
       "floor_plan": "4LDK",
       "land_area": 185.62,
       "land_right": "形態 所有権のみ 駐車場・車庫 駐車場料金:0円 各項目の詳",
-      "last_seen": "2026-09-14T18:51:37.503745+00:00",
+      "last_seen": "2026-09-15T10:22:16.454094+00:00",
+      "parse_status": "complete",
       "price": 69800000,
       "title": "三鷹市井口4丁目（株式会社東宝ハウス練馬） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 14
@@ -5762,8 +5770,8 @@
       "floor_plan": "4DK 間取り図が欲しい無料",
       "land_area": 59.8,
       "land_right": "形態 所有権のみ 駐車場・車庫 無 各項目の詳細に関しまして",
-      "last_seen": "2026-09-15T02:02:21.555212+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T10:22:16.454094+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 44800000,
       "title": "三鷹市上連雀9丁目（殖産ベスト株式会社 お問い合わせ窓口） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -6265,8 +6273,8 @@
       "floor_plan": "4LDK 間取り図が欲しい無料",
       "land_area": 108.47,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（1台） 各項目の詳細に関",
-      "last_seen": "2026-09-15T01:46:51.502155+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T10:22:16.454094+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 58000000,
       "title": "三鷹市大沢5丁目（オープンハウス 調布営業センター） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -7915,7 +7923,8 @@
       "floor_plan": "4LDK 間取り図が欲しい無料",
       "land_area": 100.52,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（1台） 各項目の詳細に関",
-      "last_seen": "2026-09-14T18:51:37.503745+00:00",
+      "last_seen": "2026-09-15T10:22:16.454094+00:00",
+      "parse_status": "complete",
       "price": 54800000,
       "title": "三鷹市深大寺2丁目（オープンハウス 吉祥寺営業センター） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 25
@@ -8182,8 +8191,8 @@
       "floor_plan": "3LDK",
       "land_area": 93.98,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料） 各項目の",
-      "last_seen": "2026-09-15T02:02:21.555212+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T10:22:16.454094+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 42800000,
       "title": "三鷹市大沢5丁目（殖産ベスト株式会社 お問い合わせ窓口） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -9347,7 +9356,8 @@
       "floor_plan": "3LDK",
       "land_area": 76.32,
       "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T18:51:37.503745+00:00",
+      "last_seen": "2026-09-15T10:22:16.454094+00:00",
+      "parse_status": "complete",
       "price": 52800000,
       "title": "三鷹市北野1丁目（コマツホーム） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 26
@@ -9376,7 +9386,8 @@
       "floor_plan": "4LDK",
       "land_area": 196.09,
       "land_right": "形態 所有権のみ 駐車場・車庫 無 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T18:51:37.503745+00:00",
+      "last_seen": "2026-09-15T10:22:16.454094+00:00",
+      "parse_status": "complete",
       "price": 10000,
       "title": "三鷹市上連雀2丁目（ARROW LINK株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 9
@@ -9420,7 +9431,8 @@
       "floor_plan": "4SLDK",
       "land_area": 94.86,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T18:51:37.503745+00:00",
+      "last_seen": "2026-09-15T10:22:16.454094+00:00",
+      "parse_status": "complete",
       "price": 36800000,
       "title": "三鷹市野崎3丁目（株式会社東宝ハウス国分寺） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 24
@@ -9553,7 +9565,8 @@
       "floor_plan": "5SLDK",
       "land_area": 166.84,
       "land_right": "形態 所有権のみ 施工会社 三井木材工業株式会社 駐車場・車",
-      "last_seen": "2026-09-14T18:51:37.503745+00:00",
+      "last_seen": "2026-09-15T10:22:16.454094+00:00",
+      "parse_status": "complete",
       "price": 20000,
       "title": "三鷹市下連雀4丁目（株式会社ランドネット 渋谷支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 13
