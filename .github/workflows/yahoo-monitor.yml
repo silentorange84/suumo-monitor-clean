@@ -344,7 +344,7 @@ jobs:
                   "property_type": compact(kind),
               }
               required = ("address", "land_area", "building_area", "construction_date",
-                          "floor_plan", "walk_minutes", "land_right", "price", "property_type")
+                          "floor_plan", "land_right", "price", "property_type")
               missing = [key for key in required if prop.get(key) in (None, "")]
               if missing:
                   raise RuntimeError("incomplete parse: " + ", ".join(missing))
@@ -355,12 +355,14 @@ jobs:
                                                        prop["building_area"], built, prop["floor_plan"]))
               age = age_years(built, now)
               city_ok = any(city in prop["address"] for city in AREA_URLS) and "八王子市" not in prop["address"]
+              walk_ok = prop["walk_minutes"] is not None and prop["walk_minutes"] <= 15
               prop["age_years"] = age
+              prop["parse_status"] = "complete" if prop["walk_minutes"] is not None else "missing_walk_minutes"
               prop["matches"] = all((
                   prop["price"] <= 70_000_000,
                   prop["building_area"] >= 70,
                   age is not None and 0 <= age <= 25,
-                  prop["walk_minutes"] <= 15,
+                  walk_ok,
                   prop["land_right"] == "所有権",
                   prop["property_type"] in {"中古一戸建て", "中古戸建て"},
                   city_ok,
@@ -399,6 +401,7 @@ jobs:
               entry.update({key: prop[key] for key in (
                   "price", "title", "address", "land_area", "building_area",
                   "construction_date", "floor_plan", "walk_minutes", "land_right", "fingerprint",
+                  "parse_status",
               )})
               entry["first_seen"] = entry.get("first_seen") or now.isoformat()
               entry["last_seen"] = now.isoformat()
@@ -437,7 +440,7 @@ jobs:
           counters = {key: 0 for key in (
               "list_pages", "current_urls", "new_urls", "new_checked", "new_notified",
               "new_excluded", "duplicate", "price_checked", "price_drop", "price_drop_notified",
-              "deferred",
+              "deferred", "baseline_nonqualifying",
           )}
           deferred = []
 
@@ -520,6 +523,11 @@ jobs:
               for index, url in candidates:
                   prop = defer(url, now, baseline=True)
                   if prop is not None:
+                      if prop["walk_minutes"] is None:
+                          prop["parse_status"] = "baseline_nonqualifying"
+                          counters["baseline_nonqualifying"] += 1
+                          print("BASELINE NONQUALIFYING: missing walk_minutes")
+                          print(f"URL: {prop['url']}")
                       known[prop["url"]] = state_entry(prop, now, known.get(prop["url"]))
                       processed += 1
 
@@ -538,6 +546,7 @@ jobs:
               print(f"BASELINE CURSOR: {meta['baseline_cursor']}")
               print(f"BASELINE BATCH SIZE: {BASELINE_BATCH_SIZE}")
               print(f"BASELINE PROCESSED THIS RUN: {processed}")
+              print(f"BASELINE NONQUALIFYING COUNT: {counters['baseline_nonqualifying']}")
               print(f"BASELINE REMAINING: {remaining}")
               print("BASELINE COMPLETE: " + str(meta["baseline_initialized"]).lower())
           else:
