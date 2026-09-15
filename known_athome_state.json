@@ -1,7 +1,7 @@
 {
   "baseline_in_progress": false,
-  "page_cursor": 4,
-  "price_cursor": 8,
+  "page_cursor": 7,
+  "price_cursor": 16,
   "properties": {
     "https://www.athome.co.jp/kodate/1012848820/": {
       "first_seen": "2026-09-11T12:23:14.106524+00:00",
@@ -3277,7 +3277,7 @@
     },
     "https://www.athome.co.jp/kodate/6992068934/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
-      "last_seen": "2026-09-14T23:44:29.901684+00:00",
+      "last_seen": "2026-09-15T07:09:14.103862+00:00",
       "price": 6580.0,
       "price_history": [
         {
@@ -3290,9 +3290,16 @@
     },
     "https://www.athome.co.jp/kodate/6992071850/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
-      "last_seen": "2026-09-11T02:42:36.622271+00:00",
-      "price": null,
-      "price_history": []
+      "last_seen": "2026-09-15T07:09:14.103862+00:00",
+      "price": 6480.0,
+      "price_history": [
+        {
+          "at": "2026-09-15T07:09:14.103862+00:00",
+          "price": 6480.0
+        }
+      ],
+      "title": "【アットホーム】立川市 栄町４丁目（立川駅） 2階建 ４ＬＤＫ[6992071850]立川市の一戸建て（提供元：(株)なかやま不動産）｜一軒家・家の購入",
+      "type": "新築一戸建て"
     },
     "https://www.athome.co.jp/kodate/6992074387/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
@@ -3449,5 +3456,5 @@
       "type": "新築一戸建て"
     }
   },
-  "updated_at": "2026-09-15T06:56:26.308324+00:00"
+  "updated_at": "2026-09-15T07:09:14.103862+00:00"
 }
