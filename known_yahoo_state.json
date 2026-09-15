@@ -602,8 +602,8 @@
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024965819/"
     ],
     "notified_fingerprints": {},
-    "price_cursor": 320,
-    "updated_at": "2026-09-15T07:48:12.890217+00:00"
+    "price_cursor": 340,
+    "updated_at": "2026-09-15T08:01:25.140802+00:00"
   },
   "properties": {
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0021198071/": {
@@ -1341,7 +1341,8 @@
       "floor_plan": "3LDK",
       "land_area": 87.61,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
-      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "last_seen": "2026-09-15T08:01:25.140802+00:00",
+      "parse_status": "complete",
       "price": 46990000,
       "title": "練馬区西大泉4丁目（株式会社家どっと足立） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 25
@@ -1544,7 +1545,8 @@
       "floor_plan": "3LDK＋小屋裏収納、納戸",
       "land_area": 111.46,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T20:35:57.087013+00:00",
+      "last_seen": "2026-09-15T08:01:25.140802+00:00",
+      "parse_status": "complete",
       "price": 48800000,
       "title": "練馬区南大泉3丁目（藤和ハウス 大泉学園店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 12
@@ -1882,7 +1884,8 @@
       "floor_plan": "2DK",
       "land_area": 43.88,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "last_seen": "2026-09-15T08:01:25.140802+00:00",
+      "parse_status": "complete",
       "price": 40800000,
       "title": "練馬区田柄5丁目（株式会社東宝ハウス城東） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 10
@@ -2462,7 +2465,8 @@
       "floor_plan": "2DK＋小屋裏収納",
       "land_area": 43.88,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "last_seen": "2026-09-15T08:01:25.140802+00:00",
+      "parse_status": "complete",
       "price": 40800000,
       "title": "練馬区田柄5丁目（藤和ハウス 大泉学園店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 9
@@ -2707,7 +2711,8 @@
       "floor_plan": "3LDK",
       "land_area": 87.61,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "last_seen": "2026-09-15T08:01:25.140802+00:00",
+      "parse_status": "complete",
       "price": 46990000,
       "title": "練馬区西大泉4丁目（株式会社エステート白馬 中野店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 29
@@ -2750,7 +2755,8 @@
       "floor_plan": "3LDK",
       "land_area": 87.61,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
-      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "last_seen": "2026-09-15T08:01:25.140802+00:00",
+      "parse_status": "complete",
       "price": 46990000,
       "title": "練馬区西大泉4丁目（ベストセレクト 赤羽支社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 25
@@ -2793,8 +2799,8 @@
       "floor_plan": "3LDK",
       "land_area": 87.61,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-15T01:04:07.299673+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T08:01:25.140802+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 46990000,
       "title": "練馬区西大泉4丁目（藤和ハウス 大泉学園店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -2851,8 +2857,8 @@
       "floor_plan": "3LDK",
       "land_area": 87.61,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
-      "last_seen": "2026-09-15T01:04:07.299673+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T08:01:25.140802+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 46990000,
       "title": "練馬区西大泉4丁目（おうちの仲介＋ ひばりヶ丘営業所） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -2881,8 +2887,8 @@
       "floor_plan": "3LDK",
       "land_area": 87.61,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-15T01:04:07.299673+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T08:01:25.140802+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 46990000,
       "title": "練馬区西大泉4丁目（株式会社東宝ハウス練馬） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -3099,8 +3105,8 @@
       "floor_plan": "3LDK",
       "land_area": 87.61,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-15T01:04:07.299673+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T08:01:25.140802+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 46990000,
       "title": "練馬区西大泉4丁目（株式会社マイタウンSLM事業部） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -3201,7 +3207,8 @@
       "floor_plan": "3LDK",
       "land_area": 87.61,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T16:19:50.368375+00:00",
+      "last_seen": "2026-09-15T08:01:25.140802+00:00",
+      "parse_status": "complete",
       "price": 46990000,
       "title": "練馬区西大泉4丁目（株式会社東宝ハウス国分寺） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 25
@@ -3453,7 +3460,8 @@
       "floor_plan": "3LDK",
       "land_area": 87.61,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
-      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "last_seen": "2026-09-15T08:01:25.140802+00:00",
+      "parse_status": "complete",
       "price": 46990000,
       "title": "練馬区西大泉4丁目（アジアンリアルティ株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 25
@@ -4088,8 +4096,8 @@
       "floor_plan": "3LDK",
       "land_area": 87.61,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（1台） 各項目の詳細に関",
-      "last_seen": "2026-09-15T01:04:07.299673+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T08:01:25.140802+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 46990000,
       "title": "練馬区西大泉4丁目（株式会社 日建不動産） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -6570,7 +6578,8 @@
       "floor_plan": "3LDK",
       "land_area": 87.61,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 カースペー",
-      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "last_seen": "2026-09-15T08:01:25.140802+00:00",
+      "parse_status": "complete",
       "price": 46990000,
       "title": "練馬区西大泉4丁目（株式会社住協 大泉支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 32
@@ -7014,7 +7023,7 @@
       "floor_plan": "4LDK",
       "land_area": 92.9,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円 駐車場",
-      "last_seen": "2026-09-15T07:48:12.890217+00:00",
+      "last_seen": "2026-09-15T08:01:25.140802+00:00",
       "parse_status": "complete",
       "price": 59800000,
       "title": "練馬区富士見台3丁目（アドキャスト 池袋支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
@@ -7116,8 +7125,8 @@
       "floor_plan": "3LDK",
       "land_area": 87.61,
       "land_right": "形態 所有権のみ 駐車場・車庫 無 各項目の詳細に関しまして",
-      "last_seen": "2026-09-15T01:04:07.299673+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T08:01:25.140802+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 49990000,
       "title": "練馬区西大泉4丁目（ARROW LINK株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -7927,7 +7936,8 @@
       "floor_plan": "3LDK",
       "land_area": 87.61,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 おすすめポイント ○少し",
-      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "last_seen": "2026-09-15T08:01:25.140802+00:00",
+      "parse_status": "complete",
       "price": 46990000,
       "title": "練馬区西大泉4丁目（不動産無料相談センター（株）クオリアホーム） - 中古一戸建て｜Yahoo!不動産閉じる前へ次へ初期費用について閉じる",
       "walk_minutes": 25
@@ -8252,7 +8262,8 @@
       "floor_plan": "2DK",
       "land_area": 43.88,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "last_seen": "2026-09-15T08:01:25.140802+00:00",
+      "parse_status": "complete",
       "price": 40800000,
       "title": "練馬区田柄5丁目（ME不動産西東京株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 10
@@ -8614,7 +8625,8 @@
       "floor_plan": "3LDK",
       "land_area": 87.61,
       "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T16:36:45.017974+00:00",
+      "last_seen": "2026-09-15T08:01:25.140802+00:00",
+      "parse_status": "complete",
       "price": 49990000,
       "title": "練馬区西大泉4丁目（株式会社フェリアホーム 千駄ヶ谷本店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 32
@@ -9344,8 +9356,8 @@
       "floor_plan": "3LDK",
       "land_area": 87.61,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-15T01:04:07.299673+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T08:01:25.140802+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 46990000,
       "title": "練馬区西大泉4丁目（朝日土地建物 所沢支店 営業1課） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
