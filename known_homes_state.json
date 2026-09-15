@@ -5,7 +5,6 @@
       "https://www.homes.co.jp/kodate/b-1020740087872/",
       "https://www.homes.co.jp/kodate/b-1140530012291/",
       "https://www.homes.co.jp/kodate/b-1140530012359/",
-      "https://www.homes.co.jp/kodate/b-1198450011038/",
       "https://www.homes.co.jp/kodate/b-1278120011647/",
       "https://www.homes.co.jp/kodate/b-1278120011853/",
       "https://www.homes.co.jp/kodate/b-1278120011866/",
@@ -671,6 +670,17 @@
       "price": 6495.0,
       "title": "【ホームズ】練馬区下石神井2丁目 中古戸建｜練馬区、西武新宿線 上井草駅 徒歩13分の中古一戸建て",
       "updated_at": "2026-09-10T17:52:38.047769+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1198450011038/": {
+      "address": "東京都練馬区土支田4丁目",
+      "age": 7.9,
+      "area": 100.19,
+      "city": "練馬区",
+      "land_right": "所有権",
+      "min_walk": null,
+      "price": 5980.0,
+      "title": "【ホームズ】練馬区土支田4丁目｜練馬区、都営大江戸線 光が丘駅 バス12分 土支田二丁目下車 徒歩5分の中古一戸建て",
+      "updated_at": "2026-09-15T06:51:51.378250+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1213760000118/": {
       "address": "東京都練馬区南大泉4丁目32-28",
