@@ -602,8 +602,8 @@
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024965819/"
     ],
     "notified_fingerprints": {},
-    "price_cursor": 300,
-    "updated_at": "2026-09-15T07:29:35.844114+00:00"
+    "price_cursor": 320,
+    "updated_at": "2026-09-15T07:48:12.890217+00:00"
   },
   "properties": {
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0021198071/": {
@@ -1661,7 +1661,8 @@
       "floor_plan": "1LDK",
       "land_area": 34.89,
       "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T16:19:50.368375+00:00",
+      "last_seen": "2026-09-15T07:48:12.890217+00:00",
+      "parse_status": "complete",
       "price": 29800000,
       "title": "練馬区貫井5丁目（アドキャスト 池袋支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 12
@@ -1675,7 +1676,8 @@
       "floor_plan": "1LDK",
       "land_area": 34.89,
       "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T16:19:50.368375+00:00",
+      "last_seen": "2026-09-15T07:48:12.890217+00:00",
+      "parse_status": "complete",
       "price": 29800000,
       "title": "練馬区貫井5丁目（株式会社東宝ハウス城東） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 12
@@ -1733,7 +1735,8 @@
       "floor_plan": "1LDK",
       "land_area": 34.89,
       "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T16:19:50.368375+00:00",
+      "last_seen": "2026-09-15T07:48:12.890217+00:00",
+      "parse_status": "complete",
       "price": 29800000,
       "title": "練馬区貫井5丁目（ME不動産城北株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 12
@@ -2354,7 +2357,8 @@
       "floor_plan": "3LDK（＋アトリエ）",
       "land_area": 163.39,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円 駐車場",
-      "last_seen": "2026-09-14T15:55:19.046621+00:00",
+      "last_seen": "2026-09-15T07:48:12.890217+00:00",
+      "parse_status": "complete",
       "price": 99800000,
       "title": "練馬区富士見台4丁目（アドキャスト 池袋支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 7
@@ -2969,6 +2973,21 @@
       "title": "西東京市北町2丁目（西武開発 ひばりヶ丘店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 18
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025024159/": {
+      "address": "東京都練馬区西大泉4丁目 [地図を確認]",
+      "building_area": 83.63,
+      "construction_date": "2011-10",
+      "fingerprint": "9507ae03e4abe424085478036487ada2da05a0f78333d693ae974e822c24d2be",
+      "first_seen": "2026-09-15T07:48:12.890217+00:00",
+      "floor_plan": "3LDK",
+      "land_area": 87.61,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-15T07:48:12.890217+00:00",
+      "parse_status": "missing_walk_minutes",
+      "price": 46990000,
+      "title": "練馬区西大泉4丁目（マイタウン西武） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": null
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025024887/": {
       "address": "東京都杉並区西荻南1丁目 [地図を確認]",
       "building_area": 123.04,
@@ -3270,7 +3289,8 @@
       "floor_plan": "3LDK",
       "land_area": 163.39,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
-      "last_seen": "2026-09-14T15:55:19.046621+00:00",
+      "last_seen": "2026-09-15T07:48:12.890217+00:00",
+      "parse_status": "complete",
       "price": 99800000,
       "title": "練馬区富士見台4丁目（ベストセレクト 赤羽支社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 7
@@ -4038,8 +4058,8 @@
       "floor_plan": "1SLDK（2S）",
       "land_area": 112.02,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-15T01:04:07.299673+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T07:48:12.890217+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 39800000,
       "title": "練馬区大泉学園町6丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -4451,7 +4471,8 @@
       "floor_plan": "1LDK",
       "land_area": 34.89,
       "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T16:19:50.368375+00:00",
+      "last_seen": "2026-09-15T07:48:12.890217+00:00",
+      "parse_status": "complete",
       "price": 29800000,
       "title": "練馬区貫井5丁目（株式会社東宝ハウス練馬） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 12
@@ -4835,8 +4856,8 @@
       "floor_plan": "3LDK",
       "land_area": 93.01,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-15T00:50:17.294622+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T07:48:12.890217+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 59800000,
       "title": "練馬区大泉町2丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -5290,7 +5311,8 @@
       "floor_plan": "3SLDK",
       "land_area": 154.86,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T16:19:50.368375+00:00",
+      "last_seen": "2026-09-15T07:48:12.890217+00:00",
+      "parse_status": "complete",
       "price": 10000,
       "title": "練馬区春日町6丁目（株式会社東宝ハウス東京） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 7
@@ -5406,8 +5428,8 @@
       "floor_plan": "3LDK",
       "land_area": 93.01,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-15T00:50:17.294622+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T07:48:12.890217+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 59800000,
       "title": "練馬区大泉町2丁目（藤和ハウス 大泉学園店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -6084,7 +6106,8 @@
       "floor_plan": "3LDK",
       "land_area": 93.01,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円 駐車場",
-      "last_seen": "2026-09-14T16:19:50.368375+00:00",
+      "last_seen": "2026-09-15T07:48:12.890217+00:00",
+      "parse_status": "complete",
       "price": 59800000,
       "title": "練馬区大泉町2丁目（アドキャスト 池袋支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 33
@@ -6430,7 +6453,8 @@
       "floor_plan": "2SLDK（＋S）",
       "land_area": 129.32,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T16:19:50.368375+00:00",
+      "last_seen": "2026-09-15T07:48:12.890217+00:00",
+      "parse_status": "complete",
       "price": 27800000,
       "title": "練馬区大泉学園町5丁目（株式会社東宝ハウス城東） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 28
@@ -6677,8 +6701,8 @@
       "floor_plan": "4LDK＋S",
       "land_area": 137.48,
       "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
-      "last_seen": "2026-09-15T00:50:17.294622+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T07:48:12.890217+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 10000,
       "title": "練馬区石神井町4丁目（ME不動産西東京株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -6945,7 +6969,8 @@
       "floor_plan": "4LDK",
       "land_area": 92.9,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T16:19:50.368375+00:00",
+      "last_seen": "2026-09-15T07:48:12.890217+00:00",
+      "parse_status": "complete",
       "price": 59800000,
       "title": "練馬区富士見台3丁目（株式会社エステート白馬 中野店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 8
@@ -6989,7 +7014,8 @@
       "floor_plan": "4LDK",
       "land_area": 92.9,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円 駐車場",
-      "last_seen": "2026-09-14T16:19:50.368375+00:00",
+      "last_seen": "2026-09-15T07:48:12.890217+00:00",
+      "parse_status": "complete",
       "price": 59800000,
       "title": "練馬区富士見台3丁目（アドキャスト 池袋支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 8
@@ -7208,7 +7234,8 @@
       "floor_plan": "4LDK",
       "land_area": 92.9,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T16:19:50.368375+00:00",
+      "last_seen": "2026-09-15T07:48:12.890217+00:00",
+      "parse_status": "complete",
       "price": 59800000,
       "title": "練馬区富士見台3丁目（株式会社東宝ハウス練馬） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 8
@@ -7382,7 +7409,8 @@
       "floor_plan": "4LDK",
       "land_area": 92.9,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T16:19:50.368375+00:00",
+      "last_seen": "2026-09-15T07:48:12.890217+00:00",
+      "parse_status": "complete",
       "price": 59800000,
       "title": "練馬区富士見台3丁目（株式会社東宝ハウス国分寺） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 8
@@ -7662,7 +7690,8 @@
       "floor_plan": "4LDK",
       "land_area": 92.9,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T16:19:50.368375+00:00",
+      "last_seen": "2026-09-15T07:48:12.890217+00:00",
+      "parse_status": "complete",
       "price": 59800000,
       "title": "練馬区富士見台3丁目（株式会社マイタウンSLM事業部） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 8
@@ -7720,7 +7749,7 @@
       "floor_plan": "3LDK",
       "land_area": 163.39,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-15T07:29:35.844114+00:00",
+      "last_seen": "2026-09-15T07:48:12.890217+00:00",
       "parse_status": "missing_walk_minutes",
       "price": 99800000,
       "title": "練馬区富士見台4丁目（ME不動産西東京株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
@@ -9110,7 +9139,8 @@
       "floor_plan": "4LDK",
       "land_area": 117.17,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円 駐車場",
-      "last_seen": "2026-09-14T16:19:50.368375+00:00",
+      "last_seen": "2026-09-15T07:48:12.890217+00:00",
+      "parse_status": "complete",
       "price": 84800000,
       "title": "練馬区谷原5丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 20
