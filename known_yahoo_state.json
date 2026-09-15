@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "baseline_cursor": 438,
+    "baseline_cursor": 472,
     "baseline_in_progress": true,
     "baseline_initialized": false,
     "baseline_reset_at": null,
@@ -599,11 +599,12 @@
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025233891/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025386194/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023678357/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025259372/"
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025194576/",
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024973695/"
     ],
     "notified_fingerprints": {},
     "price_cursor": 0,
-    "updated_at": "2026-09-15T01:29:18.140874+00:00"
+    "updated_at": "2026-09-15T01:46:51.502155+00:00"
   },
   "properties": {
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0021198071/": {
@@ -647,6 +648,21 @@
       "price": 83800000,
       "title": "豊島区池袋本町1丁目（株式会社エステート白馬 中野店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 2
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023550228/": {
+      "address": "東京都三鷹市大沢4丁目 [地図を確認]",
+      "building_area": 151.94,
+      "construction_date": "1986-07",
+      "fingerprint": "6ccd70c1bea6ae1b9f63f03be3b8bd5957b240595c6e91940415ddb0f6fe2c89",
+      "first_seen": "2026-09-15T01:46:51.502155+00:00",
+      "floor_plan": "5LDK",
+      "land_area": 291.15,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-15T01:46:51.502155+00:00",
+      "parse_status": "baseline_nonqualifying",
+      "price": 72800000,
+      "title": "三鷹市大沢4丁目（藤和ハウス 三鷹店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": null
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023565966/": {
       "address": "東京都中野区東中野1丁目 [地図を確認]",
@@ -1961,6 +1977,21 @@
       "title": "西東京市緑町2丁目（おうちの仲介＋ 東久留米営業所） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024887857/": {
+      "address": "東京都三鷹市深大寺2丁目 [地図を確認]",
+      "building_area": 119.86,
+      "construction_date": "2003-05",
+      "fingerprint": "98a58c357d863cd66f6531858416603a29728812e815a555d10af9bbd8e7fc96",
+      "first_seen": "2026-09-15T01:46:51.502155+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 100.52,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-15T01:46:51.502155+00:00",
+      "parse_status": "baseline_nonqualifying",
+      "price": 54800000,
+      "title": "三鷹市深大寺2丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": null
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024892213/": {
       "address": "東京都練馬区谷原5丁目 [地図を確認]",
       "building_area": 103.77,
@@ -2938,6 +2969,21 @@
       "title": "練馬区富士見台4丁目（ベストセレクト 赤羽支社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 7
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025056437/": {
+      "address": "東京都三鷹市上連雀6丁目 [地図を確認]",
+      "building_area": 88.75,
+      "construction_date": "2010-05",
+      "fingerprint": "a4a79885ce6a4f1300642ebd3f59dbb9d7b3af10abf3ae0a418a31d20bc75bf0",
+      "first_seen": "2026-09-15T01:46:51.502155+00:00",
+      "floor_plan": "2LDK（K）",
+      "land_area": 56.25,
+      "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
+      "last_seen": "2026-09-15T01:46:51.502155+00:00",
+      "parse_status": "baseline_nonqualifying",
+      "price": 48900000,
+      "title": "三鷹市上連雀6丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": null
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025056864/": {
       "address": "東京都豊島区上池袋1丁目 [地図を確認]",
       "building_area": 114.8,
@@ -3365,6 +3411,21 @@
       "title": "杉並区成田東1丁目（株式会社大和・アクタス 高円寺本社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 15
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025099274/": {
+      "address": "東京都三鷹市大沢4丁目 [地図を確認]",
+      "building_area": 151.94,
+      "construction_date": "1986-07",
+      "fingerprint": "667311ab240b8ad994027d3e07c123536f335fc53aac933afa9f85c1b38f01d6",
+      "first_seen": "2026-09-15T01:46:51.502155+00:00",
+      "floor_plan": "5LDK",
+      "land_area": 287.62,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-15T01:46:51.502155+00:00",
+      "parse_status": "baseline_nonqualifying",
+      "price": 72800000,
+      "title": "三鷹市大沢4丁目（ME不動産西東京株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": null
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025099323/": {
       "address": "東京都三鷹市深大寺2丁目 [地図を確認]",
       "building_area": 87.48,
@@ -3506,6 +3567,21 @@
       "price": 71990000,
       "title": "練馬区春日町1丁目（東京リアルティ株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 6
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025110041/": {
+      "address": "東京都三鷹市深大寺2丁目 [地図を確認]",
+      "building_area": 405.51,
+      "construction_date": "1992-04",
+      "fingerprint": "a5661c1a12e13e40f1aac778363aefbd60239774135defc521610764b335779d",
+      "first_seen": "2026-09-15T01:46:51.502155+00:00",
+      "floor_plan": "14LDK",
+      "land_area": 401.26,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-15T01:46:51.502155+00:00",
+      "parse_status": "baseline_nonqualifying",
+      "price": 10000,
+      "title": "三鷹市深大寺2丁目（ME不動産西東京株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": null
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025110118/": {
       "address": "東京都豊島区目白2丁目 [地図を確認]",
@@ -3706,6 +3782,21 @@
       "title": "中野区本町2丁目（昭和建物株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 6
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025120885/": {
+      "address": "東京都三鷹市大沢5丁目 [地図を確認]",
+      "building_area": 108.47,
+      "construction_date": "2016-10",
+      "fingerprint": "5649badd70957a3071924e95d1e36d45fc7330106360a3f61936d988f38e8560",
+      "first_seen": "2026-09-15T01:46:51.502155+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 86.51,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料） 各項目の",
+      "last_seen": "2026-09-15T01:46:51.502155+00:00",
+      "parse_status": "baseline_nonqualifying",
+      "price": 58000000,
+      "title": "三鷹市大沢5丁目（殖産ベスト株式会社 お問い合わせ窓口） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": null
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025121125/": {
       "address": "東京都豊島区北大塚3丁目 [地図を確認]",
       "building_area": 62.71,
@@ -3859,6 +3950,21 @@
       "price": 50990000,
       "title": "西東京市北町2丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 18
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025129939/": {
+      "address": "東京都三鷹市大沢5丁目 [地図を確認]",
+      "building_area": 86.51,
+      "construction_date": "2016-10",
+      "fingerprint": "7bb7dbc4eeede9d1190fd13f0b8d538fb5f53f710208b2bfa05b84ab7e09db3c",
+      "first_seen": "2026-09-15T01:46:51.502155+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 108.47,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（3台 並列） 各項目の詳",
+      "last_seen": "2026-09-15T01:46:51.502155+00:00",
+      "parse_status": "baseline_nonqualifying",
+      "price": 58000000,
+      "title": "三鷹市大沢5丁目（株式会社エステート白馬 国分寺店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": null
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025129989/": {
       "address": "東京都中野区本町2丁目 [地図を確認]",
@@ -4098,6 +4204,21 @@
       "price": 87800000,
       "title": "中野区野方5丁目（グローバルインク株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 6
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025144483/": {
+      "address": "東京都三鷹市大沢4丁目 [地図を確認]",
+      "building_area": 151.94,
+      "construction_date": "1986-07",
+      "fingerprint": "72622949cf1e95c2e7d5418bb0acd5fff976ce41be7819761f3e20e45c8234cc",
+      "first_seen": "2026-09-15T01:46:51.502155+00:00",
+      "floor_plan": "5LDK以上",
+      "land_area": 291.15,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-15T01:46:51.502155+00:00",
+      "parse_status": "baseline_nonqualifying",
+      "price": 72800000,
+      "title": "三鷹市大沢4丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": null
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025146124/": {
       "address": "東京都中野区野方5丁目 [地図を確認]",
@@ -4354,6 +4475,21 @@
       "title": "西東京市保谷町1丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 8
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025164948/": {
+      "address": "東京都三鷹市大沢5丁目 [地図を確認]",
+      "building_area": 108.47,
+      "construction_date": "2016-10",
+      "fingerprint": "5649badd70957a3071924e95d1e36d45fc7330106360a3f61936d988f38e8560",
+      "first_seen": "2026-09-15T01:46:51.502155+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 86.51,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円 駐車場",
+      "last_seen": "2026-09-15T01:46:51.502155+00:00",
+      "parse_status": "baseline_nonqualifying",
+      "price": 58000000,
+      "title": "三鷹市大沢5丁目（株式会社東宝ハウス調布） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": null
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025165867/": {
       "address": "東京都西東京市保谷町1丁目 [地図を確認]",
       "building_area": 82.39,
@@ -4509,6 +4645,21 @@
       "title": "立川市砂川町8丁目（株式会社エステート白馬 国分寺店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 8
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025186339/": {
+      "address": "東京都三鷹市大沢4丁目 [地図を確認]",
+      "building_area": 93.98,
+      "construction_date": "2023-05",
+      "fingerprint": "4800ae6278848f1465a9a4f87c7ebeac26863938a5675142928f7ed0ab46fcb1",
+      "first_seen": "2026-09-15T01:46:51.502155+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 124.05,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（2台可） 各項目の詳細に",
+      "last_seen": "2026-09-15T01:46:51.502155+00:00",
+      "parse_status": "baseline_nonqualifying",
+      "price": 58980000,
+      "title": "三鷹市大沢4丁目（株式会社エステート白馬 国分寺店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": null
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025192443/": {
       "address": "東京都立川市若葉町3丁目 [地図を確認]",
       "building_area": 86.1,
@@ -4596,6 +4747,36 @@
       "title": "武蔵野市吉祥寺北町3丁目（株式会社エステート白馬 国分寺店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025194574/": {
+      "address": "東京都三鷹市大沢4丁目 [地図を確認]",
+      "building_area": 93.98,
+      "construction_date": "2023-05",
+      "fingerprint": "4800ae6278848f1465a9a4f87c7ebeac26863938a5675142928f7ed0ab46fcb1",
+      "first_seen": "2026-09-15T01:46:51.502155+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 124.05,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料） 各項目の",
+      "last_seen": "2026-09-15T01:46:51.502155+00:00",
+      "parse_status": "baseline_nonqualifying",
+      "price": 58980000,
+      "title": "三鷹市大沢4丁目（殖産ベスト株式会社 お問い合わせ窓口） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": null
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025196042/": {
+      "address": "東京都三鷹市大沢4丁目 [地図を確認]",
+      "building_area": 93.98,
+      "construction_date": "2023-05",
+      "fingerprint": "4800ae6278848f1465a9a4f87c7ebeac26863938a5675142928f7ed0ab46fcb1",
+      "first_seen": "2026-09-15T01:46:51.502155+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 124.05,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円 駐車場",
+      "last_seen": "2026-09-15T01:46:51.502155+00:00",
+      "parse_status": "baseline_nonqualifying",
+      "price": 58980000,
+      "title": "三鷹市大沢4丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": null
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025196062/": {
       "address": "東京都中野区上鷺宮5丁目 [地図を確認]",
       "building_area": 44.55,
@@ -4609,6 +4790,21 @@
       "price": 34800000,
       "title": "中野区上鷺宮5丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 8
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025196727/": {
+      "address": "東京都三鷹市大沢4丁目 [地図を確認]",
+      "building_area": 93.98,
+      "construction_date": "2023-05",
+      "fingerprint": "4800ae6278848f1465a9a4f87c7ebeac26863938a5675142928f7ed0ab46fcb1",
+      "first_seen": "2026-09-15T01:46:51.502155+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 124.05,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-15T01:46:51.502155+00:00",
+      "parse_status": "baseline_nonqualifying",
+      "price": 58980000,
+      "title": "三鷹市大沢4丁目（株式会社東宝ハウス東京） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": null
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025197558/": {
       "address": "東京都練馬区東大泉5丁目 [地図を確認]",
@@ -4796,6 +4992,21 @@
       "title": "練馬区大泉町2丁目（藤和ハウス 大泉学園店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025213170/": {
+      "address": "東京都三鷹市大沢4丁目 [地図を確認]",
+      "building_area": 93.98,
+      "construction_date": "2023-05",
+      "fingerprint": "4800ae6278848f1465a9a4f87c7ebeac26863938a5675142928f7ed0ab46fcb1",
+      "first_seen": "2026-09-15T01:46:51.502155+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 124.05,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-15T01:46:51.502155+00:00",
+      "parse_status": "baseline_nonqualifying",
+      "price": 58980000,
+      "title": "三鷹市大沢4丁目（ME不動産西東京株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": null
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025213246/": {
       "address": "東京都西東京市北町4丁目 [地図を確認]",
       "building_area": 107.46,
@@ -4824,6 +5035,21 @@
       "title": "武蔵野市吉祥寺東町1丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 9
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025213416/": {
+      "address": "東京都三鷹市大沢5丁目 [地図を確認]",
+      "building_area": 86.51,
+      "construction_date": "2016-10",
+      "fingerprint": "7bb7dbc4eeede9d1190fd13f0b8d538fb5f53f710208b2bfa05b84ab7e09db3c",
+      "first_seen": "2026-09-15T01:46:51.502155+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 108.47,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円 駐車場",
+      "last_seen": "2026-09-15T01:46:51.502155+00:00",
+      "parse_status": "baseline_nonqualifying",
+      "price": 58000000,
+      "title": "三鷹市大沢5丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": null
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025213770/": {
       "address": "東京都西東京市北町4丁目 [地図を確認]",
       "building_area": 107.46,
@@ -4837,6 +5063,21 @@
       "price": 66800000,
       "title": "西東京市北町4丁目（アジアンリアルティ株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 20
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025216978/": {
+      "address": "東京都三鷹市大沢4丁目 [地図を確認]",
+      "building_area": 93.98,
+      "construction_date": "2023-05",
+      "fingerprint": "4800ae6278848f1465a9a4f87c7ebeac26863938a5675142928f7ed0ab46fcb1",
+      "first_seen": "2026-09-15T01:46:51.502155+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 124.05,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-15T01:46:51.502155+00:00",
+      "parse_status": "baseline_nonqualifying",
+      "price": 58980000,
+      "title": "三鷹市大沢4丁目（株式会社東宝ハウス国分寺） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": null
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025219256/": {
       "address": "東京都西東京市北町4丁目 [地図を確認]",
@@ -4964,6 +5205,21 @@
       "price": 74800000,
       "title": "杉並区阿佐谷北2丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 6
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025225896/": {
+      "address": "東京都三鷹市大沢4丁目 [地図を確認]",
+      "building_area": 93.98,
+      "construction_date": "2023-05",
+      "fingerprint": "264ad9d2290d2f0d2e3951b7b6b10a4e48716c681e19659519e82949cb92ced9",
+      "first_seen": "2026-09-15T01:46:51.502155+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 124.05,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円 駐車場",
+      "last_seen": "2026-09-15T01:46:51.502155+00:00",
+      "parse_status": "baseline_nonqualifying",
+      "price": 59480000,
+      "title": "三鷹市大沢4丁目（株式会社東宝ハウス調布） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": null
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025226805/": {
       "address": "東京都西東京市北町4丁目 [地図を確認]",
@@ -5431,6 +5687,21 @@
       "title": "西東京市中町2丁目（株式会社エステート白馬 所沢店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 13
     },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025273222/": {
+      "address": "東京都三鷹市大沢5丁目 [地図を確認]",
+      "building_area": 86.51,
+      "construction_date": "2016-10",
+      "fingerprint": "4161924fd62b8b9880a6c97855fe36f9e89b0b621d88ff05151e3692506c6d2f",
+      "first_seen": "2026-09-15T01:46:51.502155+00:00",
+      "floor_plan": "4LDK 間取り図が欲しい無料",
+      "land_area": 108.47,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（1台） 各項目の詳細に関",
+      "last_seen": "2026-09-15T01:46:51.502155+00:00",
+      "parse_status": "baseline_nonqualifying",
+      "price": 58000000,
+      "title": "三鷹市大沢5丁目（オープンハウス 調布営業センター） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": null
+    },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025273495/": {
       "address": "東京都西東京市中町2丁目 [地図を確認]",
       "building_area": 93.15,
@@ -5558,6 +5829,21 @@
       "parse_status": "baseline_nonqualifying",
       "price": 35800000,
       "title": "立川市栄町2丁目（西武開発 立川店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": null
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025276207/": {
+      "address": "東京都三鷹市大沢4丁目 [地図を確認]",
+      "building_area": 93.98,
+      "construction_date": "2023-05",
+      "fingerprint": "4800ae6278848f1465a9a4f87c7ebeac26863938a5675142928f7ed0ab46fcb1",
+      "first_seen": "2026-09-15T01:46:51.502155+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 124.05,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-15T01:46:51.502155+00:00",
+      "parse_status": "baseline_nonqualifying",
+      "price": 58980000,
+      "title": "三鷹市大沢4丁目（藤和ハウス 調布店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025276991/": {
@@ -7016,6 +7302,21 @@
       "price": 77800000,
       "title": "中野区上鷺宮1丁目（ME不動産城北株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 12
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025359915/": {
+      "address": "東京都三鷹市大沢4丁目 [地図を確認]",
+      "building_area": 93.98,
+      "construction_date": "2023-05",
+      "fingerprint": "4800ae6278848f1465a9a4f87c7ebeac26863938a5675142928f7ed0ab46fcb1",
+      "first_seen": "2026-09-15T01:46:51.502155+00:00",
+      "floor_plan": "4LDK",
+      "land_area": 124.05,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
+      "last_seen": "2026-09-15T01:46:51.502155+00:00",
+      "parse_status": "baseline_nonqualifying",
+      "price": 58980000,
+      "title": "三鷹市大沢4丁目（株式会社東宝ハウス練馬） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": null
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025360455/": {
       "address": "東京都中野区上鷺宮1丁目 [地図を確認]",
