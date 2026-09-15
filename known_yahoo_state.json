@@ -602,8 +602,8 @@
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024965819/"
     ],
     "notified_fingerprints": {},
-    "price_cursor": 380,
-    "updated_at": "2026-09-15T08:49:31.835557+00:00"
+    "price_cursor": 400,
+    "updated_at": "2026-09-15T09:03:36.379959+00:00"
   },
   "properties": {
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0021198071/": {
@@ -615,7 +615,8 @@
       "floor_plan": "4LDK＋WIC、納戸",
       "land_area": 313.49,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T17:34:30.608875+00:00",
+      "last_seen": "2026-09-15T09:03:36.379959+00:00",
+      "parse_status": "complete",
       "price": 10000,
       "title": "立川市高松町1丁目（藤和ハウス インターネットお問い合わせセンター） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 11
@@ -820,7 +821,8 @@
       "floor_plan": "4LDK",
       "land_area": 115.01,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T17:34:30.608875+00:00",
+      "last_seen": "2026-09-15T09:03:36.379959+00:00",
+      "parse_status": "complete",
       "price": 45000000,
       "title": "立川市上砂町4丁目（株式会社東宝ハウス立川） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 10
@@ -954,7 +956,8 @@
       "floor_plan": "4SLDK",
       "land_area": 311.89,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T17:34:30.608875+00:00",
+      "last_seen": "2026-09-15T09:03:36.379959+00:00",
+      "parse_status": "complete",
       "price": 10000,
       "title": "立川市高松町1丁目（株式会社東宝ハウス立川） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 11
@@ -2482,7 +2485,8 @@
       "floor_plan": "3LDK",
       "land_area": 116.9,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T17:34:30.608875+00:00",
+      "last_seen": "2026-09-15T09:03:36.379959+00:00",
+      "parse_status": "complete",
       "price": 50800000,
       "title": "立川市幸町5丁目（株式会社東宝ハウス立川） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 10
@@ -3388,8 +3392,8 @@
       "floor_plan": "3LDK",
       "land_area": 106.19,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-15T01:29:18.140874+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T09:03:36.379959+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 35800000,
       "title": "立川市栄町2丁目（西武開発 国分寺店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -3567,7 +3571,8 @@
       "floor_plan": "4DK",
       "land_area": 77.78,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T17:34:30.608875+00:00",
+      "last_seen": "2026-09-15T09:03:36.379959+00:00",
+      "parse_status": "complete",
       "price": 16850000,
       "title": "立川市砂川町6丁目（株式会社エステート白馬 国分寺店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 16
@@ -3596,7 +3601,7 @@
       "floor_plan": "4LDK＋WIC、土間収納",
       "land_area": 114.56,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-15T08:49:31.835557+00:00",
+      "last_seen": "2026-09-15T09:03:36.379959+00:00",
       "parse_status": "complete",
       "price": 48800000,
       "title": "立川市砂川町6丁目（藤和ハウス 立川店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
@@ -4593,8 +4598,8 @@
       "floor_plan": "3LDK＋小屋裏収納",
       "land_area": 109.0,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-15T01:04:07.299673+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T09:03:36.379959+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 39900000,
       "title": "立川市若葉町3丁目（藤和ハウス インターネットお問い合わせセンター） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -4711,8 +4716,8 @@
       "floor_plan": "3LDK",
       "land_area": 109.0,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-15T01:29:18.140874+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T09:03:36.379959+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 39900000,
       "title": "立川市若葉町3丁目（株式会社東宝ハウス立川） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -4741,7 +4746,8 @@
       "floor_plan": "3LDK",
       "land_area": 109.0,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 住宅履歴情報 未保有 耐",
-      "last_seen": "2026-09-14T17:17:19.211082+00:00",
+      "last_seen": "2026-09-15T09:03:36.379959+00:00",
+      "parse_status": "complete",
       "price": 39900000,
       "title": "立川市若葉町3丁目（センチュリー21成ハウジング） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 34
@@ -5092,7 +5098,8 @@
       "floor_plan": "5LDK",
       "land_area": 349.0,
       "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T17:34:30.608875+00:00",
+      "last_seen": "2026-09-15T09:03:36.379959+00:00",
+      "parse_status": "complete",
       "price": 29800000,
       "title": "立川市砂川町8丁目（株式会社エステート白馬 国分寺店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 8
@@ -5285,8 +5292,8 @@
       "floor_plan": "1K",
       "land_area": 34.02,
       "land_right": "形態 所有権のみ 駐車場・車庫 無 各項目の詳細に関しまして",
-      "last_seen": "2026-09-15T01:04:07.299673+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T09:03:36.379959+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 15800000,
       "title": "立川市栄町5丁目（株式会社エステート白馬 国分寺店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -6025,8 +6032,8 @@
       "floor_plan": "4LDK",
       "land_area": 100.09,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-15T01:04:07.299673+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T09:03:36.379959+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 43800000,
       "title": "立川市一番町5丁目（西武開発 国分寺店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -6143,7 +6150,8 @@
       "floor_plan": "5LDK",
       "land_area": 349.0,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 住宅履歴情報 未保有 耐",
-      "last_seen": "2026-09-14T17:34:30.608875+00:00",
+      "last_seen": "2026-09-15T09:03:36.379959+00:00",
+      "parse_status": "complete",
       "price": 29800000,
       "title": "立川市砂川町8丁目（センチュリー21成ハウジング） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 8
@@ -6356,8 +6364,8 @@
       "floor_plan": "3LDK",
       "land_area": 106.19,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-15T01:29:18.140874+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T09:03:36.379959+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 35800000,
       "title": "立川市栄町2丁目（西武開発 立川店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -6446,7 +6454,8 @@
       "floor_plan": "4LDK",
       "land_area": 115.56,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T17:34:30.608875+00:00",
+      "last_seen": "2026-09-15T09:03:36.379959+00:00",
+      "parse_status": "complete",
       "price": 52800000,
       "title": "立川市栄町1丁目（株式会社東宝ハウス調布） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 23
@@ -6667,7 +6676,8 @@
       "floor_plan": "4LDK",
       "land_area": 191.37,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
-      "last_seen": "2026-09-14T17:34:30.608875+00:00",
+      "last_seen": "2026-09-15T09:03:36.379959+00:00",
+      "parse_status": "complete",
       "price": 52800000,
       "title": "立川市西砂町1丁目（株式会社ハウスバディ） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 4
@@ -7320,7 +7330,8 @@
       "floor_plan": "1LDK（1LDK＋事務所） 間取り図が欲しい無料",
       "land_area": 41.19,
       "land_right": "形態 所有権のみ 駐車場・車庫 無 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T17:34:30.608875+00:00",
+      "last_seen": "2026-09-15T09:03:36.379959+00:00",
+      "parse_status": "complete",
       "price": 23000000,
       "title": "立川市錦町1丁目（オープンハウス 立川営業センター） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 11
@@ -8858,7 +8869,8 @@
       "floor_plan": "5LDK",
       "land_area": 349.0,
       "land_right": "形態 所有権のみ 駐車場・車庫 無 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T17:34:30.608875+00:00",
+      "last_seen": "2026-09-15T09:03:36.379959+00:00",
+      "parse_status": "complete",
       "price": 29800000,
       "title": "立川市砂川町8丁目（株式会社ハウスバディ） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 8
@@ -9136,8 +9148,8 @@
       "floor_plan": "3LDK",
       "land_area": 109.0,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
-      "last_seen": "2026-09-15T01:04:07.299673+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T09:03:36.379959+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 39900000,
       "title": "立川市若葉町3丁目（株式会社ハウスバディ） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
