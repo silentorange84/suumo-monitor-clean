@@ -602,8 +602,8 @@
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024965819/"
     ],
     "notified_fingerprints": {},
-    "price_cursor": 560,
-    "updated_at": "2026-09-15T11:26:27.095161+00:00"
+    "price_cursor": 580,
+    "updated_at": "2026-09-15T11:44:27.966577+00:00"
   },
   "properties": {
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0021198071/": {
@@ -750,7 +750,8 @@
       "floor_plan": "3LDK",
       "land_area": 82.64,
       "land_right": "形態 所有権のみ 駐車場・車庫 駐車場料金:0円 各項目の詳",
-      "last_seen": "2026-09-14T20:00:45.936732+00:00",
+      "last_seen": "2026-09-15T11:44:27.966577+00:00",
+      "parse_status": "complete",
       "price": 19800000,
       "title": "西東京市北町3丁目（株式会社東宝ハウス練馬） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 22
@@ -2137,8 +2138,8 @@
       "floor_plan": "3LDK",
       "land_area": 114.28,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 カースペー",
-      "last_seen": "2026-09-15T00:27:14.120271+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T11:44:27.966577+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 50800000,
       "title": "西東京市緑町2丁目（おうちの仲介＋ ひばりヶ丘営業所） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -2152,8 +2153,8 @@
       "floor_plan": "3LDK",
       "land_area": 114.28,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 カースペー",
-      "last_seen": "2026-09-15T00:27:14.120271+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T11:44:27.966577+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 50800000,
       "title": "西東京市緑町2丁目（おうちの仲介＋ 東久留米営業所） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -3005,7 +3006,8 @@
       "floor_plan": "3LDK",
       "land_area": 101.39,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T20:20:35.080017+00:00",
+      "last_seen": "2026-09-15T11:44:27.966577+00:00",
+      "parse_status": "complete",
       "price": 50990000,
       "title": "西東京市北町2丁目（西武開発 ひばりヶ丘店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 18
@@ -3931,7 +3933,8 @@
       "floor_plan": "6DK 間取り図が欲しい無料",
       "land_area": 132.09,
       "land_right": "形態 所有権のみ 駐車場・車庫 無 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T20:20:35.080017+00:00",
+      "last_seen": "2026-09-15T11:44:27.966577+00:00",
+      "parse_status": "complete",
       "price": 65900000,
       "title": "西東京市ひばりが丘2丁目（オープンハウス 練馬営業センター） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 11
@@ -4992,7 +4995,8 @@
       "floor_plan": "1SLDK",
       "land_area": 42.67,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T20:20:35.080017+00:00",
+      "last_seen": "2026-09-15T11:44:27.966577+00:00",
+      "parse_status": "complete",
       "price": 41800000,
       "title": "西東京市保谷町1丁目（西武開発 ひばりヶ丘店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 8
@@ -5230,7 +5234,8 @@
       "floor_plan": "5LDK",
       "land_area": 111.43,
       "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T20:20:35.080017+00:00",
+      "last_seen": "2026-09-15T11:44:27.966577+00:00",
+      "parse_status": "complete",
       "price": 64800000,
       "title": "西東京市北町4丁目（株式会社エステート白馬 国分寺店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 21
@@ -5484,8 +5489,8 @@
       "floor_plan": "5SLDK",
       "land_area": 111.43,
       "land_right": "形態 所有権のみ 施工会社 トヨタホーム 駐車場・車庫 有（",
-      "last_seen": "2026-09-15T00:27:14.120271+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T11:44:27.966577+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 64800000,
       "title": "西東京市北町4丁目（株式会社東宝ハウス練馬） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -5619,7 +5624,8 @@
       "floor_plan": "5LDK",
       "land_area": 111.43,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 カースペー",
-      "last_seen": "2026-09-14T20:20:35.080017+00:00",
+      "last_seen": "2026-09-15T11:44:27.966577+00:00",
+      "parse_status": "complete",
       "price": 64800000,
       "title": "西東京市北町4丁目（おうちの仲介＋ ひばりヶ丘営業所） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 20
@@ -5633,7 +5639,8 @@
       "floor_plan": "5LDK",
       "land_area": 111.43,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 カースペー",
-      "last_seen": "2026-09-14T20:20:35.080017+00:00",
+      "last_seen": "2026-09-15T11:44:27.966577+00:00",
+      "parse_status": "complete",
       "price": 64800000,
       "title": "西東京市北町4丁目（おうちの仲介＋ 東久留米営業所） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 20
@@ -5767,8 +5774,8 @@
       "floor_plan": "5LDK＋WIC、SIC、ランドリールーム",
       "land_area": 111.43,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-15T00:27:14.120271+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T11:44:27.966577+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 64800000,
       "title": "西東京市北町4丁目（藤和ハウス 大泉学園店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -5782,7 +5789,8 @@
       "floor_plan": "3SLDK",
       "land_area": 95.35,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（2台可 縦列） 各項目の",
-      "last_seen": "2026-09-14T20:20:35.080017+00:00",
+      "last_seen": "2026-09-15T11:44:27.966577+00:00",
+      "parse_status": "complete",
       "price": 85800000,
       "title": "西東京市ひばりが丘1丁目（株式会社エステート白馬 国分寺店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 6
@@ -6260,7 +6268,8 @@
       "floor_plan": "2SLDK",
       "land_area": 107.6,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（並列） 各項目の詳細に関",
-      "last_seen": "2026-09-14T20:20:35.080017+00:00",
+      "last_seen": "2026-09-15T11:44:27.966577+00:00",
+      "parse_status": "complete",
       "price": 39990000,
       "title": "西東京市芝久保町5丁目（株式会社エステート白馬 国分寺店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 20
@@ -6571,7 +6580,8 @@
       "floor_plan": "2SLDK",
       "land_area": 107.6,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 住宅履歴情報 未保有 耐",
-      "last_seen": "2026-09-14T20:20:35.080017+00:00",
+      "last_seen": "2026-09-15T11:44:27.966577+00:00",
+      "parse_status": "complete",
       "price": 39990000,
       "title": "西東京市芝久保町5丁目（センチュリー21ネクストドア 花小金井店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 20
@@ -6900,8 +6910,8 @@
       "floor_plan": "3LDK",
       "land_area": 100.12,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-15T00:27:14.120271+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T11:44:27.966577+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 44990000,
       "title": "西東京市芝久保町5丁目（西武開発 ひばりヶ丘店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -6915,7 +6925,8 @@
       "floor_plan": "3LDK",
       "land_area": 100.12,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T20:35:57.087013+00:00",
+      "last_seen": "2026-09-15T11:44:27.966577+00:00",
+      "parse_status": "complete",
       "price": 44990000,
       "title": "西東京市芝久保町5丁目（西武開発 久米川店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 18
@@ -7153,7 +7164,8 @@
       "floor_plan": "4LDK",
       "land_area": 97.76,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T20:20:35.080017+00:00",
+      "last_seen": "2026-09-15T11:44:27.966577+00:00",
+      "parse_status": "complete",
       "price": 54990000,
       "title": "西東京市中町2丁目（西武開発 ひばりヶ丘店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 13
@@ -7992,8 +8004,8 @@
       "floor_plan": "4LDK",
       "land_area": 100.25,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
-      "last_seen": "2026-09-15T00:27:14.120271+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T11:44:27.966577+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 69800000,
       "title": "西東京市富士町5丁目（おうちの仲介＋ ひばりヶ丘営業所） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -8007,8 +8019,8 @@
       "floor_plan": "4LDK",
       "land_area": 100.25,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料 駐車場空台",
-      "last_seen": "2026-09-15T00:27:14.120271+00:00",
-      "parse_status": "baseline_nonqualifying",
+      "last_seen": "2026-09-15T11:44:27.966577+00:00",
+      "parse_status": "missing_walk_minutes",
       "price": 69800000,
       "title": "西東京市富士町5丁目（おうちの仲介＋ 東久留米営業所） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": null
@@ -8037,7 +8049,8 @@
       "floor_plan": "5LDK",
       "land_area": 111.43,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（2台 車種による） 各項",
-      "last_seen": "2026-09-14T20:20:35.080017+00:00",
+      "last_seen": "2026-09-15T11:44:27.966577+00:00",
+      "parse_status": "complete",
       "price": 64800000,
       "title": "西東京市北町4丁目（オープンハウス 練馬営業センター） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 20
