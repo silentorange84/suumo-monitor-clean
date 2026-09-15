@@ -602,8 +602,8 @@
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024965819/"
     ],
     "notified_fingerprints": {},
-    "price_cursor": 180,
-    "updated_at": "2026-09-15T05:19:20.656202+00:00"
+    "price_cursor": 200,
+    "updated_at": "2026-09-15T05:35:52.850162+00:00"
   },
   "properties": {
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0021198071/": {
@@ -1986,7 +1986,8 @@
       "floor_plan": "3LDK",
       "land_area": 43.21,
       "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T14:23:23.872138+00:00",
+      "last_seen": "2026-09-15T05:35:52.850162+00:00",
+      "parse_status": "complete",
       "price": 69800000,
       "title": "豊島区池袋本町2丁目（株式会社東宝ハウス城東） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 7
@@ -2137,6 +2138,21 @@
       "price": 84800000,
       "title": "練馬区谷原5丁目（株式会社東宝ハウス練馬） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 20
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024893578/": {
+      "address": "東京都練馬区谷原5丁目 [地図を確認]",
+      "building_area": 103.77,
+      "construction_date": "2022-03",
+      "fingerprint": "c96017f23f67829e13e9666807e251dcfb076631dd9a62110dfc47cea00de9ae",
+      "first_seen": "2026-09-15T05:35:52.850162+00:00",
+      "floor_plan": "4LDK＋WIC",
+      "land_area": 117.17,
+      "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
+      "last_seen": "2026-09-15T05:35:52.850162+00:00",
+      "parse_status": "missing_walk_minutes",
+      "price": 84800000,
+      "title": "練馬区谷原5丁目（藤和ハウス 大泉学園店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
+      "walk_minutes": null
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024896559/": {
       "address": "東京都練馬区谷原5丁目 [地図を確認]",
@@ -3888,7 +3904,8 @@
       "floor_plan": "5LDK以上",
       "land_area": 128.57,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T14:23:23.872138+00:00",
+      "last_seen": "2026-09-15T05:35:52.850162+00:00",
+      "parse_status": "complete",
       "price": 10000,
       "title": "豊島区目白2丁目（株式会社東宝ハウス城東） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 2
@@ -4136,7 +4153,8 @@
       "floor_plan": "5LDK以上",
       "land_area": 128.57,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T14:23:23.872138+00:00",
+      "last_seen": "2026-09-15T05:35:52.850162+00:00",
+      "parse_status": "complete",
       "price": 10000,
       "title": "豊島区目白2丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 7
@@ -4931,7 +4949,8 @@
       "floor_plan": "3SLDK",
       "land_area": 96.12,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円 駐車場",
-      "last_seen": "2026-09-14T14:23:23.872138+00:00",
+      "last_seen": "2026-09-15T05:35:52.850162+00:00",
+      "parse_status": "complete",
       "price": 10000,
       "title": "杉並区阿佐谷北3丁目（株式会社ウィル 中野営業所） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 13
@@ -5631,7 +5650,8 @@
       "floor_plan": "3LDK",
       "land_area": 39.29,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T14:23:23.872138+00:00",
+      "last_seen": "2026-09-15T05:35:52.850162+00:00",
+      "parse_status": "complete",
       "price": 88200000,
       "title": "豊島区北大塚3丁目（株式会社東宝ハウス城東） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 7
@@ -5673,7 +5693,8 @@
       "floor_plan": "3SLDK",
       "land_area": 68.67,
       "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T22:37:49.635100+00:00",
+      "last_seen": "2026-09-15T05:35:52.850162+00:00",
+      "parse_status": "complete",
       "price": 10000,
       "title": "豊島区南大塚2丁目（アドキャスト 駒込支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 5
@@ -6600,7 +6621,8 @@
       "floor_plan": "2SLDK",
       "land_area": 45.41,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T14:23:23.872138+00:00",
+      "last_seen": "2026-09-15T05:35:52.850162+00:00",
+      "parse_status": "complete",
       "price": 81900000,
       "title": "豊島区池袋本町2丁目（株式会社東宝ハウス品川） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 8
@@ -8087,7 +8109,8 @@
       "floor_plan": "3SLDK",
       "land_area": 80.1,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（料金: 無料） 各項目の",
-      "last_seen": "2026-09-14T14:01:49.467086+00:00",
+      "last_seen": "2026-09-15T05:35:52.850162+00:00",
+      "parse_status": "complete",
       "price": 89800000,
       "title": "杉並区堀ノ内2丁目（株式会社大和・アクタス 高円寺本社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 13
@@ -8390,7 +8413,8 @@
       "floor_plan": "3LDK",
       "land_area": 43.21,
       "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T14:23:23.872138+00:00",
+      "last_seen": "2026-09-15T05:35:52.850162+00:00",
+      "parse_status": "complete",
       "price": 69800000,
       "title": "豊島区池袋本町2丁目（東京リアルティ株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 7
@@ -8404,7 +8428,8 @@
       "floor_plan": "4LDK",
       "land_area": 56.15,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T14:23:23.872138+00:00",
+      "last_seen": "2026-09-15T05:35:52.850162+00:00",
+      "parse_status": "complete",
       "price": 94800000,
       "title": "豊島区池袋本町1丁目（東京リアルティ株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 7
@@ -8516,7 +8541,8 @@
       "floor_plan": "4LDK",
       "land_area": 56.15,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T14:23:23.872138+00:00",
+      "last_seen": "2026-09-15T05:35:52.850162+00:00",
+      "parse_status": "complete",
       "price": 94800000,
       "title": "豊島区池袋本町1丁目（株式会社エステート白馬 中野店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 7
@@ -8530,7 +8556,8 @@
       "floor_plan": "4LDK",
       "land_area": 56.15,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T14:23:23.872138+00:00",
+      "last_seen": "2026-09-15T05:35:52.850162+00:00",
+      "parse_status": "complete",
       "price": 94800000,
       "title": "豊島区池袋本町1丁目（株式会社アセットビルダー） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 7
@@ -8558,7 +8585,8 @@
       "floor_plan": "4LDK",
       "land_area": 56.15,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T14:23:23.872138+00:00",
+      "last_seen": "2026-09-15T05:35:52.850162+00:00",
+      "parse_status": "complete",
       "price": 94800000,
       "title": "豊島区池袋本町1丁目（ME不動産城北株式会社） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 7
@@ -8572,7 +8600,8 @@
       "floor_plan": "4LDK",
       "land_area": 56.15,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円 駐車場",
-      "last_seen": "2026-09-14T14:23:23.872138+00:00",
+      "last_seen": "2026-09-15T05:35:52.850162+00:00",
+      "parse_status": "complete",
       "price": 94800000,
       "title": "豊島区池袋本町1丁目（アドキャスト 池袋支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 7
@@ -8716,7 +8745,8 @@
       "floor_plan": "4LDK",
       "land_area": 56.15,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T14:23:23.872138+00:00",
+      "last_seen": "2026-09-15T05:35:52.850162+00:00",
+      "parse_status": "complete",
       "price": 94800000,
       "title": "豊島区池袋本町1丁目（株式会社東宝ハウス城東） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 7
@@ -8802,7 +8832,8 @@
       "floor_plan": "2SLDK",
       "land_area": 45.41,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円 駐車場",
-      "last_seen": "2026-09-14T14:23:23.872138+00:00",
+      "last_seen": "2026-09-15T05:35:52.850162+00:00",
+      "parse_status": "complete",
       "price": 81900000,
       "title": "豊島区池袋本町2丁目（株式会社東宝ハウス杉並） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 8
@@ -8830,7 +8861,7 @@
       "floor_plan": "3SLDK",
       "land_area": 80.1,
       "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
-      "last_seen": "2026-09-15T05:19:20.656202+00:00",
+      "last_seen": "2026-09-15T05:35:52.850162+00:00",
       "parse_status": "complete",
       "price": 89800000,
       "title": "杉並区堀ノ内2丁目（株式会社WALLMATE不動産 浜田山支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
@@ -8845,7 +8876,8 @@
       "floor_plan": "4LDK 間取り図が欲しい無料",
       "land_area": 56.15,
       "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T14:23:23.872138+00:00",
+      "last_seen": "2026-09-15T05:35:52.850162+00:00",
+      "parse_status": "complete",
       "price": 94800000,
       "title": "豊島区池袋本町1丁目（株式会社フェリアホーム 千駄ヶ谷本店） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 7
@@ -8859,7 +8891,8 @@
       "floor_plan": "4LDK",
       "land_area": 56.15,
       "land_right": "形態 所有権のみ 駐車場・車庫 有 各項目の詳細に関しまして",
-      "last_seen": "2026-09-14T14:23:23.872138+00:00",
+      "last_seen": "2026-09-15T05:35:52.850162+00:00",
+      "parse_status": "complete",
       "price": 94800000,
       "title": "豊島区池袋本町1丁目（グローバルインク株式会社） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
       "walk_minutes": 7
@@ -9062,7 +9095,8 @@
       "floor_plan": "4LDK",
       "land_area": 56.15,
       "land_right": "形態 所有権のみ 駐車場・車庫 有（駐車場料金:0円） 各項",
-      "last_seen": "2026-09-14T14:23:23.872138+00:00",
+      "last_seen": "2026-09-15T05:35:52.850162+00:00",
+      "parse_status": "complete",
       "price": 94800000,
       "title": "豊島区池袋本町1丁目（株式会社東宝ハウス練馬） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 7
