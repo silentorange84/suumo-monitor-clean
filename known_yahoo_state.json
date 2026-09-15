@@ -1,8 +1,8 @@
 {
   "_meta": {
-    "baseline_cursor": 541,
-    "baseline_in_progress": true,
-    "baseline_initialized": false,
+    "baseline_cursor": 595,
+    "baseline_in_progress": false,
+    "baseline_initialized": true,
     "baseline_reset_at": null,
     "baseline_urls": [
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025327727/",
@@ -599,12 +599,11 @@
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025233891/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0025386194/",
       "https://realestate.yahoo.co.jp/used/house/detail_corp/b0023678357/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024849596/",
-      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024280247/"
+      "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024965819/"
     ],
     "notified_fingerprints": {},
     "price_cursor": 0,
-    "updated_at": "2026-09-15T02:02:21.555212+00:00"
+    "updated_at": "2026-09-15T02:23:11.557540+00:00"
   },
   "properties": {
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0021198071/": {
@@ -2363,6 +2362,21 @@
       "price": 69800000,
       "title": "豊島区長崎6丁目（株式会社ウィル 茗荷谷営業所） - 中古一戸建て｜Yahoo!不動産閉じる閉じる初期費用について閉じる",
       "walk_minutes": 9
+    },
+    "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024965819/": {
+      "address": "東京都杉並区阿佐谷北2丁目 [地図を確認]",
+      "building_area": 59.62,
+      "construction_date": "2018-07",
+      "fingerprint": "0a031b2ebc346453da89a13d142e4728484666c432eed42e915c9377f945e44e",
+      "first_seen": "2026-09-15T02:23:11.557540+00:00",
+      "floor_plan": "2SK（S＝サービスルーム（納戸））",
+      "land_area": 51.33,
+      "land_right": "形態 所有権のみ 駐車場・車庫 - 各項目の詳細に関しまして",
+      "last_seen": "2026-09-15T02:23:11.557540+00:00",
+      "parse_status": "complete",
+      "price": 74800000,
+      "title": "杉並区阿佐谷北2丁目（アドキャスト 高円寺支店） - 中古一戸建て｜Yahoo!不動産閉じる初期費用について閉じる",
+      "walk_minutes": 6
     },
     "https://realestate.yahoo.co.jp/used/house/detail_corp/b0024972522/": {
       "address": "東京都練馬区春日町1丁目 [地図を確認]",
