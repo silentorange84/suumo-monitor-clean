@@ -6,7 +6,6 @@
       "https://www.homes.co.jp/kodate/b-1140530012275/",
       "https://www.homes.co.jp/kodate/b-1140530012291/",
       "https://www.homes.co.jp/kodate/b-1140530012359/",
-      "https://www.homes.co.jp/kodate/b-1198450010771/",
       "https://www.homes.co.jp/kodate/b-1278120011647/",
       "https://www.homes.co.jp/kodate/b-1278120011853/",
       "https://www.homes.co.jp/kodate/b-1278120011866/",
@@ -694,6 +693,17 @@
       "price": 6495.0,
       "title": "【ホームズ】練馬区下石神井2丁目 中古戸建｜練馬区、西武新宿線 上井草駅 徒歩13分の中古一戸建て",
       "updated_at": "2026-09-10T17:52:38.047769+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1198450010771/": {
+      "address": "東京都練馬区春日町1丁目",
+      "age": 25.6,
+      "area": 110.53,
+      "city": "練馬区",
+      "land_right": "所有権",
+      "min_walk": 3,
+      "price": 7199.0,
+      "title": "【ホームズ】練馬区春日町1丁目 7,199万円・4SLDK｜練馬区の中古一戸建て",
+      "updated_at": "2026-09-16T23:27:02.626868+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1198450011038/": {
       "address": "東京都練馬区土支田4丁目",
