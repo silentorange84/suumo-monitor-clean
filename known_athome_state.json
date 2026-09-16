@@ -1,7 +1,7 @@
 {
   "baseline_in_progress": false,
-  "page_cursor": 1,
-  "price_cursor": 24,
+  "page_cursor": 4,
+  "price_cursor": 32,
   "properties": {
     "https://www.athome.co.jp/kodate/1012848820/": {
       "first_seen": "2026-09-11T12:23:14.106524+00:00",
@@ -543,9 +543,16 @@
     },
     "https://www.athome.co.jp/kodate/1107342614/": {
       "first_seen": "2026-09-11T02:44:39.300032+00:00",
-      "last_seen": "2026-09-11T02:44:39.300032+00:00",
-      "price": null,
-      "price_history": []
+      "last_seen": "2026-09-16T22:16:39.050408+00:00",
+      "price": 5590.0,
+      "price_history": [
+        {
+          "at": "2026-09-16T22:16:39.050408+00:00",
+          "price": 5590.0
+        }
+      ],
+      "title": "【アットホーム】立川市 栄町４丁目（立川駅） 2階建 ３ＬＤＫ[1107342614]立川市の一戸建て（提供元：センチュリー２１ ヒカリ企画）｜一軒家・家の購入",
+      "type": "新築一戸建て"
     },
     "https://www.athome.co.jp/kodate/1107426714/": {
       "first_seen": "2026-09-11T02:44:39.300032+00:00",
@@ -3103,7 +3110,7 @@
     },
     "https://www.athome.co.jp/kodate/6989303017/": {
       "first_seen": "2026-09-14T02:46:25.988750+00:00",
-      "last_seen": "2026-09-14T02:46:25.988750+00:00",
+      "last_seen": "2026-09-16T22:16:39.050408+00:00",
       "price": 5980.0,
       "price_history": [
         {
@@ -3639,5 +3646,5 @@
       "type": "新築一戸建て"
     }
   },
-  "updated_at": "2026-09-16T22:00:07.696336+00:00"
+  "updated_at": "2026-09-16T22:16:39.050408+00:00"
 }
