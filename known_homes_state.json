@@ -6,7 +6,6 @@
       "https://www.homes.co.jp/kodate/b-1140530012275/",
       "https://www.homes.co.jp/kodate/b-1140530012291/",
       "https://www.homes.co.jp/kodate/b-1140530012359/",
-      "https://www.homes.co.jp/kodate/b-1175550015915/",
       "https://www.homes.co.jp/kodate/b-1278120011647/",
       "https://www.homes.co.jp/kodate/b-1278120011853/",
       "https://www.homes.co.jp/kodate/b-1278120011866/",
@@ -608,6 +607,17 @@
       "price": 7199.0,
       "title": "【ホームズ】練馬区春日町1丁目 中古一戸建住宅 （成増店）｜練馬区、都営大江戸線 練馬春日町駅 徒歩7分の中古一戸建て",
       "updated_at": "2026-09-11T22:02:18.476417+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1175550015915/": {
+      "address": "東京都西東京市中町2丁目",
+      "age": 11.8,
+      "area": 93.15,
+      "city": "西東京市",
+      "land_right": "所有権",
+      "min_walk": 5,
+      "price": 5499.0,
+      "title": "【ホームズ】西東京市中町2丁目 中古一戸建住宅 （保谷店） 5,499万円・4LDK｜西東京市の中古一戸建て",
+      "updated_at": "2026-09-17T23:31:46.968316+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1175550015937/": {
       "address": "東京都練馬区富士見台3丁目",
