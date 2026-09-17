@@ -1,7 +1,7 @@
 {
   "baseline_in_progress": false,
-  "page_cursor": 1,
-  "price_cursor": 12,
+  "page_cursor": 4,
+  "price_cursor": 20,
   "properties": {
     "https://www.athome.co.jp/kodate/1012848820/": {
       "first_seen": "2026-09-11T12:23:14.106524+00:00",
@@ -1623,7 +1623,7 @@
     },
     "https://www.athome.co.jp/kodate/1151843831/": {
       "first_seen": "2026-09-15T08:36:55.112150+00:00",
-      "last_seen": "2026-09-15T17:18:52.654486+00:00",
+      "last_seen": "2026-09-17T08:54:54.605264+00:00",
       "price": 4580.0,
       "price_history": [
         {
@@ -1993,9 +1993,16 @@
     },
     "https://www.athome.co.jp/kodate/1163903726/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
-      "last_seen": "2026-09-11T02:42:36.622271+00:00",
-      "price": null,
-      "price_history": []
+      "last_seen": "2026-09-17T08:54:54.605264+00:00",
+      "price": 5180.0,
+      "price_history": [
+        {
+          "at": "2026-09-17T08:54:54.605264+00:00",
+          "price": 5180.0
+        }
+      ],
+      "title": "【アットホーム】立川市 幸町６丁目（玉川上水駅） 2階建 ４ＬＤＫ[1163903726]立川市の一戸建て（提供元：ミライズホーム(株)）｜一軒家・家の購入",
+      "type": "新築一戸建て"
     },
     "https://www.athome.co.jp/kodate/1164233726/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
@@ -3710,5 +3717,5 @@
       "type": "新築一戸建て"
     }
   },
-  "updated_at": "2026-09-17T08:46:02.542006+00:00"
+  "updated_at": "2026-09-17T08:54:54.605264+00:00"
 }
