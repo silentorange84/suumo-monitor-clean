@@ -1,7 +1,7 @@
 {
   "baseline_in_progress": false,
-  "page_cursor": 4,
-  "price_cursor": 8,
+  "page_cursor": 7,
+  "price_cursor": 16,
   "properties": {
     "https://www.athome.co.jp/kodate/1012848820/": {
       "first_seen": "2026-09-11T12:23:14.106524+00:00",
@@ -2505,7 +2505,7 @@
     },
     "https://www.athome.co.jp/kodate/1182758228/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
-      "last_seen": "2026-09-15T17:31:42.353916+00:00",
+      "last_seen": "2026-09-17T10:20:28.563857+00:00",
       "price": 6780.0,
       "price_history": [
         {
@@ -2796,9 +2796,16 @@
     },
     "https://www.athome.co.jp/kodate/1195071321/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
-      "last_seen": "2026-09-11T02:42:36.622271+00:00",
-      "price": null,
-      "price_history": []
+      "last_seen": "2026-09-17T10:20:28.563857+00:00",
+      "price": 4180.0,
+      "price_history": [
+        {
+          "at": "2026-09-17T10:20:28.563857+00:00",
+          "price": 4180.0
+        }
+      ],
+      "title": "【アットホーム】西東京市 保谷町１丁目（西武柳沢駅） 3階建 ３ＬＤＫ[1195071321]西東京市の一戸建て（提供元：(株)東宝ハウス国分寺）｜一軒家・家の購入",
+      "type": null
     },
     "https://www.athome.co.jp/kodate/1195074321/": {
       "first_seen": "2026-09-11T11:43:37.361506+00:00",
@@ -3724,5 +3731,5 @@
       "type": "新築一戸建て"
     }
   },
-  "updated_at": "2026-09-17T10:04:30.965027+00:00"
+  "updated_at": "2026-09-17T10:20:28.563857+00:00"
 }
