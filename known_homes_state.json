@@ -6,7 +6,6 @@
       "https://www.homes.co.jp/kodate/b-1140530012275/",
       "https://www.homes.co.jp/kodate/b-1140530012291/",
       "https://www.homes.co.jp/kodate/b-1140530012359/",
-      "https://www.homes.co.jp/kodate/b-1240210002330/",
       "https://www.homes.co.jp/kodate/b-1278120011647/",
       "https://www.homes.co.jp/kodate/b-1278120011853/",
       "https://www.homes.co.jp/kodate/b-1278120011866/",
@@ -998,6 +997,17 @@
       "price": 3249.0,
       "title": "【ホームズ】八王子市北野台3丁目 再生住宅｜八王子市、JR横浜線 八王子みなみ野駅 バス8分 公園前(八王子市）下車 徒歩6分の中古一戸建て",
       "updated_at": "2026-09-11T03:54:51.917097+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1240210002330/": {
+      "address": "東京都八王子市中野上町4丁目",
+      "age": 32.9,
+      "area": 85.92,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": 5,
+      "price": 2699.0,
+      "title": "【ホームズ】八王子市中野上町4丁目 中古戸建 2,699万円・3LDK｜八王子市の中古一戸建て",
+      "updated_at": "2026-09-20T17:02:03.100636+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1243260010047/": {
       "address": "東京都豊島区,東武東上線",
