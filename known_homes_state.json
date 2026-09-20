@@ -6,7 +6,6 @@
       "https://www.homes.co.jp/kodate/b-1140530012275/",
       "https://www.homes.co.jp/kodate/b-1140530012291/",
       "https://www.homes.co.jp/kodate/b-1140530012359/",
-      "https://www.homes.co.jp/kodate/b-1192060000181/",
       "https://www.homes.co.jp/kodate/b-1231700006835/",
       "https://www.homes.co.jp/kodate/b-1240210002330/",
       "https://www.homes.co.jp/kodate/b-1278120011647/",
@@ -83,6 +82,7 @@
       "https://www.homes.co.jp/kodate/b-1564220000537/",
       "https://www.homes.co.jp/kodate/b-1568160000105/",
       "https://www.homes.co.jp/kodate/b-1570000000125/",
+      "https://www.homes.co.jp/kodate/b-1570000000129/",
       "https://www.homes.co.jp/kodate/b-1571110000431/",
       "https://www.homes.co.jp/kodate/b-1571110000533/",
       "https://www.homes.co.jp/kodate/b-1571110000611/",
@@ -800,6 +800,17 @@
       "price": 7199.0,
       "title": "【ホームズ】練馬区東大泉7丁目 中古戸建 7,199万円・3LDK｜練馬区の中古一戸建て",
       "updated_at": "2026-09-20T02:29:53.917932+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1192060000181/": {
+      "address": "東京都八王子市川町",
+      "age": 40.8,
+      "area": 99.36,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": null,
+      "price": 1490.0,
+      "title": "【ホームズ】JR中央線 高尾駅 バス8分 タウン入口下車 徒歩3分 1,490万円・3LDK｜八王子市の中古一戸建て",
+      "updated_at": "2026-09-20T09:20:52.951326+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1198450010771/": {
       "address": "東京都練馬区春日町1丁目",
