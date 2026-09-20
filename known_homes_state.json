@@ -6,7 +6,6 @@
       "https://www.homes.co.jp/kodate/b-1140530012275/",
       "https://www.homes.co.jp/kodate/b-1140530012291/",
       "https://www.homes.co.jp/kodate/b-1140530012359/",
-      "https://www.homes.co.jp/kodate/b-1231700006835/",
       "https://www.homes.co.jp/kodate/b-1240210002330/",
       "https://www.homes.co.jp/kodate/b-1278120011647/",
       "https://www.homes.co.jp/kodate/b-1278120011853/",
@@ -910,6 +909,17 @@
       "price": 4280.0,
       "title": "【ホームズ】八王子市中野町｜八王子市、JR中央線 八王子駅 バス18分 中野北小下車 徒歩11分の中古一戸建て",
       "updated_at": "2026-09-10T17:34:54.200587+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1231700006835/": {
+      "address": "東京都八王子市石川町",
+      "age": 43.9,
+      "area": 149.82,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": 1,
+      "price": 2480.0,
+      "title": "【ホームズ】八王子市石川町 2,480万円・5LDK｜八王子市の中古一戸建て",
+      "updated_at": "2026-09-20T10:09:02.860122+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1231710007746/": {
       "address": "東京都八王子市,JR横浜線",
