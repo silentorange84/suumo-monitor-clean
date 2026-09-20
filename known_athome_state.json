@@ -1,7 +1,7 @@
 {
   "baseline_in_progress": false,
   "page_cursor": 4,
-  "price_cursor": 9,
+  "price_cursor": 0,
   "properties": {
     "https://www.athome.co.jp/kodate/1012848820/": {
       "first_seen": "2026-09-11T12:23:14.106524+00:00",
@@ -3927,5 +3927,5 @@
       "type": "新築一戸建て"
     }
   },
-  "updated_at": "2026-09-20T02:00:23.953496+00:00"
+  "updated_at": "2026-09-20T02:17:20.331182+00:00"
 }
