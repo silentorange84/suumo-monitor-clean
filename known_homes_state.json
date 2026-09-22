@@ -5,7 +5,6 @@
       "https://www.homes.co.jp/kodate/b-1020740087872/",
       "https://www.homes.co.jp/kodate/b-1140530012275/",
       "https://www.homes.co.jp/kodate/b-1140530012291/",
-      "https://www.homes.co.jp/kodate/b-1140530012355/",
       "https://www.homes.co.jp/kodate/b-1140530012359/",
       "https://www.homes.co.jp/kodate/b-1278120011647/",
       "https://www.homes.co.jp/kodate/b-1278120011853/",
@@ -75,6 +74,7 @@
       "https://www.homes.co.jp/kodate/b-1502830001391/",
       "https://www.homes.co.jp/kodate/b-1502830001406/",
       "https://www.homes.co.jp/kodate/b-1502830001427/",
+      "https://www.homes.co.jp/kodate/b-1525420000079/",
       "https://www.homes.co.jp/kodate/b-1534610004051/",
       "https://www.homes.co.jp/kodate/b-1541220001348/",
       "https://www.homes.co.jp/kodate/b-1541220001582/",
@@ -591,6 +591,17 @@
       "price": 13400.0,
       "title": "【ホームズ】中野区若宮3丁目｜中野区、西武新宿線 都立家政駅 徒歩6分の中古一戸建て",
       "updated_at": "2026-09-12T06:47:45.297657+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1140530012355/": {
+      "address": "東京都杉並区荻窪1丁目",
+      "age": 25.8,
+      "area": 70.23,
+      "city": "杉並区",
+      "land_right": "所有権",
+      "min_walk": 1,
+      "price": 7499.0,
+      "title": "【ホームズ】杉並区荻窪1丁目 7,499万円・3LDK｜杉並区の中古一戸建て",
+      "updated_at": "2026-09-22T18:11:35.682841+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1140530012420/": {
       "address": "東京都杉並区阿佐谷北3丁目",
