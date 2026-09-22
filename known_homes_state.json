@@ -6,7 +6,6 @@
       "https://www.homes.co.jp/kodate/b-1140530012275/",
       "https://www.homes.co.jp/kodate/b-1140530012291/",
       "https://www.homes.co.jp/kodate/b-1140530012359/",
-      "https://www.homes.co.jp/kodate/b-1216190001228/",
       "https://www.homes.co.jp/kodate/b-1278120011647/",
       "https://www.homes.co.jp/kodate/b-1278120011853/",
       "https://www.homes.co.jp/kodate/b-1278120011866/",
@@ -889,6 +888,17 @@
       "price": 2100.0,
       "title": "【ホームズ】練馬区南大泉四丁目 中古戸建｜練馬区、西武池袋線 保谷駅 徒歩9分の中古一戸建て",
       "updated_at": "2026-09-10T23:33:06.322104+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1216190001228/": {
+      "address": "東京都練馬区高松1丁目",
+      "age": 20.4,
+      "area": 68.53,
+      "city": "練馬区",
+      "land_right": "所有権",
+      "min_walk": 6,
+      "price": 5580.0,
+      "title": "【ホームズ】 練馬区高松1丁目戸建 3LDK駐車場付 5,580万円・3LDK｜練馬区の中古一戸建て",
+      "updated_at": "2026-09-22T23:42:52.153502+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1222410005403/": {
       "address": "東京都中野区東中野2丁目",
