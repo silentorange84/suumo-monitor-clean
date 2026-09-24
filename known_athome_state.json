@@ -1,7 +1,7 @@
 {
   "baseline_in_progress": false,
-  "page_cursor": 7,
-  "price_cursor": 68,
+  "page_cursor": 1,
+  "price_cursor": 16,
   "properties": {
     "https://www.athome.co.jp/kodate/1003261487/": {
       "first_seen": "2026-09-20T13:41:46.028387+00:00",
@@ -2666,7 +2666,7 @@
     },
     "https://www.athome.co.jp/kodate/1169000129/": {
       "first_seen": "2026-09-11T02:44:39.300032+00:00",
-      "last_seen": "2026-09-16T07:21:28.565284+00:00",
+      "last_seen": "2026-09-24T08:04:25.741422+00:00",
       "price": 5980.0,
       "price_history": [
         {
@@ -2718,7 +2718,7 @@
     },
     "https://www.athome.co.jp/kodate/1172504728/": {
       "first_seen": "2026-09-11T02:44:39.300032+00:00",
-      "last_seen": "2026-09-16T17:03:38.613578+00:00",
+      "last_seen": "2026-09-24T08:04:25.741422+00:00",
       "price": 5499.0,
       "price_history": [
         {
@@ -3555,9 +3555,16 @@
     },
     "https://www.athome.co.jp/kodate/1199297824/": {
       "first_seen": "2026-09-11T02:44:39.300032+00:00",
-      "last_seen": "2026-09-11T02:44:39.300032+00:00",
-      "price": null,
-      "price_history": []
+      "last_seen": "2026-09-24T08:04:25.741422+00:00",
+      "price": 4180.0,
+      "price_history": [
+        {
+          "at": "2026-09-24T08:04:25.741422+00:00",
+          "price": 4180.0
+        }
+      ],
+      "title": "【アットホーム】西東京市 保谷町１丁目（西武柳沢駅） 3階建 ３ＬＤＫ[1199297824]西東京市の一戸建て（提供元：(株)リビング住販）｜一軒家・家の購入",
+      "type": null
     },
     "https://www.athome.co.jp/kodate/1199301024/": {
       "first_seen": "2026-09-11T02:44:39.300032+00:00",
@@ -4330,5 +4337,5 @@
       "type": "新築一戸建て"
     }
   },
-  "updated_at": "2026-09-24T07:55:25.779316+00:00"
+  "updated_at": "2026-09-24T08:04:25.741422+00:00"
 }
