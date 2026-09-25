@@ -6,7 +6,6 @@
       "https://www.homes.co.jp/kodate/b-1140530012275/",
       "https://www.homes.co.jp/kodate/b-1140530012291/",
       "https://www.homes.co.jp/kodate/b-1140530012359/",
-      "https://www.homes.co.jp/kodate/b-1241770002373/",
       "https://www.homes.co.jp/kodate/b-1278120011647/",
       "https://www.homes.co.jp/kodate/b-1278120011853/",
       "https://www.homes.co.jp/kodate/b-1278120011866/",
@@ -1084,6 +1083,17 @@
       "price": 2699.0,
       "title": "【ホームズ】八王子市中野上町4丁目 中古戸建 2,699万円・3LDK｜八王子市の中古一戸建て",
       "updated_at": "2026-09-20T17:02:03.100636+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1241770002373/": {
+      "address": "東京都八王子市川町205-9",
+      "age": 19.5,
+      "area": 86.66,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": null,
+      "price": 2380.0,
+      "title": "【ホームズ】JR中央線 西八王子駅 バス19分 川町落合橋下車 徒歩4分 2,380万円・3LDK｜八王子市の中古一戸建て",
+      "updated_at": "2026-09-25T09:24:11.051548+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1243260010047/": {
       "address": "東京都豊島区,東武東上線",
