@@ -162,6 +162,7 @@ https://suumo.jp/chukoikkodate/tokyo/sc_nishitokyo/nc_21757454/
 https://suumo.jp/chukoikkodate/tokyo/sc_nishitokyo/nc_21795997/
 https://suumo.jp/chukoikkodate/tokyo/sc_nishitokyo/nc_21796808/
 https://suumo.jp/chukoikkodate/tokyo/sc_nishitokyo/nc_21809826/
+https://suumo.jp/chukoikkodate/tokyo/sc_nishitokyo/nc_21816209/
 https://suumo.jp/chukoikkodate/tokyo/sc_nishitokyo/nc_77951970/
 https://suumo.jp/chukoikkodate/tokyo/sc_nishitokyo/nc_78957960/
 https://suumo.jp/chukoikkodate/tokyo/sc_nishitokyo/nc_79077525/
@@ -197,5 +198,7 @@ https://suumo.jp/chukoikkodate/tokyo/sc_tachikawa/nc_21784151/
 https://suumo.jp/chukoikkodate/tokyo/sc_tachikawa/nc_21791988/
 https://suumo.jp/chukoikkodate/tokyo/sc_tachikawa/nc_21794433/
 https://suumo.jp/chukoikkodate/tokyo/sc_tachikawa/nc_21809290/
+https://suumo.jp/chukoikkodate/tokyo/sc_tachikawa/nc_21814350/
+https://suumo.jp/chukoikkodate/tokyo/sc_tachikawa/nc_21814351/
 https://suumo.jp/chukoikkodate/tokyo/sc_tachikawa/nc_75672825/
 https://suumo.jp/chukoikkodate/tokyo/sc_toshima/nc_21557571/
