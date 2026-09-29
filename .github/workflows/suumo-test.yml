@@ -41,6 +41,7 @@ jobs:
           import re
           import json
           import html as html_lib
+          import urllib.error
           import urllib.request
           from pathlib import Path
           from urllib.parse import (
@@ -350,9 +351,23 @@ jobs:
               )
               print("--------------------------------")
 
-              status, page_html, data_size = fetch(
-                  page_url
-              )
+              try:
+
+                  status, page_html, data_size = fetch(
+                      page_url
+                  )
+
+              except urllib.error.HTTPError as e:
+
+                  if page_no >= 2 and e.code == 404:
+
+                      print(
+                          f"PAGINATION END: page={page_no}, HTTP 404"
+                      )
+
+                      break
+
+                  raise
 
               print(
                   "HTTP STATUS:",
