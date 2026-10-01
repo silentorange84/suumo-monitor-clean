@@ -6,7 +6,6 @@
       "https://www.homes.co.jp/kodate/b-1140530012275/",
       "https://www.homes.co.jp/kodate/b-1140530012291/",
       "https://www.homes.co.jp/kodate/b-1140530012359/",
-      "https://www.homes.co.jp/kodate/b-1203800000352/",
       "https://www.homes.co.jp/kodate/b-1278120011647/",
       "https://www.homes.co.jp/kodate/b-1278120011853/",
       "https://www.homes.co.jp/kodate/b-1278120011866/",
@@ -993,6 +992,17 @@
       "price": 12880.0,
       "title": "【ホームズ】南台2丁目 新築戸建 全2棟 12,880万円・3LDK｜中野区の中古一戸建て",
       "updated_at": "2026-10-01T16:03:55.221883+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1203800000352/": {
+      "address": "東京都杉並区桃井1丁目",
+      "age": 4.9,
+      "area": 85.56,
+      "city": "杉並区",
+      "land_right": "所有権",
+      "min_walk": 1,
+      "price": 8680.0,
+      "title": "【ホームズ】桃井1丁目中古戸建 8,680万円・2SLDK｜杉並区の中古一戸建て",
+      "updated_at": "2026-10-01T21:20:57.093102+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1213760000118/": {
       "address": "東京都練馬区南大泉4丁目32-28",
