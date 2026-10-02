@@ -1,7 +1,7 @@
 {
   "baseline_in_progress": false,
-  "page_cursor": 4,
-  "price_cursor": 61,
+  "page_cursor": 7,
+  "price_cursor": 69,
   "properties": {
     "https://www.athome.co.jp/kodate/1003261487/": {
       "first_seen": "2026-09-20T13:41:46.028387+00:00",
@@ -538,7 +538,7 @@
     },
     "https://www.athome.co.jp/kodate/1020971691/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
-      "last_seen": "2026-10-01T21:49:46.683234+00:00",
+      "last_seen": "2026-10-02T01:35:21.185411+00:00",
       "price": 6000.0,
       "price_history": [
         {
@@ -3088,7 +3088,7 @@
     },
     "https://www.athome.co.jp/kodate/1166802729/": {
       "first_seen": "2026-09-11T02:42:36.622271+00:00",
-      "last_seen": "2026-10-01T18:02:17.955054+00:00",
+      "last_seen": "2026-10-02T01:35:21.185411+00:00",
       "price": 6580.0,
       "price_history": [
         {
@@ -5239,5 +5239,5 @@
       "type": "新築一戸建て"
     }
   },
-  "updated_at": "2026-10-02T01:19:37.463478+00:00"
+  "updated_at": "2026-10-02T01:35:21.185411+00:00"
 }
