@@ -6,7 +6,6 @@
       "https://www.homes.co.jp/kodate/b-1140530012275/",
       "https://www.homes.co.jp/kodate/b-1140530012291/",
       "https://www.homes.co.jp/kodate/b-1140530012359/",
-      "https://www.homes.co.jp/kodate/b-1222410005749/",
       "https://www.homes.co.jp/kodate/b-1278120011647/",
       "https://www.homes.co.jp/kodate/b-1278120011853/",
       "https://www.homes.co.jp/kodate/b-1278120011866/",
@@ -1077,6 +1076,17 @@
       "price": 8980.0,
       "title": "【ホームズ】杉並区阿佐谷北4丁目 中古戸建｜杉並区、JR総武線 阿佐ケ谷駅 徒歩11分の中古一戸建て",
       "updated_at": "2026-09-14T06:51:48.091817+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1222410005749/": {
+      "address": "東京都杉並区善福寺4丁目",
+      "age": 0.7,
+      "area": 87.6,
+      "city": "杉並区",
+      "land_right": "所有権",
+      "min_walk": 4,
+      "price": 9480.0,
+      "title": "【ホームズ】杉並区善福寺四丁目 新築戸建 9,480万円・3LDK｜杉並区の中古一戸建て",
+      "updated_at": "2026-10-02T10:12:17.808727+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1222410005794/": {
       "address": "東京都中野区上鷺宮1丁目",
