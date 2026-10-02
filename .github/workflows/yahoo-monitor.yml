@@ -149,6 +149,18 @@ jobs:
               return re.sub(r"\s+", " ", html.unescape(value or "")).strip()
 
 
+          def is_ownership(land_right):
+              land_right_text = compact(land_right)
+              disallowed_terms = (
+                  "借地権", "賃借権", "地上権", "定期借地", "旧法借地",
+                  "旧法賃借権", "旧法地上権", "一部", "ほか", "その他",
+              )
+              return (
+                  "所有権" in land_right_text
+                  and not any(term in land_right_text for term in disallowed_terms)
+              )
+
+
           def parse_page(body):
               parser = PageParser()
               parser.feed(body)
@@ -356,14 +368,16 @@ jobs:
               age = age_years(built, now)
               city_ok = any(city in prop["address"] for city in AREA_URLS) and "八王子市" not in prop["address"]
               walk_ok = prop["walk_minutes"] is not None and prop["walk_minutes"] <= 15
+              ownership_ok = is_ownership(prop["land_right"])
               prop["age_years"] = age
+              prop["ownership_ok"] = ownership_ok
               prop["parse_status"] = "complete" if prop["walk_minutes"] is not None else "missing_walk_minutes"
               prop["matches"] = all((
                   prop["price"] <= 70_000_000,
                   prop["building_area"] >= 70,
                   age is not None and 0 <= age <= 25,
                   walk_ok,
-                  prop["land_right"] == "所有権",
+                  ownership_ok,
                   prop["property_type"] in {"中古一戸建て", "中古戸建て"},
                   city_ok,
               ))
@@ -459,6 +473,11 @@ jobs:
                   print(f"URL: {url}")
                   print(f"REASON: {error}")
                   return None
+
+
+          def log_land_right_check(prop):
+              print(f"LAND RIGHT RAW: {prop['land_right']}")
+              print("OWNERSHIP OK: " + str(prop["ownership_ok"]).lower())
 
 
           print("PAGINATION MODE: FIRST PAGE ONLY")
@@ -560,6 +579,7 @@ jobs:
                   prop = defer(url, now)
                   if prop is None:
                       continue
+                  log_land_right_check(prop)
                   counters["new_checked"] += 1
                   if not prop["matches"]:
                       counters["new_excluded"] += 1
@@ -586,6 +606,7 @@ jobs:
                   prop = defer(url, now)
                   if prop is None:
                       continue
+                  log_land_right_check(prop)
                   counters["price_checked"] += 1
                   entry = known[url]
                   old_price = entry.get("price")
