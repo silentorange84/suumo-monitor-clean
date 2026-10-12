@@ -6,7 +6,6 @@
       "https://www.homes.co.jp/kodate/b-1140530012275/",
       "https://www.homes.co.jp/kodate/b-1140530012291/",
       "https://www.homes.co.jp/kodate/b-1140530012359/",
-      "https://www.homes.co.jp/kodate/b-1140530012500/",
       "https://www.homes.co.jp/kodate/b-1275200000180/",
       "https://www.homes.co.jp/kodate/b-1278120011647/",
       "https://www.homes.co.jp/kodate/b-1278120011853/",
@@ -129,6 +128,7 @@
       "https://www.homes.co.jp/kodate/b-1548200002377/",
       "https://www.homes.co.jp/kodate/b-1548200002657/",
       "https://www.homes.co.jp/kodate/b-1548200002789/",
+      "https://www.homes.co.jp/kodate/b-1548200003036/",
       "https://www.homes.co.jp/kodate/b-1552810000018/",
       "https://www.homes.co.jp/kodate/b-1552810000019/",
       "https://www.homes.co.jp/kodate/b-1552810000020/",
@@ -745,6 +745,17 @@
       "price": 7700.0,
       "title": "【ホームズ】練馬区下石神井6丁目｜練馬区、西武新宿線 上井草駅 徒歩12分の中古一戸建て",
       "updated_at": "2026-09-09T10:07:37.228073+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1140530012500/": {
+      "address": "東京都豊島区長崎4丁目",
+      "age": 36.2,
+      "area": 13.8,
+      "city": "豊島区",
+      "land_right": "所有権",
+      "min_walk": 1,
+      "price": 4480.0,
+      "title": "【ホームズ】豊島区長崎4丁目 4,480万円・2LDK｜豊島区の中古一戸建て",
+      "updated_at": "2026-10-12T19:04:05.510120+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1143650001643/": {
       "address": "東京都中野区鷺宮1丁目",
