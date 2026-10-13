@@ -6,7 +6,6 @@
       "https://www.homes.co.jp/kodate/b-1140530012275/",
       "https://www.homes.co.jp/kodate/b-1140530012291/",
       "https://www.homes.co.jp/kodate/b-1140530012359/",
-      "https://www.homes.co.jp/kodate/b-1275200000180/",
       "https://www.homes.co.jp/kodate/b-1278120011647/",
       "https://www.homes.co.jp/kodate/b-1278120011853/",
       "https://www.homes.co.jp/kodate/b-1278120011866/",
@@ -1427,6 +1426,17 @@
       "price": 6980.0,
       "title": "【ホームズ】横川町戸建｜八王子市、JR中央線 西八王子駅 徒歩25分の中古一戸建て",
       "updated_at": "2026-09-10T05:19:12.411856+00:00"
+    },
+    "https://www.homes.co.jp/kodate/b-1275200000180/": {
+      "address": "東京都八王子市七国3丁目4-8",
+      "age": 12.6,
+      "area": 121.18,
+      "city": "八王子市",
+      "land_right": "所有権",
+      "min_walk": 6,
+      "price": 5880.0,
+      "title": "【ホームズ】みなみ野シティ シフォンの丘 中古戸建て 5,880万円・2SLDK｜八王子市の中古一戸建て",
+      "updated_at": "2026-10-13T16:00:33.466848+00:00"
     },
     "https://www.homes.co.jp/kodate/b-1278120011502/": {
       "address": "東京都中野区本町2丁目",
